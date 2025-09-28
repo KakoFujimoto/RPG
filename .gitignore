@@ -1,0 +1,18 @@
+# ビルド出力
+bin/
+obj/
+
+# ユーザー設定
+*.user
+*.suo
+
+# Visual Studio 関連
+.vs/
+
+# 一時ファイル
+*.log
+*.tmp
+
+# その他
+FileContentIndex/
+v17/
