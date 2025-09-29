@@ -1,5 +1,6 @@
 #pragma once
 
+class Player;
 class IHealing {
 public:
 	virtual ~IHealing() = default;

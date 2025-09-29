@@ -138,7 +138,9 @@
     <ClInclude Include="Name.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="RandomGgenerator.h" />
     <ClInclude Include="SavePoint.h" />
+    <ClInclude Include="Spell.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Position.cpp" />
