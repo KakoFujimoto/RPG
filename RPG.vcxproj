@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="BattleProperty.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="Hoimi.h" />
     <ClInclude Include="IAttack.h" />
     <ClInclude Include="IBuff.h" />

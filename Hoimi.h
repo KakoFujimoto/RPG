@@ -1,6 +1,7 @@
 #pragma once
 #include"Name.h"
 #include"Spell.h"
+#include"RandomGgenerator.h"
 
 class Player;
 class Hoimi : public Spell {
