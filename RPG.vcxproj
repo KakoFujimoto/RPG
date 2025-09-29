@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BattleProparty.h" />
     <ClInclude Include="BattleProperty.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Hoimi.h" />
