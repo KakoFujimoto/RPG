@@ -8,6 +8,6 @@ private:
 	Name name;
 
 public:
-	void recover(Player &target) override;
+	void recover(Player& target) override;
 
 };
