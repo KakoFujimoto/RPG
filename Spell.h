@@ -1,15 +1,14 @@
 #pragma once
-#include"IHealing.h"
 #include"Name.h"
 
-class Spell : public IHealing {
+class RandomGenerator;
+class Spell {
 private:
+	RandomGenerator& rng;
 	Name name;
 	int mpCost;
-	int healAmount;
 
 public:
-	Spell(const std::string& n, int cost, int heal)
-		: name(n), mpCost(cost), healAmount(heal){ }
-
+	Spell(RandomGenerator& rng, const std::string& n, int cost)
+		: rng(rng), name(n), mpCost(cost){ }
 };

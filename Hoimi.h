@@ -1,12 +1,10 @@
 #pragma once
 #include"Name.h"
-#include"Spell.h"
-#include"RandomGgenerator.h"
+#include"RecoverSpell.h"
+#include"RandomGenerator.h"
 
 class Player;
-class Hoimi : public Spell {
+class Hoimi : public RecoverSpell {
 public:
-	Hoimi() : Spell("ホイミ", 3, 25) {};
-	void recover(Player& target) override;
-
+	Hoimi(RandomGenerator& rng) : RecoverSpell(rng,"ホイミ", 3) {};
 };
