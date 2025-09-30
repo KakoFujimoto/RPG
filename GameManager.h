@@ -1,5 +1,5 @@
 #pragma once
-#include"RandomGgenerator.h"
+#include"RandomGenerator.h"
 
 class GameManager {
 private:
