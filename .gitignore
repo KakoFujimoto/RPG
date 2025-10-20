@@ -16,3 +16,30 @@ obj/
 # ÇªÇÃëº
 FileContentIndex/
 v17/
+
+# Visual Studio build output
+x64/
+[Rr]elease/
+[Dd]ebug/
+*.obj
+*.pdb
+*.exe
+*.ilk
+*.log
+*.tlog
+*.idb
+*.pch
+
+# VS temporary and user-specific files
+*.user
+*.suo
+*.vcxproj.user
+*.opensdf
+*.sdf
+*.ipch
+
+# ÇªÇÃëºÉrÉãÉhê∂ê¨ï®
+*.cache
+*.db
+*.opendb
+*.VC.db
