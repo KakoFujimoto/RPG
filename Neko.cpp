@@ -7,3 +7,8 @@ AllyParameter& Neko::getParameter()
 {
 	return parameter;
 }
+
+std::string Neko::getName()
+{
+	return parameter.name;
+}

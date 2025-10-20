@@ -33,7 +33,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 
-        DrawString(x, y, "”L", GetColor(255, 255, 255));
+        DrawString(x, y, neko.getName().c_str(), GetColor(255, 255, 255));
 
         ScreenFlip(); // — ‰æ–Ê‚Æ•\‰æ–Ê‚ð“ü‚ê‘Ö‚¦
     }

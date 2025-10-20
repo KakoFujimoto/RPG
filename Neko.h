@@ -8,4 +8,5 @@ private:
 public:
 	Neko();
 	AllyParameter& getParameter();
+	std::string getName();
 };

@@ -43,3 +43,8 @@ x64/
 *.db
 *.opendb
 *.VC.db
+
+# Application logs
+*.log
+*.txt
+Log.txt
