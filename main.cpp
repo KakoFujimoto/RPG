@@ -16,10 +16,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ï`âÊêÊÇó†âÊñ Ç…Ç∑ÇÈ
     SetDrawScreen(DX_SCREEN_BACK);
 
-    Neko neko;
-    FieldAlly fieldAlly(&neko);
-    fieldAlly.setPosition(400, 300);
+    //Neko neko;
+    //FieldAlly fieldAlly(&neko);
+    //fieldAlly.setPosition(400, 300);
 
+    FieldAlly* fieldAlly = new Neko();
+    FieldAlly* fieldAlly = new Inu();
 
     while (ProcessMessage() == 0) {
         //ClearDrawScreen();Ç±ÇÍÇæÇ∆çïîwåiÇ…Ç»ÇÈ
