@@ -156,7 +156,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Name.h" />
     <ClInclude Include="Alley.h" />
-    <ClInclude Include="Neko.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="RecoverSpell.h" />
@@ -166,7 +165,6 @@
   <ItemGroup>
     <ClCompile Include="FieldAlly.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Neko.cpp" />
     <ClCompile Include="Position.cpp" />
   </ItemGroup>
   <ItemGroup>

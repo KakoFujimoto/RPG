@@ -1,5 +1,4 @@
 #include"DxLib.h"
-#include"Neko.h"
 #include"FieldAlly.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
