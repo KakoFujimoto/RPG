@@ -1,17 +1,18 @@
 #pragma once
 #include"ICharacter.h"
 #include"Position.h"
+#include"AllyParameter.h"
 
-class Neko;
-class FieldAlly {
+class FieldAlly : public ICharacter{
 private:
-	ICharacter* character;
+	AllyParameter parameter;
 	Position pos;
 public:
-	FieldAlly(ICharacter* c);
-	//std::string getName() override;
-	//void takeDamage() override;
-	//void isDead() override;
+	FieldAlly(std::string name);
+
+	AllyParameter& getParameter();
+	std::string getName() { return parameter.name; }
+
 	std::pair<int, int> getPosition() const;
 	void setPosition(int x, int y);
 	void move();

@@ -1,8 +1,10 @@
 #include "FieldAlly.h"
 #include "DxLib.h"
 
-FieldAlly::FieldAlly(ICharacter* c)
-    : character(c){ }
+FieldAlly::FieldAlly(std::string name)
+{
+    this->parameter.name = name;
+}
 
 void FieldAlly::move() {
     auto [x, y] = pos.getPosition();
