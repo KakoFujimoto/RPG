@@ -15,23 +15,26 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // •`‰ææ‚ð— ‰æ–Ê‚É‚·‚é
     SetDrawScreen(DX_SCREEN_BACK);
 
-    FieldAlly* neko = new FieldAlly("‚Ë‚±");
-    neko->setPosition(400, 300);
+    //FieldAlly* neko = new FieldAlly("‚Ë‚±");
+    FieldAlly ally("‚Ë‚±");
+    ally.setPosition(400, 300);
+
 
 
     while (ProcessMessage() == 0) {
-        //ClearDrawScreen();‚±‚ê‚¾‚Æ•”wŒi‚É‚È‚é
+        //ClearDrawScreen();
 
         int bgColor = GetColor(50, 50, 100); // ”Z‚¢Â‚Á‚Û‚¢”wŒi
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
-        neko->move();
-
-        auto [x, y] = neko->getPosition();
+        ally.move();
 
 
+        auto [x, y] = ally.getPosition();
 
-        DrawString(x, y, neko->getName().c_str(), GetColor(255, 255, 255));
+
+        DrawString(x, y, ally.getName().c_str(), GetColor(255, 255, 255));
+
 
         ScreenFlip(); // — ‰æ–Ê‚Æ•\‰æ–Ê‚ð“ü‚ê‘Ö‚¦
     }

@@ -1,19 +1,17 @@
 #pragma once
 #include"ICharacter.h"
-#include"Position.h"
 #include"AllyParameter.h"
+#include"Positionable.h"
 
-class FieldAlly : public ICharacter{
+class FieldAlly : public ICharacter,
+	public Positionable{
+
 private:
 	AllyParameter parameter;
-	Position pos;
+
 public:
 	FieldAlly(std::string name);
-
-	AllyParameter& getParameter();
-	std::string getName() { return parameter.name; }
-
-	std::pair<int, int> getPosition() const;
-	void setPosition(int x, int y);
 	void move();
+	AllyParameter& getParameter();
+	std::string getName();
 };

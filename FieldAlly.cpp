@@ -29,11 +29,10 @@ void FieldAlly::move() {
     pos.setPosition(x, y);
 }
 
-std::pair<int, int> FieldAlly::getPosition() const
-{
-    return pos.getPosition();
+AllyParameter& FieldAlly::getParameter() {
+    return parameter;
 }
 
-void FieldAlly::setPosition(int x, int y) {
-    pos.setPosition(x, y);
+std::string FieldAlly::getName() {
+    return parameter.name;
 }

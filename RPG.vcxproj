@@ -157,6 +157,7 @@
     <ClInclude Include="Name.h" />
     <ClInclude Include="Alley.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="Positionable.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="RecoverSpell.h" />
     <ClInclude Include="SavePoint.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="FieldAlly.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Positionable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
