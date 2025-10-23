@@ -7,7 +7,7 @@ FieldAlly::FieldAlly(std::string name)
 }
 
 void FieldAlly::move() {
-    auto [x, y] = pos.getPosition();
+    auto [x, y] = getPosition();
 
     if (CheckHitKey(KEY_INPUT_UP))
     {
@@ -26,7 +26,7 @@ void FieldAlly::move() {
         x += 5;
     }
 
-    pos.setPosition(x, y);
+    setPosition(x, y);
 }
 
 AllyParameter& FieldAlly::getParameter() {
