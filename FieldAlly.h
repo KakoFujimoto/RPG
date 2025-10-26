@@ -10,6 +10,9 @@ private:
 	Position pos;
 	AllyParameter parameter;
 
+	void addPositionX(int x);
+	void addPositionY(int y);
+
 public:
 	FieldAlly(std::string name, int x, int y);
 	void move();

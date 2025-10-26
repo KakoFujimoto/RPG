@@ -7,24 +7,33 @@ FieldAlly::FieldAlly(std::string name, int x, int y)
     this->parameter.name = std::move(name);
 }
 
+void FieldAlly::addPositionX(int x) {
+    pos.x += x;
+}
+
+
+void FieldAlly::addPositionY(int y) {
+    pos.y += y;
+}
+
 void FieldAlly::move() {
-    auto [x, y] = getPosition();
+    //auto [x, y] = getPosition();
 
     if (CheckHitKey(KEY_INPUT_UP))
     {
-        y -= 5;
+        addPositionY(-5);
     }
     if (CheckHitKey(KEY_INPUT_DOWN))
     {
-        y += 5;
+        addPositionY(5);
     }
     if (CheckHitKey(KEY_INPUT_LEFT))
     {
-        x -= 5;
+        addPositionX(-5);
     }
     if (CheckHitKey(KEY_INPUT_RIGHT))
     {
-        x += 5;
+        addPositionX(5);
     }
     pos._pos = { x,y };
 }
