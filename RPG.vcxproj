@@ -143,8 +143,10 @@
   <ItemGroup>
     <ClInclude Include="AllyParameter.h" />
     <ClInclude Include="BattleProperty.h" />
+    <ClInclude Include="Display.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FieldAlly.h" />
+    <ClInclude Include="FieldItem.h" />
     <ClInclude Include="FieldParameterMenu.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Hoimi.h" />
@@ -164,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FieldAlly.cpp" />
+    <ClCompile Include="FieldMenu.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Position.cpp" />
   </ItemGroup>
