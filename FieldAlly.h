@@ -18,6 +18,6 @@ public:
 	void move();
 	AllyParameter& getParameter();
 	std::string getName();
-	std::pair<int, int> getPosition();
-
+	int getX();
+	int getY();
 };

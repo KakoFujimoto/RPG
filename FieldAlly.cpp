@@ -2,7 +2,7 @@
 #include "DxLib.h"
 
 FieldAlly::FieldAlly(std::string name, int x, int y)
-    : pos(x, y)
+    : pos(x,y)
 {
     this->parameter.name = std::move(name);
 }
@@ -17,7 +17,6 @@ void FieldAlly::addPositionY(int y) {
 }
 
 void FieldAlly::move() {
-    //auto [x, y] = getPosition();
 
     if (CheckHitKey(KEY_INPUT_UP))
     {
@@ -35,7 +34,6 @@ void FieldAlly::move() {
     {
         addPositionX(5);
     }
-    pos._pos = { x,y };
 }
 
 AllyParameter& FieldAlly::getParameter() {
@@ -46,6 +44,10 @@ std::string FieldAlly::getName() {
     return parameter.name;
 }
 
-std::pair<int, int> FieldAlly::getPosition(){
-    return pos.getPosition();
+int FieldAlly::getX() {
+    return pos.getX();
+}
+
+int FieldAlly::getY() {
+    return pos.getY();
 }

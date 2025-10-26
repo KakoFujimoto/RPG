@@ -17,27 +17,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     FieldAlly ally("ÇÀÇ±", 400, 300);
 
-    //AllyParameter& data = ally.getParameter();
-    //auto [x, y] = std::pair[1, 1];
-
-    //DrawString(x, y, data.c_str(), GetColor(255, 255, 255));
-
-
-
 
     while (ProcessMessage() == 0) {
-        //ClearDrawScreen();
 
         int bgColor = GetColor(50, 50, 100); // îZÇ¢ê¬Ç¡Ç€Ç¢îwåi
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
         ally.move();
 
-
-        auto [x, y] = ally.getPosition();
-
-
-        DrawString(x, y, ally.getName().c_str(), GetColor(255, 255, 255));
+        DrawString(ally.getX(), ally.getY(), ally.getName().c_str(), GetColor(255, 255, 255));
 
 
         ScreenFlip(); // ó†âÊñ Ç∆ï\âÊñ Çì¸ÇÍë÷Ç¶
