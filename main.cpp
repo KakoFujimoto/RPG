@@ -15,9 +15,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ï`âÊêÊÇó†âÊñ Ç…Ç∑ÇÈ
     SetDrawScreen(DX_SCREEN_BACK);
 
-    //FieldAlly* neko = new FieldAlly("ÇÀÇ±");
-    FieldAlly ally("ÇÀÇ±");
-    ally.setPosition(400, 300);
+    FieldAlly ally("ÇÀÇ±", 400, 300);
+
+    //AllyParameter& data = ally.getParameter();
+    //auto [x, y] = std::pair[1, 1];
+
+    //DrawString(x, y, data.c_str(), GetColor(255, 255, 255));
+
 
 
 
