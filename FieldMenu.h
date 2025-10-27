@@ -15,8 +15,9 @@ private:
 	bool isOpen = false;
 
 public:
-	void open(Display& display);
+	//void open(Display& display);
 	void choose();
 	void select();
 	void close();
+	void update(Display& display);
 };

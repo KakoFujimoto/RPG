@@ -8,3 +8,12 @@ void Display::showMenu(const std::vector<std::string>& items, int startX, int st
 		DrawString(startX, startY + static_cast<int>(i) * itemHeight, items[i].c_str(), textColor);
 	}
 }
+
+void Display::drawWindow(int x, int y, int width, int height, int borderColor, int fillColor) {
+	DrawBox(x, y, x + width, y + height, fillColor, TRUE); // ìhÇËÇ¬Ç‘Çµ
+	DrawBox(x, y, x + width, y + height, borderColor, FALSE); // ògê¸
+}
+
+void Display::drawText(int x, int y, const std::string& text, int color) {
+	DrawString(x, y, text.c_str(), color);
+}

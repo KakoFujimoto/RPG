@@ -22,17 +22,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Display display;
 
 
-    while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
-    {
+    while (ProcessMessage() == 0)
+	{
+		ClearDrawScreen(); // ‰æ–Ê‚ğƒNƒŠƒA
 
         int bgColor = GetColor(50, 50, 100); // ”Z‚¢Â‚Á‚Û‚¢”wŒi
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
         ally.move();
-
         DrawString(ally.getX(), ally.getY(), ally.getName().c_str(), GetColor(255, 255, 255));
 
-		fieldMenu.open(display);
+		fieldMenu.update(display);
 
 
         ScreenFlip(); // — ‰æ–Ê‚Æ•\‰æ–Ê‚ğ“ü‚ê‘Ö‚¦
