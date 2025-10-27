@@ -1,15 +1,21 @@
 #pragma once
 #include<string>
+#include<vector>
+#include"Display.h"
 
 class FieldMenu {
 private:
-	std::string menuItems[4] =
-	{ "‚Ç‚¤‚®",
+	std::vector<std::string> menuItems{
+	"‚Ç‚¤‚®",
 	"‚Â‚æ‚³",
 	"‚¶‚ã‚à‚ñ",
-	"‚à‚Ç‚é" };
+	"‚à‚Ç‚é"
+	};
+
+	bool isOpen = false;
+
 public:
-	void open();
+	void open(Display& display);
 	void choose();
 	void select();
 	void close();

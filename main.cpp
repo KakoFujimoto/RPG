@@ -1,5 +1,7 @@
 #include"DxLib.h"
 #include"FieldAlly.h"
+#include"FieldMenu.h"
+#include"Display.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -16,9 +18,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     SetDrawScreen(DX_SCREEN_BACK);
 
     FieldAlly ally("ねこ", 400, 300);
+	FieldMenu fieldMenu;
+	Display display;
 
 
-    while (ProcessMessage() == 0) {
+    while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_SPACE) == 0)
+    {
 
         int bgColor = GetColor(50, 50, 100); // 濃い青っぽい背景
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
@@ -26,6 +31,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         ally.move();
 
         DrawString(ally.getX(), ally.getY(), ally.getName().c_str(), GetColor(255, 255, 255));
+
+		fieldMenu.open(display);
 
 
         ScreenFlip(); // 裏画面と表画面を入れ替え
