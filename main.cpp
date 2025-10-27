@@ -22,7 +22,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Display display;
 
 
-    while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_SPACE) == 0)
+    while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
     {
 
         int bgColor = GetColor(50, 50, 100); // îZÇ¢ê¬Ç¡Ç€Ç¢îwåi
