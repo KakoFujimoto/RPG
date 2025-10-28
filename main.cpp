@@ -21,7 +21,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	FieldMenu fieldMenu;
 	Display display;
 
-
     while (ProcessMessage() == 0)
 	{
 		ClearDrawScreen(); // ‰æ–Ê‚ğƒNƒŠƒA
@@ -29,10 +28,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         int bgColor = GetColor(50, 50, 100); // ”Z‚¢Â‚Á‚Û‚¢”wŒi
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
-        ally.move();
-        DrawString(ally.getX(), ally.getY(), ally.getName().c_str(), GetColor(255, 255, 255));
+        if (!subdMenu.isOpen()) {
+            fieldMenu.update();
+        }
+        if (!fieldMenu.isOpen()) {
+            ally.move();
+        }
 
-		fieldMenu.update(display);
+        DrawString(ally.getX(), ally.getY(), ally.getName().c_str(), GetColor(255, 255, 255));
+        fieldMenu.draw(display);
 
 
         ScreenFlip(); // — ‰æ–Ê‚Æ•\‰æ–Ê‚ğ“ü‚ê‘Ö‚¦

@@ -47,21 +47,24 @@ void FieldMenu::close()
 	}
 }
 
-void FieldMenu::update(Display& display)
+void FieldMenu::update()
 {
-    // SPACEキーで開く
-    if (CheckHitKey(KEY_INPUT_SPACE)) {
-        isOpen = true;
-    }
+	// SPACEキーで開く
+	if (CheckHitKey(KEY_INPUT_SPACE)) {
+		isOpen = true;
+	}
 
-    // ESCキーで閉じる
-    if (CheckHitKey(KEY_INPUT_ESCAPE)) {
-        isOpen = false;
-    }
+	// ESCキーで閉じる
+	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
+		isOpen = false;
+	}
+}
 
-    if (!isOpen) return; // 開いていなければ何もしない
-
-    // ===== メニュー描画部分 =====
+void FieldMenu::draw(Display & display)
+{
+	if (!isOpen) return; // 開いていなければ何もしない
+	
+	// ===== メニュー描画部分 =====
     int x = 100, y = 100;
     int width = 200, height = 150;
     int borderColor = GetColor(255, 255, 255);
