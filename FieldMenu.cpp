@@ -1,17 +1,43 @@
 #include"FieldMenu.h"
 #include"DxLib.h"
 
-//void FieldMenu::open(Display& display)
-//{
-//	if (CheckHitKey(KEY_INPUT_SPACE))
-//	{
-//		isOpen = true;
-//	}
-//	if (isOpen)
-//	{
-//		display.showMenu(menuItems, 50, 50);
-//	}
-//}
+void FieldMenu::choose()
+{	
+	if (!isOpen)
+	{
+		return;
+	}
+	if (CheckHitKey(KEY_INPUT_UP))
+	{
+		selectedIndex--;
+		if (selectedIndex < 0)
+		{
+			selectedIndex = menuItems.size() - 1;
+		}
+	}
+	else if (CheckHitKey(KEY_INPUT_DOWN))
+	{
+		selectedIndex++;
+		if (selectedIndex >= menuItems.size())
+		{
+			selectedIndex = 0;
+		}
+	}
+}
+
+void FieldMenu::select()
+{
+	if (CheckHitKey(KEY_INPUT_RETURN))
+	{
+		// 選択されたメニュー項目に応じた処理をここに追加
+		std::string selectedItem = menuItems[selectedIndex];
+		if (selectedItem == "もどる")
+		{
+			isOpen = false;
+		}
+		// 他のメニュー項目の処理もここに追加可能
+	}
+}
 
 void FieldMenu::close()
 {

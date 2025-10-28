@@ -13,9 +13,9 @@ private:
 	};
 
 	bool isOpen = false;
+	int selectedIndex = 0;
 
 public:
-	//void open(Display& display);
 	void choose();
 	void select();
 	void close();
