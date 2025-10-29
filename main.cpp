@@ -31,7 +31,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         if (!subdMenu.isOpen()) {
             fieldMenu.update();
         }
-        if (!fieldMenu.isOpen()) {
+        if (!fieldMenu.getIsOpen()) {
             ally.move();
         }
 

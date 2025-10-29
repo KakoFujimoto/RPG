@@ -79,3 +79,8 @@ void FieldMenu::draw(Display & display)
         display.drawText(x + 20, y + 20 + i * lineHeight, menuItems[i], textColor);
     }
 }
+
+bool FieldMenu::getIsOpen() const
+{
+	return isOpen;
+}

@@ -19,5 +19,7 @@ public:
 	void choose();
 	void select();
 	void close();
-	void update(Display& display);
+	void update();
+	void draw(Display& display);
+	bool getIsOpen() const;
 };
