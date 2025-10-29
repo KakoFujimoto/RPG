@@ -1,41 +1,41 @@
-#include"FieldMenu.h"
+ï»¿#include"FieldMenu.h"
 #include"DxLib.h"
 
-void FieldMenu::choose()
-{	
-	if (!isOpen)
-	{
-		return;
-	}
-	if (CheckHitKey(KEY_INPUT_UP))
-	{
-		selectedIndex--;
-		if (selectedIndex < 0)
-		{
-			selectedIndex = menuItems.size() - 1;
-		}
-	}
-	else if (CheckHitKey(KEY_INPUT_DOWN))
-	{
-		selectedIndex++;
-		if (selectedIndex >= menuItems.size())
-		{
-			selectedIndex = 0;
-		}
-	}
-}
+//void FieldMenu::choose()
+//{	
+//	if (!isOpen)
+//	{
+//		return;
+//	}
+//	if (CheckHitKey(KEY_INPUT_UP))
+//	{
+//		selectedIndex--;
+//		if (selectedIndex < 0)
+//		{
+//			selectedIndex = menuItems.size() - 1;
+//		}
+//	}
+//	else if (CheckHitKey(KEY_INPUT_DOWN))
+//	{
+//		selectedIndex++;
+//		if (selectedIndex >= menuItems.size())
+//		{
+//			selectedIndex = 0;
+//		}
+//	}
+//}
 
 void FieldMenu::select()
 {
 	if (CheckHitKey(KEY_INPUT_RETURN))
 	{
-		// ‘I‘ğ‚³‚ê‚½ƒƒjƒ…[€–Ú‚É‰‚¶‚½ˆ—‚ğ‚±‚±‚É’Ç‰Á
+		// é¸æŠã•ã‚ŒãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã«å¿œã˜ãŸå‡¦ç†ã‚’ã“ã“ã«è¿½åŠ 
 		std::string selectedItem = menuItems[selectedIndex];
-		if (selectedItem == "‚à‚Ç‚é")
+		if (selectedItem == "ã‚‚ã©ã‚‹")
 		{
 			isOpen = false;
 		}
-		// ‘¼‚Ìƒƒjƒ…[€–Ú‚Ìˆ—‚à‚±‚±‚É’Ç‰Á‰Â”\
+		// ä»–ã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã®å‡¦ç†ã‚‚ã“ã“ã«è¿½åŠ å¯èƒ½
 	}
 }
 
@@ -49,22 +49,27 @@ void FieldMenu::close()
 
 void FieldMenu::update()
 {
-	// SPACEƒL[‚ÅŠJ‚­
+	// SPACEã‚­ãƒ¼ã§é–‹ã
 	if (CheckHitKey(KEY_INPUT_SPACE)) {
 		isOpen = true;
 	}
 
-	// ESCƒL[‚Å•Â‚¶‚é
+	// ESCã‚­ãƒ¼ã§é–‰ã˜ã‚‹
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
 		isOpen = false;
+	}
+
+	if (isOpen) {
+		choose();
+		select();
 	}
 }
 
 void FieldMenu::draw(Display & display)
 {
-	if (!isOpen) return; // ŠJ‚¢‚Ä‚¢‚È‚¯‚ê‚Î‰½‚à‚µ‚È‚¢
+	if (!isOpen) return; // é–‹ã„ã¦ã„ãªã‘ã‚Œã°ä½•ã‚‚ã—ãªã„
 	
-	// ===== ƒƒjƒ…[•`‰æ•”•ª =====
+	// ===== ãƒ¡ãƒ‹ãƒ¥ãƒ¼æç”»éƒ¨åˆ† =====
     int x = 100, y = 100;
     int width = 200, height = 150;
     int borderColor = GetColor(255, 255, 255);
@@ -72,15 +77,49 @@ void FieldMenu::draw(Display & display)
 
     display.drawWindow(x, y, width, height, borderColor, fillColor);
 
-    // ƒƒjƒ…[€–Ú‚ğc‚É•`‰æ
+    // ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ç¸¦ã«æç”»
     int textColor = GetColor(255, 255, 255);
+	int cursorColor = GetColor(255, 255, 255);
     int lineHeight = 30;
-    for (int i = 0; i < 4; ++i) {
-        display.drawText(x + 20, y + 20 + i * lineHeight, menuItems[i], textColor);
+
+    for (int i = 0; i < static_cast<int>(menuItems.size()); ++i) {
+		int itemY = y + 20 + i * lineHeight;
+
+		if (i == selectedIndex) {
+			display.drawCursor(x + 5, itemY, cursorColor);
+		}
+        display.drawText(x + 25, itemY, menuItems[i], textColor);
     }
 }
 
 bool FieldMenu::getIsOpen() const
 {
 	return isOpen;
+}
+
+void FieldMenu::choose() {
+	if (!isOpen) return;
+
+	static int prevUp = 0;
+	static int prevDown = 0;
+
+	int currentUp = CheckHitKey(KEY_INPUT_UP);
+	int currentDown = CheckHitKey(KEY_INPUT_DOWN);
+
+	// ã‚­ãƒ¼ã®æŠ¼ä¸‹ã‚’1å›ãšã¤ã ã‘æ¤œçŸ¥
+	if (currentUp && !prevUp) {
+		selectedIndex--;
+		if (selectedIndex < 0) {
+			selectedIndex = static_cast<int>(menuItems.size()) - 1;
+		}
+	}
+	if (currentDown && !prevDown) {
+		selectedIndex++;
+		if (selectedIndex >= static_cast<int>(menuItems.size())) {
+			selectedIndex = 0;
+		}
+	}
+
+	prevUp = currentUp;
+	prevDown = currentDown;
 }

@@ -28,9 +28,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         int bgColor = GetColor(50, 50, 100); // îZÇ¢ê¬Ç¡Ç€Ç¢îwåi
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
-        if (!subdMenu.isOpen()) {
-            fieldMenu.update();
-        }
+        //if (!subdMenu.isOpen()) 
+        fieldMenu.update();
+        
         if (!fieldMenu.getIsOpen()) {
             ally.move();
         }

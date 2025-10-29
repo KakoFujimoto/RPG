@@ -1,19 +1,23 @@
-#include"Display.h"
+ï»¿#include"Display.h"
 #include<DxLib.h>
 
 void Display::showMenu(const std::vector<std::string>& items, int startX, int startY) {
-	const int itemHeight = 30; // Šeƒƒjƒ…[€–Ú‚Ì‚‚³
-	const int textColor = GetColor(255, 255, 255); // ”’F
+	const int itemHeight = 30; // å„ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã®é«˜ã•
+	const int textColor = GetColor(255, 255, 255); // ç™½è‰²
 	for (size_t i = 0; i < items.size(); ++i) {
 		DrawString(startX, startY + static_cast<int>(i) * itemHeight, items[i].c_str(), textColor);
 	}
 }
 
 void Display::drawWindow(int x, int y, int width, int height, int borderColor, int fillColor) {
-	DrawBox(x, y, x + width, y + height, fillColor, TRUE); // “h‚è‚Â‚Ô‚µ
-	DrawBox(x, y, x + width, y + height, borderColor, FALSE); // ˜gü
+	DrawBox(x, y, x + width, y + height, fillColor, TRUE); // å¡—ã‚Šã¤ã¶ã—
+	DrawBox(x, y, x + width, y + height, borderColor, FALSE); // æ ç·š
 }
 
 void Display::drawText(int x, int y, const std::string& text, int color) {
 	DrawString(x, y, text.c_str(), color);
+}
+
+void Display::drawCursor(int x, int y, int color) {
+	DrawString(x, y, ">", color);
 }
