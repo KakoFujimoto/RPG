@@ -1,30 +1,6 @@
 ﻿#include"FieldMenu.h"
 #include"DxLib.h"
 
-//void FieldMenu::choose()
-//{	
-//	if (!isOpen)
-//	{
-//		return;
-//	}
-//	if (CheckHitKey(KEY_INPUT_UP))
-//	{
-//		selectedIndex--;
-//		if (selectedIndex < 0)
-//		{
-//			selectedIndex = menuItems.size() - 1;
-//		}
-//	}
-//	else if (CheckHitKey(KEY_INPUT_DOWN))
-//	{
-//		selectedIndex++;
-//		if (selectedIndex >= menuItems.size())
-//		{
-//			selectedIndex = 0;
-//		}
-//	}
-//}
-
 void FieldMenu::select()
 {
 	if (CheckHitKey(KEY_INPUT_RETURN))
