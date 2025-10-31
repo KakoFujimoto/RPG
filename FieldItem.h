@@ -1,6 +1,6 @@
 #pragma once
-#include"Name.h"
 #include"Position.h"
+#include"Item.h"
 
 
 class FieldItem {

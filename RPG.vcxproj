@@ -156,8 +156,9 @@
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="IDebuff.h" />
     <ClInclude Include="IHealing.h" />
-    <ClInclude Include="Name.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Alley.h" />
+    <ClInclude Include="ItemBag.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="RecoverSpell.h" />
