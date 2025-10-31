@@ -14,6 +14,8 @@ private:
 
 	bool isOpen = false;
 	bool isItemListOpen = false;
+	bool isParameterOpen = false;
+	bool isSpellListOpen = false;
 	int selectedIndex = 0;
 
 public:
@@ -24,4 +26,7 @@ public:
 	void draw(Display& display);
 	bool getIsOpen () const;
 	void drawItemList();
+	void drawParameter();
+	void drawSpellList();
+
 };

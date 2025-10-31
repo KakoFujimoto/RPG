@@ -15,6 +15,14 @@ void FieldMenu::select()
 		{
 			isItemListOpen = true;
 		}
+		else if (selectedItem == "つよさ")
+		{
+			isParameterOpen = true;
+		}
+		else if (selectedItem == "じゅもん")
+		{
+			isSpellListOpen = true;
+		}
 		// 他のメニュー項目の処理もここに追加可能
 	}
 }
@@ -74,6 +82,12 @@ void FieldMenu::draw(Display & display)
 	if (isItemListOpen) {
 		drawItemList();
 	}
+	else if (isSpellListOpen) {
+		drawSpellList();
+	}
+	else if (isParameterOpen) {
+		drawParameter();
+	}
 }
 
 bool FieldMenu::getIsOpen() const {
@@ -114,22 +128,56 @@ void FieldMenu::drawItemList()
 
 	// 仮のアイテムリスト
 	std::vector<std::string> itemList = {
-		"あめ ×3",
-		"ポーション ×1",
-		"まほうのつえ ×1"
+		"あめ 3",
+		"ポーション 1",
+		"まほうのつえ 1"
 	};
 
-	DrawString(240, 70, "どうぐリスト", GetColor(255, 255, 255));
 	for (int i = 0; i < itemList.size(); i++)
 	{
-		DrawString(240, 100 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
+		DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
 	}
 
 	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
 
-	//// Enterキーで閉じる
-	//if (CheckHitKey(KEY_INPUT_ESCAPE))
-	//{
-	//	isItemListOpen = false;
-	//}
+}
+void FieldMenu::drawParameter()
+{
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
+	DrawBox(220, 60, 400, 220, GetColor(0, 0, 80), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	// 仮のパラメータ
+	std::vector<std::string> itemList = {
+		"ちから 9",
+		"みのまもり 13",
+		"すばやさ 17"
+	};
+
+	for (int i = 0; i < itemList.size(); i++)
+	{
+		DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
+	}
+
+	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
+
+}
+void FieldMenu::drawSpellList()
+{
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
+	DrawBox(220, 60, 400, 220, GetColor(0, 0, 80), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	// 仮の呪文リスト
+	std::vector<std::string> itemList = {
+		"ホイミ",
+		"ベホイミ"
+	};
+	for (int i = 0; i < itemList.size(); i++)
+	{
+		DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
+	}
+
+	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
+
 }
