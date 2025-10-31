@@ -13,6 +13,7 @@ private:
 	};
 
 	bool isOpen = false;
+	bool isItemListOpen = false;
 	int selectedIndex = 0;
 
 public:
@@ -21,5 +22,6 @@ public:
 	void close();
 	void update();
 	void draw(Display& display);
-	bool getIsOpen() const;
+	bool getIsOpen () const;
+	void drawItemList();
 };

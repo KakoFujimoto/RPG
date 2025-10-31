@@ -11,6 +11,10 @@ void FieldMenu::select()
 		{
 			isOpen = false;
 		}
+		else if (selectedItem == "どうぐ")
+		{
+			isItemListOpen = true;
+		}
 		// 他のメニュー項目の処理もここに追加可能
 	}
 }
@@ -66,13 +70,15 @@ void FieldMenu::draw(Display & display)
 		}
         display.drawText(x + 25, itemY, menuItems[i], textColor);
     }
+
+	if (isItemListOpen) {
+		drawItemList();
+	}
 }
 
-bool FieldMenu::getIsOpen() const
-{
+bool FieldMenu::getIsOpen() const {
 	return isOpen;
 }
-
 void FieldMenu::choose() {
 	if (!isOpen) return;
 
@@ -98,4 +104,32 @@ void FieldMenu::choose() {
 
 	prevUp = currentUp;
 	prevDown = currentDown;
+}
+void FieldMenu::drawItemList()
+{
+	// 半透明ウィンドウを重ねる（背景を薄くして区別）
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
+	DrawBox(220, 60, 400, 220, GetColor(0, 0, 80), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	// 仮のアイテムリスト
+	std::vector<std::string> itemList = {
+		"あめ ×3",
+		"ポーション ×1",
+		"まほうのつえ ×1"
+	};
+
+	DrawString(240, 70, "どうぐリスト", GetColor(255, 255, 255));
+	for (int i = 0; i < itemList.size(); i++)
+	{
+		DrawString(240, 100 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
+	}
+
+	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
+
+	//// Enterキーで閉じる
+	//if (CheckHitKey(KEY_INPUT_ESCAPE))
+	//{
+	//	isItemListOpen = false;
+	//}
 }
