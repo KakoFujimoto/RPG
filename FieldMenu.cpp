@@ -27,24 +27,38 @@ void FieldMenu::select()
 	}
 }
 
+void FieldMenu::open()
+{
+	isOpen = true;
+	selectedIndex = 0;
+	isItemListOpen = 0;
+	isSpellListOpen = 0;
+	isParameterOpen = 0;
+}
+
 void FieldMenu::close()
 {
-	if (CheckHitKey(KEY_INPUT_ESCAPE))
-	{
-		isOpen = false;
-	}
+	isOpen = true;
+	selectedIndex = 0;
+	isItemListOpen = 0;
+	isSpellListOpen = 0;
+	isParameterOpen = 0;
 }
 
 void FieldMenu::update()
 {
 	// SPACEキーで開く
 	if (CheckHitKey(KEY_INPUT_SPACE)) {
-		isOpen = true;
+		if (!isOpen) {
+			open();
+		}
 	}
 
 	// ESCキーで閉じる
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
-		isOpen = false;
+		if (isOpen) {
+			close();
+		}
 	}
 
 	if (isOpen) {

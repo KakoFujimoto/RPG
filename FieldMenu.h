@@ -21,6 +21,7 @@ private:
 public:
 	void choose();
 	void select();
+	void open();
 	void close();
 	void update();
 	void draw(Display& display);
@@ -28,5 +29,6 @@ public:
 	void drawItemList();
 	void drawParameter();
 	void drawSpellList();
+	
 
 };
