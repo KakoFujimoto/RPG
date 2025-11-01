@@ -2,6 +2,7 @@
 #include"FieldAlly.h"
 #include"FieldMenu.h"
 #include"Display.h"
+#include"FieldItem.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -18,6 +19,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     SetDrawScreen(DX_SCREEN_BACK);
 
     FieldAlly ally("ねこ", 400, 300);
+
+    Item candy("あめ", 1);
+    FieldItem fieldItem;
+    fieldItem.spawn(candy, 800, 600);
+
+
 	FieldMenu fieldMenu;
 	Display display;
 
@@ -38,6 +45,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         DrawString(ally.getX(), ally.getY(), ally.getName().c_str(), GetColor(255, 255, 255));
         fieldMenu.draw(display);
 
+        fieldItem.draw();
 
         ScreenFlip(); // 裏画面と表画面を入れ替え
     }

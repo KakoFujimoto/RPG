@@ -1,9 +1,8 @@
 #pragma once
-#include"ICharacter.h"
 #include"AllyParameter.h"
 #include"Position.h"
 
-class FieldAlly : public ICharacter
+class FieldAlly
 {
 
 private:

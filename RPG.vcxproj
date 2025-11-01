@@ -153,11 +153,9 @@
     <ClInclude Include="Hoimi.h" />
     <ClInclude Include="IAttack.h" />
     <ClInclude Include="IBuff.h" />
-    <ClInclude Include="ICharacter.h" />
     <ClInclude Include="IDebuff.h" />
     <ClInclude Include="IHealing.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="Alley.h" />
     <ClInclude Include="ItemBag.h" />
     <ClInclude Include="MenuType.h" />
     <ClInclude Include="Position.h" />
@@ -169,7 +167,9 @@
   <ItemGroup>
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="FieldAlly.cpp" />
+    <ClCompile Include="FieldItem.cpp" />
     <ClCompile Include="FieldMenu.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Position.cpp" />
   </ItemGroup>
