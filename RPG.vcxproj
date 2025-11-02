@@ -169,6 +169,7 @@
     <ClCompile Include="FieldAlly.cpp" />
     <ClCompile Include="FieldItem.cpp" />
     <ClCompile Include="FieldMenu.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Position.cpp" />

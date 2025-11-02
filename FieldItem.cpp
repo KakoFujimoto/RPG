@@ -21,3 +21,18 @@ void FieldItem::draw() const
     int color = GetColor(255, 255, 0);
     DrawString(pos.x, pos.y, item.getName().c_str(), color);
 }
+void FieldItem::isGotten()
+{
+    isActive = false;
+}
+bool FieldItem::getIsActive() const
+{
+    return isActive;
+}
+int FieldItem::getX() {
+    return pos.getX();
+}
+
+int FieldItem::getY() {
+    return pos.getY();
+}

@@ -10,9 +10,12 @@ private:
 	Position pos;
 	bool isActive;
 public:
-	//void spawn();
-	//void isGotten();
 	FieldItem();
 	void spawn(const Item& newItem, int maxX, int maxY);
 	void draw() const;
+	void isGotten();
+	bool getIsActive() const;
+	int getX();
+	int getY();
+	const Position& getPosition() const { return pos; }
 };

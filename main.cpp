@@ -3,6 +3,7 @@
 #include"FieldMenu.h"
 #include"Display.h"
 #include"FieldItem.h"
+#include"GameManager.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -18,6 +19,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // 描画先を裏画面にする
     SetDrawScreen(DX_SCREEN_BACK);
 
+    GameManager gm;
     FieldAlly ally("ねこ", 400, 300);
 
     Item candy("あめ", 1);
@@ -46,6 +48,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         fieldMenu.draw(display);
 
         fieldItem.draw();
+
+        if (fieldItem.getIsActive() && gm.HitCheck(ally.getPosition(), fieldItem.getPosition())) {
+            fieldItem.isGotten();
+        }
 
         ScreenFlip(); // 裏画面と表画面を入れ替え
     }

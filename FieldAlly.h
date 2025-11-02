@@ -19,4 +19,5 @@ public:
 	std::string getName();
 	int getX();
 	int getY();
+	const Position& getPosition() const { return pos; }
 };
