@@ -27,7 +27,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     fieldItem.spawn(candy, 800, 600);
 
 
-	FieldMenu fieldMenu;
+	FieldMenu fieldMenu(&gm);
 	Display display;
 
     while (ProcessMessage() == 0)
@@ -49,9 +49,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         fieldItem.draw();
 
-        if (fieldItem.getIsActive() && gm.HitCheck(ally.getPosition(), fieldItem.getPosition())) {
+        /*if (fieldItem.getIsActive() && gm.HitCheck(ally.getPosition(), fieldItem.getPosition())) {
             fieldItem.isGotten();
-        }
+        }*/
+
+        gm.updateItemBag();
 
         ScreenFlip(); // — ‰æ–Ê‚Æ•\‰æ–Ê‚ð“ü‚ê‘Ö‚¦
     }

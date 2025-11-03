@@ -13,6 +13,7 @@ private:
 	void addPositionY(int y);
 
 public:
+	FieldAlly();
 	FieldAlly(std::string name, int x, int y);
 	void move();
 	AllyParameter& getParameter();

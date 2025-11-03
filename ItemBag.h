@@ -7,6 +7,6 @@ private:
 	std::vector<Item> items;
 public:
 	void add(const Item& item);
-	void remove	(const std::string& itemName);
+	//void remove	(const std::string& itemName);
 	std::vector<Item>& getItems();
 	};

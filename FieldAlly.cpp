@@ -1,6 +1,8 @@
 #include "FieldAlly.h"
 #include "DxLib.h"
 
+FieldAlly::FieldAlly() {}
+
 FieldAlly::FieldAlly(std::string name, int x, int y)
     : pos(x,y)
 {

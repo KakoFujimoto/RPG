@@ -1,6 +1,9 @@
 ﻿#include"FieldMenu.h"
 #include"DxLib.h"
 
+FieldMenu::FieldMenu(GameManager* gm)
+	: gm(gm){ }
+
 void FieldMenu::select()
 {
 	if (CheckHitKey(KEY_INPUT_RETURN))
@@ -141,15 +144,25 @@ void FieldMenu::drawItemList()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	// 仮のアイテムリスト
-	std::vector<std::string> itemList = {
-		"あめ 3",
-		"ポーション 1",
-		"まほうのつえ 1"
-	};
+	//std::vector<std::string> itemList = {
+	//	"あめ 3",
+	//	"ポーション 1",
+	//	"まほうのつえ 1"
+	//};
 
-	for (int i = 0; i < itemList.size(); i++)
+	//for (int i = 0; i < itemList.size(); i++)
+	//{
+	//	DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
+	//}
+
+	std::vector<Item>& items = gm->getItemBag().getItems();
+
+	int y = 85;
+	for (const auto& item : items)
 	{
-		DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
+		std::string text = item.getName() + " " + std::to_string(item.getAmount());
+		DrawString(240, y, text.c_str(), GetColor(255, 255, 255));
+		y += 20;
 	}
 
 	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));

@@ -2,6 +2,8 @@
 #include<string>
 #include<vector>
 #include"Display.h"
+#include"GameManager.h"
+#include"Item.h"
 
 class FieldMenu {
 private:
@@ -17,8 +19,10 @@ private:
 	bool isParameterOpen = false;
 	bool isSpellListOpen = false;
 	int selectedIndex = 0;
+	GameManager* gm;
 
 public:
+	FieldMenu(GameManager* gm);
 	void choose();
 	void select();
 	void open();

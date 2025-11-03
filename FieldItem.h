@@ -17,5 +17,6 @@ public:
 	bool getIsActive() const;
 	int getX();
 	int getY();
-	const Position& getPosition() const { return pos; }
+	const Position& getPosition() const;
+	const Item& getItemData() const;
 };

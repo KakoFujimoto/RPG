@@ -36,3 +36,10 @@ int FieldItem::getX() {
 int FieldItem::getY() {
     return pos.getY();
 }
+const Position& FieldItem::getPosition() const { 
+    return pos;
+}
+
+ const Item& FieldItem::getItemData() const{
+     return item;
+}
