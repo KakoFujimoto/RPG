@@ -20,11 +20,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     SetDrawScreen(DX_SCREEN_BACK);
 
     GameManager gm;
-    FieldAlly ally("ÇÀÇ±", 400, 300);
+    //èdï°
+    //FieldAlly ally("ÇÀÇ±", 400, 300);
 
     Item candy("Ç†Çﬂ", 1);
-    FieldItem fieldItem;
-    fieldItem.spawn(candy, 800, 600);
+    //èdï°
+    //FieldItem fieldItem;
+    gm.getFieldItem().spawn(candy, 800, 600);
 
 
 	FieldMenu fieldMenu(&gm);
@@ -41,13 +43,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         fieldMenu.update();
         
         if (!fieldMenu.getIsOpen()) {
-            ally.move();
+            gm.getAlly().move();
         }
 
-        DrawString(ally.getX(), ally.getY(), ally.getName().c_str(), GetColor(255, 255, 255));
+        DrawString(gm.getAlly().getX(), gm.getAlly().getY(), gm.getAlly().getName().c_str(), GetColor(255, 255, 255));
         fieldMenu.draw(display);
 
-        fieldItem.draw();
+        gm.getFieldItem().draw();
 
         /*if (fieldItem.getIsActive() && gm.HitCheck(ally.getPosition(), fieldItem.getPosition())) {
             fieldItem.isGotten();

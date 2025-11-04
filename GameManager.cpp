@@ -1,6 +1,9 @@
 #include"GameManager.h"
 
-GameManager::GameManager() {}
+GameManager::GameManager()
+    : ally("‚Ë‚±", 400, 300),
+    fieldItem(),
+    itemBag(){}
 
 bool GameManager::HitCheck(const Position& allyPosition, const Position& object)
 {

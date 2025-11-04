@@ -7,14 +7,17 @@
 
 class GameManager {
 private:
-	RandomGenerator rng;
+	//RandomGenerator rng;
 	FieldItem fieldItem;
 	FieldAlly ally;
 	ItemBag itemBag;
 public:
 	GameManager();
-	RandomGenerator getRng() { return rng; }
+	//RandomGenerator getRng() { return rng; }
 	bool HitCheck(const Position& allyPosition, const Position& object);
 	void updateItemBag();
 	ItemBag& getItemBag();
+	FieldItem& getFieldItem() { return fieldItem; }
+	FieldAlly& getAlly() { return ally; }
+	ItemBag& getItemBag() { return itemBag; }
 };
