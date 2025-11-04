@@ -8,25 +8,20 @@ void FieldMenu::select()
 {
 	if (CheckHitKey(KEY_INPUT_RETURN))
 	{
-		// 選択されたメニュー項目に応じた処理をここに追加
-		std::string selectedItem = menuItems[selectedIndex];
-		if (selectedItem == "もどる")
-		{
+		std::string id = menuItems[selectedIndex].id;
+
+		if (id == "BACK") {
 			isOpen = false;
 		}
-		else if (selectedItem == "どうぐ")
-		{
+		else if (id == "ITEM") {
 			isItemListOpen = true;
 		}
-		else if (selectedItem == "つよさ")
-		{
+		else if (id == "STATUS") {
 			isParameterOpen = true;
 		}
-		else if (selectedItem == "じゅもん")
-		{
+		else if (id == "SPELL") {
 			isSpellListOpen = true;
 		}
-		// 他のメニュー項目の処理もここに追加可能
 	}
 }
 
@@ -69,32 +64,30 @@ void FieldMenu::update()
 		select();
 	}
 }
-
-void FieldMenu::draw(Display & display)
+void FieldMenu::draw(Display& display)
 {
 	if (!isOpen) return; // 開いていなければ何もしない
-	
-	// ===== メニュー描画部分 =====
-    int x = 100, y = 100;
-    int width = 200, height = 150;
-    int borderColor = GetColor(255, 255, 255);
-    int fillColor = GetColor(0, 0, 80);
 
-    display.drawWindow(x, y, width, height, borderColor, fillColor);
+	int x = 100, y = 100;
+	int width = 200, height = 150;
+	int borderColor = GetColor(255, 255, 255);
+	int fillColor = GetColor(0, 0, 80);
 
-    // メニュー項目を縦に描画
-    int textColor = GetColor(255, 255, 255);
+	display.drawWindow(x, y, width, height, borderColor, fillColor);
+
+	int textColor = GetColor(255, 255, 255);
 	int cursorColor = GetColor(255, 255, 255);
-    int lineHeight = 30;
+	int lineHeight = 30;
 
-    for (int i = 0; i < static_cast<int>(menuItems.size()); ++i) {
+	for (int i = 0; i < static_cast<int>(menuItems.size()); ++i) {
 		int itemY = y + 20 + i * lineHeight;
 
 		if (i == selectedIndex) {
 			display.drawCursor(x + 5, itemY, cursorColor);
 		}
-        display.drawText(x + 25, itemY, menuItems[i], textColor);
-    }
+
+		display.drawText(x + 25, itemY, menuItems[i].label, textColor);
+	}
 
 	if (isItemListOpen) {
 		drawItemList();
@@ -106,6 +99,7 @@ void FieldMenu::draw(Display & display)
 		drawParameter();
 	}
 }
+
 
 bool FieldMenu::getIsOpen() const {
 	return isOpen;

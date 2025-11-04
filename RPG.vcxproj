@@ -157,6 +157,7 @@
     <ClInclude Include="IHealing.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBag.h" />
+    <ClInclude Include="MenuItem.h" />
     <ClInclude Include="MenuType.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="RandomGenerator.h" />

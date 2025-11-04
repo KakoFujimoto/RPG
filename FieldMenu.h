@@ -4,15 +4,15 @@
 #include"Display.h"
 #include"GameManager.h"
 #include"Item.h"
-
+#include"MenuItem.h"
 
 class FieldMenu {
 private:
-	std::vector<std::string> menuItems{
-	"‚Ç‚¤‚®",
-	"‚Â‚æ‚³",
-	"‚¶‚ã‚à‚ñ",
-	"‚à‚Ç‚é"
+	std::vector<MenuItem> menuItems{
+		{ "ITEM", "‚Ç‚¤‚®" },
+		{ "STATUS", "‚Â‚æ‚³" },
+		{ "SPELL", "‚¶‚ã‚à‚ñ" },
+		{ "BACK", "‚à‚Ç‚é" }
 	};
 
 	bool isOpen = false;
