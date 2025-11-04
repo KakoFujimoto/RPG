@@ -19,5 +19,5 @@ public:
 	ItemBag& getItemBag();
 	FieldItem& getFieldItem() { return fieldItem; }
 	FieldAlly& getAlly() { return ally; }
-	ItemBag& getItemBag() { return itemBag; }
+	//ItemBag& getItemBag() { return itemBag; }
 };

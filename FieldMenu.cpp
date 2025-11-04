@@ -50,23 +50,28 @@ void FieldMenu::close()
 
 void FieldMenu::update()
 {
-	// SPACEキーで開く
-	if (CheckHitKey(KEY_INPUT_SPACE)) {
-		if (!isOpen) {
-			open();
+	if (isItemListOpen) {
+		updateItemMenu();
+	} else if (isSpellListOpen) {
+	} else {
+		// SPACEキーで開く
+		if (CheckHitKey(KEY_INPUT_SPACE)) {
+			if (!isOpen) {
+				open();
+			}
 		}
-	}
 
-	// ESCキーで閉じる
-	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
+		// ESCキーで閉じる
+		if (CheckHitKey(KEY_INPUT_ESCAPE)) {
+			if (isOpen) {
+				close();
+			}
+		}
+
 		if (isOpen) {
-			close();
+			choose();
+			select();
 		}
-	}
-
-	if (isOpen) {
-		choose();
-		select();
 	}
 }
 
@@ -207,4 +212,59 @@ void FieldMenu::drawSpellList()
 
 	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
 
+}
+
+class FieldItemMenu : public IMenu {
+}
+
+class FieldRootMenu : public IMenu {
+private:
+	FieldMenu2& parent;
+	int selectedIndex;
+
+public:
+	FieldRootMenu(FieldMenu2& parent)
+		: parent(parent)
+	{
+	}
+
+	void draw(Display& display) override {
+		int x = 100, y = 100;
+		int width = 200, height = 150;
+		int borderColor = GetColor(255, 255, 255);
+		int fillColor = GetColor(0, 0, 80);
+
+		display.drawWindow(x, y, width, height, borderColor, fillColor);
+
+		// メニュー項目を縦に描画
+		int textColor = GetColor(255, 255, 255);
+		int cursorColor = GetColor(255, 255, 255);
+		int lineHeight = 30;
+
+		for (int i = 0; i < static_cast<int>(menuItems.size()); ++i) {
+			int itemY = y + 20 + i * lineHeight;
+
+			if (i == selectedIndex) {
+				display.drawCursor(x + 5, itemY, cursorColor);
+			}
+			display.drawText(x + 25, itemY, menuItems[i], textColor);
+		}
+	}
+
+	void update()
+	{
+		if (CheckHitKey(KEY_INPUT_DOWN))
+		{
+			selectedIndex += 1;
+		}
+		if (CheckHitKey(KEY_INPUT_RETURN))
+		{
+			parent.addMenu(new FieldItemMenu(parent)):
+		}
+	}
+};
+
+void FieldMenu2::open()
+{
+	menus.push_back(new FieldRootMenu(*this));
 }
