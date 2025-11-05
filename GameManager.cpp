@@ -5,24 +5,10 @@ GameManager::GameManager()
     fieldItem(),
     itemBag(){}
 
-bool GameManager::HitCheck(const Position& allyPosition, const Position& object)
-{
-    int dx = allyPosition.getX() - object.getX();
-    int dy = allyPosition.getY() - object.getY();
-
-    //float distance = std::sqrt(dx * dx + dy * dy);
-
-    //return (distance < 10.0f);
-
-    float distance = (dx * dx + dy * dy);
-
-    return (distance < 10.0f * 10.0f);
-}
-
 void GameManager::updateItemBag()
 {
-            if (fieldItem.getIsActive() && HitCheck(ally.getPosition(), fieldItem.getPosition())) {
-                fieldItem.isGotten();
+            if (fieldItem.getIsActive() && hitCheck.check(ally.getPosition(), fieldItem.getPosition())) {
+                fieldItem.setGotten();
                 itemBag.add(fieldItem.getItemData());
             }
 }

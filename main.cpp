@@ -4,6 +4,7 @@
 #include"Display.h"
 #include"FieldItem.h"
 #include"GameManager.h"
+#include"RandomGenerator.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -20,13 +21,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     SetDrawScreen(DX_SCREEN_BACK);
 
     GameManager gm;
-    //重複
-    //FieldAlly ally("ねこ", 400, 300);
-
     Item candy("あめ", 1);
-    //重複
-    //FieldItem fieldItem;
-    gm.getFieldItem().spawn(candy, 800, 600);
+
+    RandomGenerator rng;
+    gm.getFieldItem().spawn(candy, 800, 600, rng);
 
 
 	FieldMenu fieldMenu(&gm);
@@ -50,10 +48,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         fieldMenu.draw(display);
 
         gm.getFieldItem().draw();
-
-        /*if (fieldItem.getIsActive() && gm.HitCheck(ally.getPosition(), fieldItem.getPosition())) {
-            fieldItem.isGotten();
-        }*/
 
         gm.updateItemBag();
 

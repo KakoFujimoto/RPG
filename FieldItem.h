@@ -2,6 +2,7 @@
 #include"Position.h"
 #include"Item.h"
 #include"Display.h"
+#include"RandomGenerator.h"
 
 
 class FieldItem {
@@ -11,9 +12,9 @@ private:
 	bool isActive;
 public:
 	FieldItem();
-	void spawn(const Item& newItem, int maxX, int maxY);
+	void spawn(const Item& newItem, int maxX, int maxY, RandomGenerator& rng);
 	void draw() const;
-	void isGotten();
+	void setGotten();
 	bool getIsActive() const;
 	int getX();
 	int getY();

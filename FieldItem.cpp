@@ -3,17 +3,18 @@
 #include <time.h>
 
 FieldItem::FieldItem()
-    : item(), pos({ 0, 0 }), isActive(false)
-{
-    srand(static_cast<unsigned>(time(nullptr))); // èââÒÇÃÇ›óêêîèâä˙âª
-}
-void FieldItem::spawn(const Item& newItem, int maxX, int maxY)
+    : item(), pos({ 0, 0 }), isActive(false){}
+
+void FieldItem::spawn(const Item& newItem, int maxX, int maxY, RandomGenerator& rng)
 {
     item = newItem;
-    pos.x = rand() % maxX;
-    pos.y = rand() % maxY;
+    auto [randX, randY] = rng.getRandomPosition(maxX, maxY);
+
+    pos.x = randX;
+    pos.y = randY;
     isActive = true;
 }
+
 void FieldItem::draw() const
 {
     if (!isActive) return;
@@ -21,7 +22,7 @@ void FieldItem::draw() const
     int color = GetColor(255, 255, 0);
     DrawString(pos.x, pos.y, item.getName().c_str(), color);
 }
-void FieldItem::isGotten()
+void FieldItem::setGotten()
 {
     isActive = false;
 }

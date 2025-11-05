@@ -137,18 +137,6 @@ void FieldMenu::drawItemList()
 	DrawBox(220, 60, 400, 220, GetColor(0, 0, 80), TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	// 仮のアイテムリスト
-	//std::vector<std::string> itemList = {
-	//	"あめ 3",
-	//	"ポーション 1",
-	//	"まほうのつえ 1"
-	//};
-
-	//for (int i = 0; i < itemList.size(); i++)
-	//{
-	//	DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
-	//}
-
 	std::vector<Item>& items = gm->getItemBag().getItems();
 
 	int y = 85;

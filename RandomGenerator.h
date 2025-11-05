@@ -19,4 +19,11 @@ public:
 		std::uniform_int_distribution<> dist(base - rdm, base - rdm);
 		return dist(gen);
 	}
+
+	// 座標用ランダム生成（例: 0～maxX-1 / 0～maxY-1）
+	std::pair<int, int> getRandomPosition(int maxX, int maxY) {
+		std::uniform_int_distribution<> distX(0, maxX - 1);
+		std::uniform_int_distribution<> distY(0, maxY - 1);
+		return { distX(gen), distY(gen) };
+	}
 };

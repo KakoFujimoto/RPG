@@ -150,6 +150,7 @@
     <ClInclude Include="FieldMenu.h" />
     <ClInclude Include="FieldParameterMenu.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="HitCheck.h" />
     <ClInclude Include="Hoimi.h" />
     <ClInclude Include="IAttack.h" />
     <ClInclude Include="IBuff.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="FieldItem.cpp" />
     <ClCompile Include="FieldMenu.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="HitCheck.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemBag.cpp" />
     <ClCompile Include="main.cpp" />
