@@ -8,7 +8,7 @@ FieldItem::FieldItem()
 void FieldItem::spawn(const Item& newItem, int maxX, int maxY, RandomGenerator& rng)
 {
     item = newItem;
-    auto [randX, randY] = rng.getRandomPosition(maxX, maxY);
+    auto [randX, randY] = pos.getRandomPosition(maxX, maxY, rng);
 
     pos.x = randX;
     pos.y = randY;
