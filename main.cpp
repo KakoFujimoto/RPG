@@ -22,9 +22,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     GameManager gm;
     Item candy("‚ ‚ß", 1);
+    Item cottonCandy("‚í‚½‚ª‚µ", 1);
+
 
     RandomGenerator rng;
-    gm.getFieldItem().spawn(candy, 800, 600, rng);
+    gm.getFieldItemManager().spawn(candy, 800, 600, rng);
+    gm.getFieldItemManager().spawn(cottonCandy, 500, 100, rng);
+
 
 
 	FieldMenu fieldMenu(&gm);
@@ -47,7 +51,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         DrawString(gm.getAlly().getX(), gm.getAlly().getY(), gm.getAlly().getName().c_str(), GetColor(255, 255, 255));
         fieldMenu.draw(display);
 
-        gm.getFieldItem().draw();
+        gm.getFieldItemManager().draw();
 
         gm.updateItemBag();
 

@@ -1,22 +1,21 @@
 #pragma once
-//#include"RandomGenerator.h"
 #include"Position.h"
 #include"FieldItem.h"
+#include"FieldItemManager.h"
 #include"FieldAlly.h"
 #include"ItemBag.h"
 #include"HitCheck.h"
 
 class GameManager {
 private:
-	FieldItem fieldItem;
 	FieldAlly ally;
 	ItemBag itemBag;
+	FieldItemManager fieldItemManager;
 	HitCheck hitCheck;
 public:
 	GameManager();
 	void updateItemBag();
 	ItemBag& getItemBag();
-	FieldItem& getFieldItem() { return fieldItem; }
-	FieldAlly& getAlly() { return ally; }
-	//ItemBag& getItemBag() { return itemBag; }
+	FieldItemManager& getFieldItemManager();
+	FieldAlly& getAlly();
 };

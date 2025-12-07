@@ -147,6 +147,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FieldAlly.h" />
     <ClInclude Include="FieldItem.h" />
+    <ClInclude Include="FieldItemManager.h" />
     <ClInclude Include="FieldMenu.h" />
     <ClInclude Include="FieldParameterMenu.h" />
     <ClInclude Include="GameManager.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="FieldAlly.cpp" />
     <ClCompile Include="FieldItem.cpp" />
+    <ClCompile Include="FieldItemManager.cpp" />
     <ClCompile Include="FieldMenu.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="HitCheck.cpp" />
