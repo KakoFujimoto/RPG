@@ -165,6 +165,7 @@
     <ClInclude Include="RecoverSpell.h" />
     <ClInclude Include="SavePoint.h" />
     <ClInclude Include="Spell.h" />
+    <ClInclude Include="StatusWindowRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AllyParameter.cpp" />

@@ -112,6 +112,9 @@
     <ClInclude Include="MenuItem.h">
       <Filter>src\UI</Filter>
     </ClInclude>
+    <ClInclude Include="StatusWindowRenderer.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
