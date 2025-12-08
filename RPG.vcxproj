@@ -168,6 +168,7 @@
     <ClInclude Include="Spell.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AllyParameter.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="FieldAlly.cpp" />
     <ClCompile Include="FieldItem.cpp" />
