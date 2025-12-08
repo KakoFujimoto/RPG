@@ -1,135 +1,154 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
+    <Filter Include="src">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="src\Core">
+      <UniqueIdentifier>{7512720c-bb5a-4663-a798-5441a256fd04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダーファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="src\Core\Ally">
+      <UniqueIdentifier>{2824cab9-4b4d-40be-a5cc-5d2c53ba4819}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Item">
+      <UniqueIdentifier>{a51c3708-2dd9-4e7f-b1be-f2b9782e1784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Field">
+      <UniqueIdentifier>{c56184b0-ed6f-4531-80e3-557e24d9758d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Graphics">
+      <UniqueIdentifier>{92e32e26-9dea-4133-904b-39724863883c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI">
+      <UniqueIdentifier>{355df6b2-a82d-43fb-bf0f-0345077c751e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System">
+      <UniqueIdentifier>{bd633f2e-65e3-496f-b3d6-e4b58565da7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Spell">
+      <UniqueIdentifier>{d13ae973-45f7-4e33-8521-23312a76667c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Enemy">
+      <UniqueIdentifier>{5f30a054-a424-4d73-b448-36e3a9c21221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Battle">
+      <UniqueIdentifier>{e51b2dfe-0e2c-4e2b-98d9-1311f38e7247}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FieldItem.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Position.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SavePoint.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="BattleProperty.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Hoimi.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IAttack.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IBuff.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IDebuff.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IHealing.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="RandomGenerator.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Spell.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="RecoverSpell.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AllyParameter.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="FieldParameterMenu.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="FieldAlly.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
     <ClInclude Include="FieldItem.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
     <ClInclude Include="Display.h">
-      <Filter>ヘッダーファイル</Filter>
+      <Filter>src\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="FieldMenu.h">
-      <Filter>ヘッダーファイル</Filter>
+    <ClInclude Include="AllyParameter.h">
+      <Filter>src\Core\Ally</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>ヘッダーファイル</Filter>
+    <ClInclude Include="FieldAlly.h">
+      <Filter>src\Core\Ally</Filter>
     </ClInclude>
     <ClInclude Include="ItemBag.h">
-      <Filter>ヘッダーファイル</Filter>
+      <Filter>src\Core\Item</Filter>
     </ClInclude>
-    <ClInclude Include="MenuType.h">
-      <Filter>ヘッダーファイル</Filter>
+    <ClInclude Include="Item.h">
+      <Filter>src\Core\Item</Filter>
     </ClInclude>
-    <ClInclude Include="MenuItem.h">
-      <Filter>ヘッダーファイル</Filter>
+    <ClInclude Include="GameManager.h">
+      <Filter>src\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Hoimi.h">
+      <Filter>src\Core\Spell</Filter>
     </ClInclude>
     <ClInclude Include="HitCheck.h">
-      <Filter>ヘッダーファイル</Filter>
+      <Filter>src\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Spell.h">
+      <Filter>src\Core\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>src\Core\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldItem.h">
+      <Filter>src\Core\Field</Filter>
     </ClInclude>
     <ClInclude Include="FieldItemManager.h">
-      <Filter>ヘッダーファイル</Filter>
+      <Filter>src\Core\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>src\Core\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="RecoverSpell.h">
+      <Filter>src\Core\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="SavePoint.h">
+      <Filter>src\Core\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomGenerator.h">
+      <Filter>src\System</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldParameterMenu.h">
+      <Filter>src\Core\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldMenu.h">
+      <Filter>src\Core\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleProperty.h">
+      <Filter>src\Core\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="IAttack.h">
+      <Filter>src\Core\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="IBuff.h">
+      <Filter>src\Core\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="IDebuff.h">
+      <Filter>src\Core\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="IHealing.h">
+      <Filter>src\Core\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItem.h">
+      <Filter>src\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Position.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="FieldAlly.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="FieldMenu.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Display.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="FieldItem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemBag.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="HitCheck.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="FieldItemManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="AllyParameter.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>src\Core\Ally</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldAlly.cpp">
+      <Filter>src\Core\Ally</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>src\Core\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBag.cpp">
+      <Filter>src\Core\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldItem.cpp">
+      <Filter>src\Core\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldItemManager.cpp">
+      <Filter>src\Core\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Display.cpp">
+      <Filter>src\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Position.cpp">
+      <Filter>src\Core\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldMenu.cpp">
+      <Filter>src\Core\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="HitCheck.cpp">
+      <Filter>src\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

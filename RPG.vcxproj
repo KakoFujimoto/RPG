@@ -160,7 +160,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBag.h" />
     <ClInclude Include="MenuItem.h" />
-    <ClInclude Include="MenuType.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="RecoverSpell.h" />
