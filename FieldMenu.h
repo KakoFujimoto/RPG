@@ -5,6 +5,7 @@
 #include"GameManager.h"
 #include"Item.h"
 #include"MenuItem.h"
+#include"StatusWindowRenderer.h"
 
 class FieldMenu {
 private:
@@ -21,6 +22,7 @@ private:
 	bool isSpellListOpen = false;
 	int selectedIndex = 0;
 	GameManager* gm;
+	StatusWindowRenderer statusRenderer;
 
 public:
 	FieldMenu(GameManager* gm);

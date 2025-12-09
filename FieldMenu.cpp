@@ -36,7 +36,7 @@ void FieldMenu::open()
 
 void FieldMenu::close()
 {
-	isOpen = true;
+	isOpen = false;
 	selectedIndex = 0;
 	isItemListOpen = 0;
 	isSpellListOpen = 0;

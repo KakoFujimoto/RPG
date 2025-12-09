@@ -8,9 +8,13 @@ class Display;
 class StatusWindowRenderer {
 private:
     Display& display;
-
+    const AllyParameter* target = nullptr;
+    int posX = 0;
+    int posY = 0;
 public:
     StatusWindowRenderer(Display& d);
     void show(const AllyParameter& p, int x, int y);
-  
+    void setTarget(const AllyParameter* p);
+    void setPosition(int x, int y);
+    void draw();
 };

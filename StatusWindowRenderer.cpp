@@ -14,3 +14,19 @@ void StatusWindowRenderer::show(const AllyParameter& p, int x, int y) {
 	display.drawText(x + 10, y + 140, "Lv: " + std::to_string(p.level), col);
 	display.drawText(x + 10, y + 160, "‚¯‚¢‚¯‚ñ‚¿: " + std::to_string(p.gainedExp), col);
 }
+void StatusWindowRenderer::setTarget(const AllyParameter* p)
+{
+	target = p;
+}
+
+void StatusWindowRenderer::setPosition(int x, int y)
+{
+	posX = x;
+	posY = y;
+}
+
+void StatusWindowRenderer::draw()
+{
+	if (!target) return;
+	show(*target, posX, posY);
+}
