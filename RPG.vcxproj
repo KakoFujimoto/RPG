@@ -180,6 +180,7 @@
     <ClCompile Include="ItemBag.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="StatusWindowRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
