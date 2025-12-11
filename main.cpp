@@ -30,15 +30,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     gm.getFieldItemManager().spawn(cottonCandy, 500, 100, rng);
 
 
-
-	FieldMenu fieldMenu(&gm);
+    AllyParameter allyParameter("‚Ë‚±", 15, 0, 13, 11, 8, 1, 0);
 	Display display;
+	FieldMenu fieldMenu(&gm, display, allyParameter);
 
     while (ProcessMessage() == 0)
 	{
 		ClearDrawScreen(); // ‰æ–Ê‚ğƒNƒŠƒA
 
-        int bgColor = GetColor(50, 50, 100); // ”Z‚¢Â‚Á‚Û‚¢”wŒi
+        int bgColor = GetColor(0, 140, 0);
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
         //if (!subdMenu.isOpen()) 

@@ -1,8 +1,13 @@
 ﻿#include"FieldMenu.h"
 #include"DxLib.h"
 
-FieldMenu::FieldMenu(GameManager* gm)
-	: gm(gm){ }
+FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
+	: gm(gm)
+	, display(display)
+	, statusRenderer(display)
+	, allyParameter(allyParameter)
+{
+}
 
 void FieldMenu::select()
 {
@@ -18,6 +23,8 @@ void FieldMenu::select()
 		}
 		else if (id == "STATUS") {
 			isParameterOpen = true;
+			statusRenderer.setTarget(&allyParameter);
+			statusRenderer.setPosition(200, 120);
 		}
 		else if (id == "SPELL") {
 			isSpellListOpen = true;
@@ -71,7 +78,7 @@ void FieldMenu::draw(Display& display)
 	int x = 100, y = 100;
 	int width = 200, height = 150;
 	int borderColor = GetColor(255, 255, 255);
-	int fillColor = GetColor(0, 0, 80);
+	int fillColor = GetColor(0, 0, 0);
 
 	display.drawWindow(x, y, width, height, borderColor, fillColor);
 
@@ -96,7 +103,7 @@ void FieldMenu::draw(Display& display)
 		drawSpellList();
 	}
 	else if (isParameterOpen) {
-		drawParameter();
+		statusRenderer.draw();
 	}
 }
 
@@ -150,27 +157,27 @@ void FieldMenu::drawItemList()
 	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
 
 }
-void FieldMenu::drawParameter()
-{
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
-	DrawBox(220, 60, 400, 220, GetColor(0, 0, 80), TRUE);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	// 仮のパラメータ
-	std::vector<std::string> itemList = {
-		"ちから 9",
-		"みのまもり 13",
-		"すばやさ 17"
-	};
-
-	for (int i = 0; i < itemList.size(); i++)
-	{
-		DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
-	}
-
-	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
-
-}
+//void FieldMenu::drawParameter()
+//{
+//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
+//	DrawBox(220, 60, 400, 220, GetColor(0, 0, 80), TRUE);
+//	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+//
+//	// 仮のパラメータ
+//	std::vector<std::string> itemList = {
+//		"ちから 9",
+//		"みのまもり 13",
+//		"すばやさ 17"
+//	};
+//
+//	for (int i = 0; i < itemList.size(); i++)
+//	{
+//		DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
+//	}
+//
+//	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
+//
+//}
 void FieldMenu::drawSpellList()
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);

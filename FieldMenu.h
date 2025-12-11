@@ -6,6 +6,7 @@
 #include"Item.h"
 #include"MenuItem.h"
 #include"StatusWindowRenderer.h"
+#include"AllyParameter.h"
 
 class FieldMenu {
 private:
@@ -22,10 +23,12 @@ private:
 	bool isSpellListOpen = false;
 	int selectedIndex = 0;
 	GameManager* gm;
+	Display display;
 	StatusWindowRenderer statusRenderer;
+	AllyParameter& allyParameter;
 
 public:
-	FieldMenu(GameManager* gm);
+	FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter);
 	void choose();
 	void select();
 	void open();
@@ -34,7 +37,7 @@ public:
 	void draw(Display& display);
 	bool getIsOpen () const;
 	void drawItemList();
-	void drawParameter();
+	//void drawParameter();
 	void drawSpellList();
 
 };
