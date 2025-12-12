@@ -1,14 +1,18 @@
 #pragma once
-#include"Name.h"
+#include <string>
 
 class RandomGenerator;
 class Spell {
 private:
 	RandomGenerator& rng;
-	Name name;
+	std::string name;
 	int mpCost;
+	bool isLearnd = false;
 
 public:
-	Spell(RandomGenerator& rng, const std::string& n, int cost)
-		: rng(rng), name(n), mpCost(cost){ }
+	Spell(RandomGenerator& rng, const std::string n, int cost);
+	const std::string& getName() const;
+	int getMpCost() const;
+	bool getIsLearned() const;
+	void learn();
 };

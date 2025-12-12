@@ -21,3 +21,8 @@ AllyParameter::AllyParameter
     level(lvl), gainedExp(exp)
 {
 }
+
+SpellManager& AllyParameter::getSpellManager()
+{
+    return spellManager;
+}

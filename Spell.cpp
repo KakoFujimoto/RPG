@@ -1,0 +1,24 @@
+#include"Spell.h"
+
+Spell::Spell(RandomGenerator& rng, const std::string n, int cost)
+		: rng(rng), name(n), mpCost(cost){ }
+
+const std::string& Spell::getName() const
+{
+	return name;
+}
+
+int Spell::getMpCost() const
+{
+	return mpCost;
+}
+
+bool Spell::getIsLearned() const
+{
+	return isLearnd;
+}
+
+void Spell::learn()
+{
+	isLearnd = true;
+}

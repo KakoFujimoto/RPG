@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include"SpellManager.h"
 
 class AllyParameter {
 public:
@@ -11,6 +12,7 @@ public:
 	int speed;
 	int level;
 	int gainedExp;
+	SpellManager spellManager;
 
 	AllyParameter();
 
@@ -18,4 +20,6 @@ public:
 	(std::string n, int h, int m,
 		int atk, int def, int spd,
 		int lvl, int exp);
+
+	SpellManager& getSpellManager();
 };

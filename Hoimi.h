@@ -1,5 +1,4 @@
 #pragma once
-#include"Name.h"
 #include"RecoverSpell.h"
 #include"RandomGenerator.h"
 
