@@ -184,6 +184,7 @@
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="SpellManager.cpp" />
+    <ClCompile Include="SpellWindowRenderer.cpp" />
     <ClCompile Include="StatusWindowRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>

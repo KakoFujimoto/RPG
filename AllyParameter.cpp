@@ -22,7 +22,7 @@ AllyParameter::AllyParameter
 {
 }
 
-SpellManager& AllyParameter::getSpellManager()
+const SpellManager& AllyParameter::getSpellManager() const
 {
     return spellManager;
 }

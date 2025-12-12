@@ -5,6 +5,7 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	: gm(gm)
 	, display(display)
 	, statusRenderer(display)
+	, spellRenderer(display)
 	, allyParameter(allyParameter)
 {
 }
@@ -28,6 +29,8 @@ void FieldMenu::select()
 		}
 		else if (id == "SPELL") {
 			isSpellListOpen = true;
+			spellRenderer.setTarget(&allyParameter);
+			spellRenderer.setPosition(200, 120);
 		}
 	}
 }
@@ -100,7 +103,8 @@ void FieldMenu::draw(Display& display)
 		drawItemList();
 	}
 	else if (isSpellListOpen) {
-		drawSpellList();
+		spellRenderer.draw();
+
 	}
 	else if (isParameterOpen) {
 		statusRenderer.draw();
@@ -152,46 +156,6 @@ void FieldMenu::drawItemList()
 		std::string text = item.getName() + " " + std::to_string(item.getAmount());
 		DrawString(240, y, text.c_str(), GetColor(255, 255, 255));
 		y += 20;
-	}
-
-	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
-
-}
-//void FieldMenu::drawParameter()
-//{
-//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
-//	DrawBox(220, 60, 400, 220, GetColor(0, 0, 80), TRUE);
-//	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-//
-//	// 仮のパラメータ
-//	std::vector<std::string> itemList = {
-//		"ちから 9",
-//		"みのまもり 13",
-//		"すばやさ 17"
-//	};
-//
-//	for (int i = 0; i < itemList.size(); i++)
-//	{
-//		DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
-//	}
-//
-//	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
-//
-//}
-void FieldMenu::drawSpellList()
-{
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
-	DrawBox(220, 60, 400, 220, GetColor(0, 0, 80), TRUE);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	// 仮の呪文リスト
-	std::vector<std::string> itemList = {
-		"ホイミ",
-		"ベホイミ"
-	};
-	for (int i = 0; i < itemList.size(); i++)
-	{
-		DrawString(240, 85 + i * 20, itemList[i].c_str(), GetColor(255, 255, 255));
 	}
 
 	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));

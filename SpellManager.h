@@ -9,6 +9,6 @@ private:
 public:
 	void addSpell(const Spell& spell);
 
-	std::vector<Spell*> getLearnedSpells();
+	std::vector<const Spell*> getLearnedSpells() const;
 
 };

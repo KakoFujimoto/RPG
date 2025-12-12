@@ -7,6 +7,7 @@
 #include"MenuItem.h"
 #include"StatusWindowRenderer.h"
 #include"AllyParameter.h"
+#include"SpellWindowRenderer.h"
 
 class FieldMenu {
 private:
@@ -25,6 +26,7 @@ private:
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;
+	SpellWindowRenderer spellRenderer;
 	AllyParameter& allyParameter;
 
 public:

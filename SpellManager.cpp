@@ -5,16 +5,16 @@ void SpellManager::addSpell(const Spell& spell)
 	spells.push_back(spell);
 }
 
-std::vector<Spell*> SpellManager::getLearnedSpells()
+std::vector<const Spell*> SpellManager::getLearnedSpells() const
 {
-	std::vector<Spell*> learned;
+	std::vector<const Spell*> learned;
 
-	for (auto& spell : spells)
+	for (const Spell& spell : spells)
 	{
 		if (spell.getIsLearned())
 		{
 			learned.push_back(&spell);
 		}
-		return learned;
 	}
+	return learned;
 }
