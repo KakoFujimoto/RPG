@@ -4,7 +4,7 @@ void ItemBag::add(const Item& item)
 {
 	items.push_back(item);
 }
-std::vector<Item>& ItemBag::getItems()
+const std::vector<Item>& ItemBag::getItems() const
 {
 	return items;
 }

@@ -159,6 +159,7 @@
     <ClInclude Include="IHealing.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBag.h" />
+    <ClInclude Include="ItemWindowRenderer.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="RandomGenerator.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="HitCheck.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemBag.cpp" />
+    <ClCompile Include="ItemWindowRenderer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Spell.cpp" />

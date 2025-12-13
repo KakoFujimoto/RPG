@@ -8,6 +8,8 @@
 #include"StatusWindowRenderer.h"
 #include"AllyParameter.h"
 #include"SpellWindowRenderer.h"
+#include"ItemWindowRenderer.h"
+#include"ItemBag.h"
 
 class FieldMenu {
 private:
@@ -28,6 +30,8 @@ private:
 	StatusWindowRenderer statusRenderer;
 	SpellWindowRenderer spellRenderer;
 	AllyParameter& allyParameter;
+	ItemWindowRenderer itemRenderer;
+	ItemBag* itemBag;
 
 public:
 	FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter);

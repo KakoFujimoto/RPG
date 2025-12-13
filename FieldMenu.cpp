@@ -7,6 +7,8 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	, statusRenderer(display)
 	, spellRenderer(display)
 	, allyParameter(allyParameter)
+	, itemRenderer(display)
+	, itemBag(&gm->getItemBag())
 {
 }
 
@@ -21,6 +23,8 @@ void FieldMenu::select()
 		}
 		else if (id == "ITEM") {
 			isItemListOpen = true;
+			itemRenderer.setTarget(itemBag);
+			itemRenderer.setPosition(200, 120);
 		}
 		else if (id == "STATUS") {
 			isParameterOpen = true;
@@ -100,7 +104,7 @@ void FieldMenu::draw(Display& display)
 	}
 
 	if (isItemListOpen) {
-		drawItemList();
+		itemRenderer.draw();
 	}
 	else if (isSpellListOpen) {
 		spellRenderer.draw();
@@ -140,24 +144,4 @@ void FieldMenu::choose() {
 
 	prevUp = currentUp;
 	prevDown = currentDown;
-}
-void FieldMenu::drawItemList()
-{
-	// 半透明ウィンドウを重ねる（背景を薄くして区別）
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
-	DrawBox(220, 60, 400, 220, GetColor(0, 0, 80), TRUE);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	std::vector<Item>& items = gm->getItemBag().getItems();
-
-	int y = 85;
-	for (const auto& item : items)
-	{
-		std::string text = item.getName() + " " + std::to_string(item.getAmount());
-		DrawString(240, y, text.c_str(), GetColor(255, 255, 255));
-		y += 20;
-	}
-
-	DrawString(240, 180, "Escape:閉じる", GetColor(180, 180, 180));
-
 }

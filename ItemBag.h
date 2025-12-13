@@ -8,5 +8,5 @@ private:
 public:
 	void add(const Item& item);
 	//void remove	(const std::string& itemName);
-	std::vector<Item>& getItems();
+	const std::vector<Item>& getItems() const;
 	};

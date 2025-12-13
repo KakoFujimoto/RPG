@@ -37,9 +37,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FieldItem.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Display.h">
       <Filter>src\Graphics</Filter>
     </ClInclude>
@@ -115,6 +112,16 @@
     <ClInclude Include="StatusWindowRenderer.h">
       <Filter>src\UI</Filter>
     </ClInclude>
+    <ClInclude Include="FieldItem.h" />
+    <ClInclude Include="ItemWindowRenderer.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellManager.h">
+      <Filter>src\Core\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellWindowRenderer.h">
+      <Filter>src\Core\Spell</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -152,6 +159,21 @@
     </ClCompile>
     <ClCompile Include="HitCheck.cpp">
       <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemWindowRenderer.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellWindowRenderer.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusWindowRenderer.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Spell.cpp">
+      <Filter>src\Core\Spell</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellManager.cpp">
+      <Filter>src\Core\Spell</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
