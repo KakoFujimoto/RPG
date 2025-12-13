@@ -34,6 +34,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Display display;
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
+    // フィールドメニューで表示させるため、味方キャラにホイミを習得させる
+    Spell hoimi(rng, "ホイミ", 3);
+    hoimi.learn();
+    allyParameter.getSpellManager().addSpell(hoimi);
+   
+
     while (ProcessMessage() == 0)
 	{
 		ClearDrawScreen(); // 画面をクリア

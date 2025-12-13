@@ -21,5 +21,6 @@ public:
 		int atk, int def, int spd,
 		int lvl, int exp);
 
+	SpellManager& getSpellManager();
 	const SpellManager& getSpellManager() const;
 };

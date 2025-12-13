@@ -34,7 +34,7 @@ void SpellWindowRenderer::draw()
 
 	for (const Spell* s : spells)
 	{
-		display.drawText(posY + 20, yOffset, s->getName(), textColor);
+		display.drawText(posX + 20, yOffset, s->getName(), textColor);
 		yOffset += 20;
 	}
 }

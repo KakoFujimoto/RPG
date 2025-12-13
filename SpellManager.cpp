@@ -9,7 +9,7 @@ std::vector<const Spell*> SpellManager::getLearnedSpells() const
 {
 	std::vector<const Spell*> learned;
 
-	for (const Spell& spell : spells)
+	for (auto& spell : spells)
 	{
 		if (spell.getIsLearned())
 		{

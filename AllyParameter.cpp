@@ -22,6 +22,12 @@ AllyParameter::AllyParameter
 {
 }
 
+SpellManager& AllyParameter::getSpellManager()
+{
+    return spellManager;
+}
+
+
 const SpellManager& AllyParameter::getSpellManager() const
 {
     return spellManager;
