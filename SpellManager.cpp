@@ -1,8 +1,10 @@
 #include"SpellManager.h"
 
-void SpellManager::addSpell(const Spell& spell)
-{
-	spells.push_back(spell);
+void SpellManager::learnSpell(const Spell& spell)
+{	
+	Spell obj = spell;
+	obj.learn();
+	spells.push_back(obj);
 }
 
 std::vector<const Spell*> SpellManager::getLearnedSpells() const
