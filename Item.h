@@ -1,14 +1,16 @@
 #pragma once
 #include <string>
+#include"Effect.h"
 
 class Item {
 private:
 	std::string name;
-	//std::string kind;
+	Effect effect;
 	int amount;
 public:
 	Item();
 	Item(std::string name, int amount);
 	std::string getName() const;
 	int getAmount() const;
+	Effect getEffect();
 };

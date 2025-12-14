@@ -1,6 +1,7 @@
 #pragma once
 #include"AllyParameter.h"
 #include"Position.h"
+#include"Item.h"
 
 class FieldAlly
 {
@@ -21,4 +22,6 @@ public:
 	int getX();
 	int getY();
 	const Position& getPosition() const { return pos; }
+	void useItem(Item& item);
+	void castSpell(const Spell& spell);
 };

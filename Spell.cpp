@@ -22,3 +22,8 @@ void Spell::learn()
 {
 	isLearnd = true;
 }
+
+Effect Spell::getEffect() const
+{
+	return effect;
+}

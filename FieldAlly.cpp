@@ -53,3 +53,16 @@ int FieldAlly::getX() {
 int FieldAlly::getY() {
     return pos.getY();
 }
+
+void FieldAlly::useItem(Item& item)
+{
+    item.getEffect().apply(parameter);
+}
+
+void FieldAlly::castSpell(const Spell& spell)
+{
+    if (parameter.getMp() >= spell.getMpCost()) {
+        parameter.consumeMp(spell.getMpCost());
+        spell.getEffect().apply(parameter);
+    }
+}

@@ -40,7 +40,6 @@ const SpellManager& AllyParameter::getSpellManager() const
     return spellManager;
 }
 
-
 AllyParameter::AllyStatusView AllyParameter::getStatusView() const
 {
     return { 
@@ -51,4 +50,49 @@ AllyParameter::AllyStatusView AllyParameter::getStatusView() const
         maxMp,
         level
     };
+}
+void AllyParameter::takeDamage(int amount)
+{
+    hp -= amount;
+    if (hp < 0)
+    {
+        hp = 0;
+    }
+}
+
+void AllyParameter::healHp(int amount)
+{
+    hp += amount;
+    if (hp > maxHp)
+    {
+        hp = maxHp;
+    }
+}
+
+void AllyParameter::consumeMp(int amount)
+{
+    mp -= amount;
+    if (mp < 0)
+    {
+        mp = 0;
+    }
+}
+
+void AllyParameter::healMp(int amount)
+{
+    mp += amount;
+    if (mp > maxMp)
+    {
+        mp = maxMp;
+    }
+}
+
+int AllyParameter::getHp()
+{
+    return hp;
+}
+
+int AllyParameter::getMp()
+{
+    return mp;
 }

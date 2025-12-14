@@ -16,3 +16,8 @@ int Item::getAmount() const
 {
 	return amount;
 }
+
+Effect Item::getEffect()
+{
+	return effect;
+}
