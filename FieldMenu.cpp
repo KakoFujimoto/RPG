@@ -8,8 +8,11 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	, spellRenderer(display)
 	, allyParameter(allyParameter)
 	, itemRenderer(display)
+	, idleRenderer(display)
 	, itemBag(&gm->getItemBag())
 {
+	idleRenderer.setTarget(&allyParameter);
+	idleRenderer.setPosition(520, 420);
 }
 
 void FieldMenu::select()
@@ -69,6 +72,21 @@ void FieldMenu::close()
 
 void FieldMenu::update()
 {	
+	bool idle = !CheckHitKeyAll();
+
+	if (idle)
+	{
+		idleFrameCount++;
+		if (idleFrameCount >= 120)
+		{
+			isIdleStatusVisible = true;
+		}
+	}
+	else {
+		idleFrameCount = 0;
+		isIdleStatusVisible = false;
+	}
+	
 	int esc = CheckHitKey(KEY_INPUT_ESCAPE);
 
 	if (!esc)
@@ -122,7 +140,13 @@ void FieldMenu::update()
 
 void FieldMenu::draw(Display& display)
 {
-	if (!isOpen) return; // 開いていなければ何もしない
+	if (isIdleStatusVisible) {
+		idleRenderer.draw();
+	}
+
+	if (!isOpen) {
+		return; // 開いていなければ何もしない
+	}
 
 	int x = 100, y = 100;
 	int width = 200, height = 150;

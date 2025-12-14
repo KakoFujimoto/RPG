@@ -155,6 +155,7 @@
     <ClInclude Include="IAttack.h" />
     <ClInclude Include="IBuff.h" />
     <ClInclude Include="IDebuff.h" />
+    <ClInclude Include="IdleStatusRenderer.h" />
     <ClInclude Include="IHealing.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBag.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="FieldMenu.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="HitCheck.cpp" />
+    <ClCompile Include="IdleStatusRenderer.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemBag.cpp" />
     <ClCompile Include="ItemWindowRenderer.cpp" />

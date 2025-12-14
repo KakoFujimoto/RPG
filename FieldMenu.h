@@ -9,6 +9,7 @@
 #include"AllyParameter.h"
 #include"SpellWindowRenderer.h"
 #include"ItemWindowRenderer.h"
+#include"IdleStatusRenderer.h"
 #include"ItemBag.h"
 
 class FieldMenu {
@@ -26,12 +27,15 @@ private:
 	bool isSpellListOpen = false;
 	bool escPushed = false;
 	int selectedIndex = 0;
+	int idleFrameCount = 0;
+	bool isIdleStatusVisible = false;
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;
 	SpellWindowRenderer spellRenderer;
 	AllyParameter& allyParameter;
 	ItemWindowRenderer itemRenderer;
+	IdleStatusRenderer idleRenderer;
 	ItemBag* itemBag;
 
 public:

@@ -14,6 +14,13 @@ public:
 	int gainedExp;
 	SpellManager spellManager;
 
+	struct AllyStatusView {
+		std::string name;
+		int hp;
+		int mp;
+		int level;
+	};
+
 	AllyParameter();
 
 	AllyParameter
@@ -23,4 +30,5 @@ public:
 
 	SpellManager& getSpellManager();
 	const SpellManager& getSpellManager() const;
+	AllyStatusView getStatusView() const;
 };

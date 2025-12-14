@@ -26,9 +26,9 @@ void SpellWindowRenderer::draw()
 	int width = 220;
 	int height = 40 + spells.size() + 20;
 
+
 	display.drawWindow(posX, posY, width, height,
 		GetColor(255, 255, 255), GetColor(0, 0, 0));
-
 	int textColor = GetColor(255, 255, 255);
 	int yOffset = posY + 20;
 
