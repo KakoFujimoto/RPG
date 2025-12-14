@@ -24,6 +24,7 @@ private:
 	bool isItemListOpen = false;
 	bool isParameterOpen = false;
 	bool isSpellListOpen = false;
+	bool escPushed = false;
 	int selectedIndex = 0;
 	GameManager* gm;
 	Display display;

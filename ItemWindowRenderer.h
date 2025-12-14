@@ -14,4 +14,5 @@ public:
     void setTarget(const ItemBag* bag);
     void setPosition(int x, int y);
     void draw();
+    bool isCloseRequested() const;
 };

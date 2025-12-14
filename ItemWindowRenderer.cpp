@@ -41,3 +41,8 @@ void ItemWindowRenderer::draw()
         y += 20;
     }
 }
+
+bool ItemWindowRenderer::isCloseRequested() const
+{
+    return CheckHitKey(KEY_INPUT_ESCAPE);
+}

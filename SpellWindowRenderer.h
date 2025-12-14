@@ -16,4 +16,5 @@ public:
     void setTarget(const AllyParameter* p);
     void setPosition(int x, int y);
     void draw();
+    bool isCloseRequested() const;
 };

@@ -117,7 +117,7 @@
       <Filter>src\Core\Spell</Filter>
     </ClInclude>
     <ClInclude Include="SpellWindowRenderer.h">
-      <Filter>src\Core\Spell</Filter>
+      <Filter>src\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

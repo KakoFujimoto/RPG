@@ -38,3 +38,8 @@ void SpellWindowRenderer::draw()
 		yOffset += 20;
 	}
 }
+
+bool SpellWindowRenderer::isCloseRequested() const
+{
+	return CheckHitKey(KEY_INPUT_ESCAPE);
+}

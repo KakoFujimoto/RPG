@@ -24,9 +24,12 @@ void StatusWindowRenderer::setTarget(const AllyParameter* p)
 {
 	target = p;
 }
-
 void StatusWindowRenderer::setPosition(int x, int y)
 {
 	posX = x;
 	posY = y;
+}
+bool StatusWindowRenderer::isCloseRequested() const
+{
+	return CheckHitKey(KEY_INPUT_ESCAPE);
 }

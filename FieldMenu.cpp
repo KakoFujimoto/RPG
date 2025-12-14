@@ -68,26 +68,58 @@ void FieldMenu::close()
 }
 
 void FieldMenu::update()
-{
+{	
+	int esc = CheckHitKey(KEY_INPUT_ESCAPE);
+
+	if (!esc)
+	{
+		escPushed = false;
+	}
+
 	// SPACEキーで開く
-	if (CheckHitKey(KEY_INPUT_SPACE)) {
-		if (!isOpen) {
+	if (!isOpen) {
+		if (CheckHitKey(KEY_INPUT_SPACE))
+		{
 			open();
 		}
 	}
-
-	// ESCキーで閉じる
-	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
-		if (isOpen) {
-			close();
+	if (isItemListOpen) {
+		if (itemRenderer.isCloseRequested())
+		{
+			isItemListOpen = false;
+			escPushed = true;
 		}
+		return;
 	}
-
-	if (isOpen) {
-		choose();
-		select();
+	if (isParameterOpen) {
+		if (statusRenderer.isCloseRequested())
+		{
+			isParameterOpen = false;
+			escPushed = true;
+		}
+		return;
 	}
+	if (isSpellListOpen) {
+		if (spellRenderer.isCloseRequested())
+		{
+			isSpellListOpen = false;
+			escPushed = true;
+		}
+		return;
+	}
+	
+	// ESCキーで閉じる
+	if (!escPushed && esc) {
+		
+		close();
+		escPushed = true;
+		return;
+		
+	}
+	choose();
+	select();
 }
+
 void FieldMenu::draw(Display& display)
 {
 	if (!isOpen) return; // 開いていなければ何もしない
