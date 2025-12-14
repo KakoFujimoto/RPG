@@ -13,12 +13,20 @@ AllyParameter::AllyParameter()
 }
 
 AllyParameter::AllyParameter
-(std::string n, int h, int m,
+(std::string n,
+    int maxHp, int maxMp,
     int atk, int def, int spd,
     int lvl, int exp)
-    : name(n), hp(h), mp(m),
-    attackPower(atk), defensePower(def), speed(spd),
-    level(lvl), gainedExp(exp)
+    : name(n),
+    maxHp(maxHp),
+    maxMp(maxMp),
+    hp(maxHp),
+    mp(maxMp),
+    attackPower(atk),
+    defensePower(def),
+    speed(spd),
+    level(lvl),
+    gainedExp(exp)
 {
 }
 
@@ -35,5 +43,12 @@ const SpellManager& AllyParameter::getSpellManager() const
 
 AllyParameter::AllyStatusView AllyParameter::getStatusView() const
 {
-    return { name, hp, mp, level };
+    return { 
+        name,
+        hp,
+        maxHp,
+        mp,
+        maxMp,
+        level
+    };
 }

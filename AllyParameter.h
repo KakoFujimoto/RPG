@@ -5,6 +5,8 @@
 class AllyParameter {
 public:
 	std::string name;
+	int maxHp;
+	int maxMp;
 	int hp;
 	int mp;
 	int attackPower;
@@ -17,14 +19,16 @@ public:
 	struct AllyStatusView {
 		std::string name;
 		int hp;
+		int maxHp;
 		int mp;
+		int maxMp;
 		int level;
 	};
 
 	AllyParameter();
 
 	AllyParameter
-	(std::string n, int h, int m,
+	(std::string n, int maxHp, int maxMp,
 		int atk, int def, int spd,
 		int lvl, int exp);
 
