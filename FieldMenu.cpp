@@ -15,7 +15,17 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 void FieldMenu::select()
 {
 	if (CheckHitKey(KEY_INPUT_RETURN))
-	{
+	{	
+		if (!isOpen)
+		{
+			return;
+		}
+
+		if (isSubWindowOpen())
+		{
+			return;
+		}
+
 		std::string id = menuItems[selectedIndex].id;
 
 		if (id == "BACK") {
@@ -120,7 +130,13 @@ bool FieldMenu::getIsOpen() const {
 	return isOpen;
 }
 void FieldMenu::choose() {
-	if (!isOpen) return;
+	if (!isOpen) {
+		return;
+	}
+
+	if (isSubWindowOpen()) {
+		return;
+	}
 
 	static int prevUp = 0;
 	static int prevDown = 0;
@@ -145,3 +161,9 @@ void FieldMenu::choose() {
 	prevUp = currentUp;
 	prevDown = currentDown;
 }
+
+bool FieldMenu::isSubWindowOpen()
+{
+	return isItemListOpen || isParameterOpen || isSpellListOpen;
+}
+

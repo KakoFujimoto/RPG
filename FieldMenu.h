@@ -42,8 +42,5 @@ public:
 	void update();
 	void draw(Display& display);
 	bool getIsOpen () const;
-	void drawItemList();
-	//void drawParameter();
-	void drawSpellList();
-
+	bool isSubWindowOpen();
 };

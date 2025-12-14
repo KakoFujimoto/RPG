@@ -85,9 +85,6 @@
     <ClInclude Include="RandomGenerator.h">
       <Filter>src\System</Filter>
     </ClInclude>
-    <ClInclude Include="FieldParameterMenu.h">
-      <Filter>src\Core\Field</Filter>
-    </ClInclude>
     <ClInclude Include="FieldMenu.h">
       <Filter>src\Core\Field</Filter>
     </ClInclude>
