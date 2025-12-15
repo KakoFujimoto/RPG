@@ -9,8 +9,9 @@ private:
 	int amount;
 public:
 	Item();
-	Item(std::string name, EffectType effectType, int amount);
-	std::string getName() const;
+	Item(std::string name, const Effect& effect, int amount);
+	const std::string& getName() const;
 	int getAmount() const;
-	Effect getEffect();
+	const Effect& getEffect() const;
+	void decreaseAmount();
 };

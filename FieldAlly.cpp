@@ -55,8 +55,13 @@ int FieldAlly::getY() {
 }
 
 void FieldAlly::useItem(Item& item)
-{
+{   
+    if (item.getAmount() <= 0)
+    {
+        return;
+    }
     item.getEffect().apply(parameter);
+    item.decreaseAmount();
 }
 
 void FieldAlly::castSpell(const Spell& spell)

@@ -4,10 +4,10 @@ Item::Item()
 	: name(""), amount(0) {
 
 }
-Item::Item(std::string name, EffectType effectType, int amount)
-	:name(name), amount(amount){ }
+Item::Item(std::string name, const Effect& effect, int amount)
+	:name(name), effect(effect), amount(amount){ }
 
-std::string Item::getName() const
+const std::string& Item::getName() const
 {
 	return name;
 }
@@ -17,7 +17,15 @@ int Item::getAmount() const
 	return amount;
 }
 
-Effect Item::getEffect()
+const Effect& Item::getEffect() const
 {
 	return effect;
+}
+
+void Item::decreaseAmount()
+{
+	if (amount > 0)
+	{
+	amount--;
+	}
 }

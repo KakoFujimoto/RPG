@@ -22,9 +22,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     SetDrawScreen(DX_SCREEN_BACK);
 
     GameManager gm;
-    //EffectType effectType;
-    Item candy("‚ ‚ß", EffectType::HealMp, 1);
-    Item cottonCandy("‚í‚½‚ª‚µ", EffectType::HealHp, 1);
+    Effect healMpEffect{
+         EffectType::HealMp,
+         8,
+         21
+    };
+    Effect healHpEffect{
+         EffectType::HealHp,
+         30,
+         50
+    };
+    Item candy("‚ ‚ß", healMpEffect, 1);
+    Item cottonCandy("‚í‚½‚ª‚µ", healHpEffect, 1);
 
 
     RandomGenerator rng;
