@@ -9,7 +9,7 @@ private:
 	int amount;
 public:
 	Item();
-	Item(std::string name, int amount);
+	Item(std::string name, EffectType effectType, int amount);
 	std::string getName() const;
 	int getAmount() const;
 	Effect getEffect();

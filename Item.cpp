@@ -4,7 +4,7 @@ Item::Item()
 	: name(""), amount(0) {
 
 }
-Item::Item(std::string name, int amount)
+Item::Item(std::string name, EffectType effectType, int amount)
 	:name(name), amount(amount){ }
 
 std::string Item::getName() const

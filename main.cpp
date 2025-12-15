@@ -5,6 +5,7 @@
 #include"FieldItem.h"
 #include"GameManager.h"
 #include"RandomGenerator.h"
+#include"EffectType.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -21,8 +22,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     SetDrawScreen(DX_SCREEN_BACK);
 
     GameManager gm;
-    Item candy("あめ", 1);
-    Item cottonCandy("わたがし", 1);
+    //EffectType effectType;
+    Item candy("あめ", EffectType::HealMp, 1);
+    Item cottonCandy("わたがし", EffectType::HealHp, 1);
 
 
     RandomGenerator rng;
@@ -34,7 +36,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Display display;
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
-    // フィールドメニューで表示させるため、味方キャラにホイミを習得させる
+    // フィールドメニューで表示させるため、味方キャラにホイミを習得させる(仮の処理)
     Spell hoimi(rng, "ホイミ", 3);
     //hoimi.learn();
     allyParameter.getSpellManager().learnSpell(hoimi);
