@@ -47,7 +47,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
     // フィールドメニューで表示させるため、味方キャラにホイミを習得させる(仮の処理)
-    Spell hoimi(rng, "ホイミ", 3);
+    Spell hoimi(rng, "ホイミ", 3, healHpEffect);
     //hoimi.learn();
     allyParameter.getSpellManager().learnSpell(hoimi);
    
