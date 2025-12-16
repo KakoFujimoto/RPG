@@ -42,7 +42,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     gm.getFieldItemManager().spawn(cottonCandy, 500, 100, rng);
 
 
-    AllyParameter allyParameter("ねこ", 15, 0, 13, 11, 8, 1, 0);
+    //AllyParameter allyParameter("ねこ", 15, 20, 13, 11, 8, 1, 0);
+    AllyParameter& allyParameter = gm.getAlly().getParameter();
+    // テストコード
+    allyParameter.consumeMp(5);
+
 	Display display;
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
@@ -51,10 +55,28 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     //hoimi.learn();
     allyParameter.getSpellManager().learnSpell(hoimi);
    
+    bool prevA = false;
 
     while (ProcessMessage() == 0)
 	{
 		ClearDrawScreen(); // 画面をクリア
+
+        // テストコード
+        bool currentA = CheckHitKey(KEY_INPUT_A);
+        if (currentA && !prevA)
+        {
+            // ★ あめを使用
+            gm.getAlly().useItem(candy);
+        }
+        prevA = currentA;
+
+        DrawString(
+            50,
+            50,
+            ("MP: " + std::to_string(allyParameter.getMp())).c_str(),
+            GetColor(255, 255, 255)
+        );
+        // テストコード
 
         int bgColor = GetColor(0, 140, 0);
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
