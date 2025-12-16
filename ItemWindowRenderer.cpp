@@ -1,4 +1,5 @@
 #include"ItemWindowRenderer.h"
+#include<DxLib.h>
 
 ItemWindowRenderer::ItemWindowRenderer(Display& d) : display(d) {}
 

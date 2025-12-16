@@ -22,6 +22,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     SetDrawScreen(DX_SCREEN_BACK);
 
     GameManager gm;
+
     Effect healMpEffect{
          EffectType::HealMp,
          8,

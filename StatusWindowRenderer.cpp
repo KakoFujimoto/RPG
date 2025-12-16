@@ -1,5 +1,5 @@
 #include"StatusWindowRenderer.h"
-
+#include<DxLib.h>
 
 StatusWindowRenderer::StatusWindowRenderer(Display& d) : display(d) {}
 

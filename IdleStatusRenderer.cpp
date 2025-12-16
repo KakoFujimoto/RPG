@@ -1,4 +1,5 @@
 #include"IdleStatusRenderer.h"
+#include<DxLib.h>
 
 IdleStatusRenderer::IdleStatusRenderer(Display& d) : display(d) {}
 

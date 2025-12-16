@@ -1,4 +1,5 @@
 #include"SpellWindowRenderer.h"
+#include<DxLib.h>
 
 SpellWindowRenderer::SpellWindowRenderer(Display& d) : display(d){ }
 
