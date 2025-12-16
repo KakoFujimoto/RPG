@@ -1,4 +1,5 @@
 #include"Spell.h"
+#include"Effect.h"
 
 Spell::Spell(RandomGenerator& rng, const std::string n, int cost)
 		: rng(rng), name(n), mpCost(cost){ }
@@ -23,7 +24,7 @@ void Spell::learn()
 	isLearnd = true;
 }
 
-Effect Spell::getEffect() const
+Effect& Spell::getEffect() const
 {
 	return effect;
 }

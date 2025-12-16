@@ -1,13 +1,15 @@
 #pragma once
 #include <string>
-#include"Effect.h"
+//#include"Effect.h"
+
+struct Effect;
 
 class RandomGenerator;
 class Spell {
 private:
 	RandomGenerator& rng;
 	std::string name;
-	Effect effect;
+	Effect& effect;
 	int mpCost;
 	bool isLearnd = false;
 
@@ -17,5 +19,5 @@ public:
 	int getMpCost() const;
 	bool getIsLearned() const;
 	void learn();
-	Effect getEffect() const;
+	Effect& getEffect() const;
 };
