@@ -15,7 +15,7 @@ private:
 
 public:
 	FieldAlly();
-	FieldAlly(std::string name, int x, int y);
+	FieldAlly(const Position pos, AllyParameter parameter);
 	void move();
 	AllyParameter& getParameter();
 	std::string getName();

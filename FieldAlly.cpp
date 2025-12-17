@@ -3,10 +3,10 @@
 
 FieldAlly::FieldAlly() {}
 
-FieldAlly::FieldAlly(std::string name, int x, int y)
-    : pos(x,y)
+FieldAlly::FieldAlly(const Position pos, AllyParameter parameter)
+    : pos(pos),
+    parameter(std::move(parameter))
 {
-    this->parameter.name = std::move(name);
 }
 
 void FieldAlly::addPositionX(int x) {

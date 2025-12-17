@@ -1,7 +1,10 @@
 #include"GameManager.h"
 
 GameManager::GameManager()
-    : ally("‚Ë‚±", 400, 300),
+    : ally(
+        Position{400, 300},
+        AllyParameter("‚Ë‚±", 15, 20, 13, 11, 8, 1, 0)
+    ),
     fieldItemManager(),
     itemBag(){}
 
