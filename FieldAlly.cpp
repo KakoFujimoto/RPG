@@ -54,14 +54,13 @@ int FieldAlly::getY() {
     return pos.getY();
 }
 
-void FieldAlly::useItem(Item& item)
+void FieldAlly::useItem(const Item& item)
 {   
     if (item.getAmount() <= 0)
     {
         return;
     }
     item.getEffect().apply(parameter);
-    item.decreaseAmount();
 }
 
 void FieldAlly::castSpell(const Spell& spell)

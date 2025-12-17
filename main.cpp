@@ -66,7 +66,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         if (currentA && !prevA)
         {
             // Åö Ç†ÇﬂÇégóp
-            gm.getAlly().useItem(candy);
+            gm.getItemBag().useItem("Ç†Çﬂ", gm.getAlly());
         }
         prevA = currentA;
 
