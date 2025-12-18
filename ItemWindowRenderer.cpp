@@ -34,7 +34,11 @@ void ItemWindowRenderer::draw()
     int textColor = GetColor(255, 255, 255);
 
     for (const auto& item : items)
-    {
+    {   
+        if (item.getAmount() <= 0)
+        {
+            continue;
+        }
         std::string text =
             item.getName() + " " + std::to_string(item.getAmount());
 
