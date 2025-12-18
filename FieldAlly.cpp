@@ -1,5 +1,6 @@
 #include "FieldAlly.h"
 #include "DxLib.h"
+#include "EffectResult.h"
 
 FieldAlly::FieldAlly() {}
 
@@ -54,14 +55,17 @@ int FieldAlly::getY() {
     return pos.getY();
 }
 
-void FieldAlly::useItem(const Item& item)
-{   
+EffectResult FieldAlly::useItem(const Item& item)
+{
     if (item.getAmount() <= 0)
     {
-        return;
+        EffectResult result;
+        result.success = false;
+        return result;
     }
-    item.getEffect().apply(parameter);
+    return item.getEffect().apply(parameter);
 }
+
 
 void FieldAlly::castSpell(const Spell& spell)
 {

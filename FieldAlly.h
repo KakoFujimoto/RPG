@@ -3,6 +3,7 @@
 #include"Position.h"
 #include"Item.h"
 
+class EffectResult;
 class FieldAlly
 {
 
@@ -22,6 +23,6 @@ public:
 	int getX();
 	int getY();
 	const Position& getPosition() const { return pos; }
-	void useItem(const Item& item);
+	EffectResult useItem(const Item& item);
 	void castSpell(const Spell& spell);
 };

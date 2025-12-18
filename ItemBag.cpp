@@ -1,5 +1,6 @@
 #include"ItemBag.h"
 #include"FieldAlly.h"
+#include"EffectResult.h"
 
 void ItemBag::add(const Item& item)
 {
@@ -23,7 +24,7 @@ const std::vector<Item>& ItemBag::getItems() const
 	return items;
 }
 
-bool ItemBag::useItem(
+EffectResult ItemBag::useItem(
     const std::string& itemName,
     FieldAlly& ally
 )
@@ -32,11 +33,17 @@ bool ItemBag::useItem(
 
     if (it == items.end() || it->getAmount() <= 0)
     {
-        return false;
+        EffectResult result;
+        result.success = false;
+        return result;
     }
 
-    ally.useItem(*it);
-    it->decreaseAmount();
+    EffectResult result = ally.useItem(*it);
 
-    return true;
+    if (result.success)
+    {
+        it->decreaseAmount();
+    }
+
+    return result;
 }

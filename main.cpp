@@ -6,6 +6,7 @@
 #include"GameManager.h"
 #include"RandomGenerator.h"
 #include"EffectType.h"
+#include"EffectResult.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -57,6 +58,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
    
     bool prevA = false;
 
+    EffectResult lastResult;
+
     while (ProcessMessage() == 0)
 	{
 		ClearDrawScreen(); // 画面をクリア
@@ -66,7 +69,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         if (currentA && !prevA)
         {
             // ★ あめを使用
-            gm.getItemBag().useItem("あめ", gm.getAlly());
+            //gm.getItemBag().useItem("あめ", gm.getAlly());
+            lastResult = gm.getItemBag().useItem("あめ", gm.getAlly());
         }
         prevA = currentA;
 

@@ -3,6 +3,7 @@
 #include "Item.h"
 
 class FieldAlly;
+class EffectResult;
 
 class ItemBag {
 private:
@@ -11,5 +12,5 @@ public:
 	void add(const Item& item);
 	std::vector<Item>::iterator find(const std::string& itemName);
 	const std::vector<Item>& getItems() const;
-	bool useItem(const std::string& itemName, FieldAlly& ally);
+	EffectResult useItem(const std::string& itemName, FieldAlly& ally);
 	};

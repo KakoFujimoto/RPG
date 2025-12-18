@@ -3,10 +3,12 @@
 #include"AllyParameter.h"
 #include"RandomGenerator.h"
 
+struct EffectResult;
+
 struct Effect {
     EffectType type;
     int minValue;
     int maxValue;
 
-    void apply(AllyParameter& target) const;
+    EffectResult apply(AllyParameter& target) const;
 };

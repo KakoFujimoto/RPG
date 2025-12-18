@@ -128,6 +128,9 @@
     <ClInclude Include="EffectType.h">
       <Filter>src\System</Filter>
     </ClInclude>
+    <ClInclude Include="EffectWindowRenderer.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -186,6 +189,12 @@
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectResult.h">
+      <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectWindowRenderer.cpp">
+      <Filter>src\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
