@@ -43,9 +43,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     gm.getFieldItemManager().spawn(cottonCandy, 500, 100, rng);
 
 
-    //AllyParameter allyParameter("ねこ", 15, 20, 13, 11, 8, 1, 0);
     AllyParameter& allyParameter = gm.getAlly().getParameter();
-    // テストコード
+    // テストコードここから
     allyParameter.consumeMp(5);
 
 	Display display;
@@ -53,39 +52,31 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     // フィールドメニューで表示させるため、味方キャラにホイミを習得させる(仮の処理)
     Spell hoimi(rng, "ホイミ", 3, healHpEffect);
-    //hoimi.learn();
     allyParameter.getSpellManager().learnSpell(hoimi);
    
     bool prevA = false;
 
     EffectResult lastResult;
+    // テストコードここまで
 
     while (ProcessMessage() == 0)
 	{
 		ClearDrawScreen(); // 画面をクリア
 
-        // テストコード
+        // テストコードここから
         bool currentA = CheckHitKey(KEY_INPUT_A);
         if (currentA && !prevA)
         {
-            // ★ あめを使用
-            //gm.getItemBag().useItem("あめ", gm.getAlly());
+            // あめを使用
             lastResult = gm.getItemBag().useItem("あめ", gm.getAlly());
+            fieldMenu.showEffect(lastResult);
         }
         prevA = currentA;
-
-        DrawString(
-            50,
-            50,
-            ("MP: " + std::to_string(allyParameter.getMp())).c_str(),
-            GetColor(255, 255, 255)
-        );
-        // テストコード
+        // テストコードここまで
 
         int bgColor = GetColor(0, 140, 0);
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
-        //if (!subdMenu.isOpen()) 
         fieldMenu.update();
         
         if (!fieldMenu.getIsOpen()) {

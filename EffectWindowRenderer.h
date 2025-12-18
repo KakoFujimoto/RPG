@@ -1,10 +1,26 @@
 #pragma once
 
-class EffectResult;
+struct EffectResult;
+class Display;
 
-class EffectWindowRenderer
+class EffectWindowRenderer {
+private:
+    Display& display;
+    const EffectResult* result = nullptr;
 
-{
+    int posX = 40;
+    int posY = 420;
+    int width = 720;
+    int height = 140;
+    bool visible = false;
+    int showFrame = 0; //ï\é¶ÉtÉåÅ[ÉÄêî
+
 public:
-    void draw(const EffectResult& result);
+    EffectWindowRenderer(Display& d);
+    void draw();
+    void setResult(const EffectResult* r);
+    void setPosition(int x, int y);
+    void show();
+    void hide();
 };
+

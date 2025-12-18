@@ -9,6 +9,7 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	, allyParameter(allyParameter)
 	, itemRenderer(display)
 	, idleRenderer(display)
+	, effectRenderer(display)
 	, itemBag(&gm->getItemBag())
 {
 	idleRenderer.setTarget(&allyParameter);
@@ -144,6 +145,8 @@ void FieldMenu::draw(Display& display)
 		idleRenderer.draw();
 	}
 
+	effectRenderer.draw();
+
 	if (!isOpen) {
 		return; // 開いていなければ何もしない
 	}
@@ -180,7 +183,6 @@ void FieldMenu::draw(Display& display)
 		statusRenderer.draw();
 	}
 }
-
 
 bool FieldMenu::getIsOpen() const {
 	return isOpen;
@@ -223,3 +225,9 @@ bool FieldMenu::isSubWindowOpen()
 	return isItemListOpen || isParameterOpen || isSpellListOpen;
 }
 
+void FieldMenu::showEffect(const EffectResult& result)
+{
+	effectRenderer.setResult(&result);
+	effectRenderer.setPosition(50, 300);
+	effectRenderer.show();
+}

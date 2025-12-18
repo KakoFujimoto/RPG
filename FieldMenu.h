@@ -10,6 +10,7 @@
 #include"SpellWindowRenderer.h"
 #include"ItemWindowRenderer.h"
 #include"IdleStatusRenderer.h"
+#include"EffectWindowRenderer.h"
 #include"ItemBag.h"
 
 class FieldMenu {
@@ -36,6 +37,7 @@ private:
 	AllyParameter& allyParameter;
 	ItemWindowRenderer itemRenderer;
 	IdleStatusRenderer idleRenderer;
+	EffectWindowRenderer effectRenderer;
 	ItemBag* itemBag;
 
 public:
@@ -48,4 +50,5 @@ public:
 	void draw(Display& display);
 	bool getIsOpen () const;
 	bool isSubWindowOpen();
+	void showEffect(const EffectResult& result);
 };

@@ -1,31 +1,78 @@
 #include"EffectWindowRenderer.h"
 #include"EffectResult.h"
-#include <string>
+#include"Display.h"
+#include<string>
 #include<DxLib.h>
 
+EffectWindowRenderer::EffectWindowRenderer(Display& d) : display(d) {}
 
-void EffectWindowRenderer::draw(const EffectResult& result)
+void EffectWindowRenderer::draw()
 {
-    if (!result.success) return;
-
-    int y = 100;
-
-    if (result.hpDelta != 0)
-    {
-        std::string text =
-            (result.hpDelta > 0 ? "HP +" : "HP ")
-            + std::to_string(result.hpDelta);
-
-        DrawString(50, y, text.c_str(), GetColor(255, 255, 255));
-        y += 20;
+    if (!visible || !result || !result->success) {
+        return;
     }
 
-    if (result.mpDelta != 0)
-    {
-        std::string text =
-            (result.mpDelta > 0 ? "MP +" : "MP ")
-            + std::to_string(result.mpDelta);
+    int borderColor = GetColor(255, 255, 255);
+    int fillColor = GetColor(0, 0, 0);
 
-        DrawString(50, y, text.c_str(), GetColor(255, 255, 255));
+    display.drawWindow(posX, posY, width, height, borderColor, fillColor);
+
+    int textColor = GetColor(255, 255, 255);
+
+    int textX = posX + 20;
+    int textY = posY + 20;
+
+    // 1行目
+    display.drawText(
+        textX,
+        textY,
+        result->userName + "は" + result->itemName + "をつかった！",
+        textColor
+    );
+
+    // 2行目
+    if (result->hpDelta > 0) {
+        display.drawText(
+            textX,
+            textY + 30,
+            result->userName + "のHPが" +
+            std::to_string(result->hpDelta) + "かいふくした！",
+            textColor
+        );
     }
+    else if (result->mpDelta > 0) {
+        display.drawText(
+            textX,
+            textY + 30,
+            result->userName + "のMPが" +
+            std::to_string(result->mpDelta) + "かいふくした！",
+            textColor
+        );
+    }
+    showFrame++;
+    if (showFrame >= 120) { // 約2秒
+        hide();
+    }
+}
+
+void EffectWindowRenderer::setResult(const EffectResult* r)
+{
+    result = r;
+}
+
+void EffectWindowRenderer::setPosition(int x, int y)
+{
+    posX = x;
+    posY = y;
+}
+void EffectWindowRenderer::show()
+{
+    visible = true;
+    showFrame = 0;
+}
+
+void EffectWindowRenderer::hide()
+{
+    visible = false;
+    showFrame = 0;
 }

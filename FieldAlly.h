@@ -3,7 +3,7 @@
 #include"Position.h"
 #include"Item.h"
 
-class EffectResult;
+struct EffectResult;
 class FieldAlly
 {
 

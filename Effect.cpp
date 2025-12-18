@@ -36,5 +36,7 @@ EffectResult Effect::apply(AllyParameter& target) const
         break;
     }
 
+    result.success = true;
+
     return result;
 }

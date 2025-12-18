@@ -21,7 +21,7 @@ std::vector<Item>::iterator ItemBag::find(const std::string& itemName)
 
 const std::vector<Item>& ItemBag::getItems() const
 {
-	return items;
+    return items;
 }
 
 EffectResult ItemBag::useItem(
@@ -43,6 +43,9 @@ EffectResult ItemBag::useItem(
     if (result.success)
     {
         it->decreaseAmount();
+
+        result.userName = ally.getName();
+        result.itemName = it->getName();
     }
 
     return result;

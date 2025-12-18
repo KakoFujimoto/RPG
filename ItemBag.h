@@ -3,7 +3,7 @@
 #include "Item.h"
 
 class FieldAlly;
-class EffectResult;
+struct EffectResult;
 
 class ItemBag {
 private:
