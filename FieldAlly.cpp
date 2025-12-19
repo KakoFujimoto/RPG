@@ -67,10 +67,28 @@ EffectResult FieldAlly::useItem(const Item& item)
 }
 
 
-void FieldAlly::castSpell(const Spell& spell)
+EffectResult FieldAlly::castSpell(const Spell& spell)
 {
-    if (parameter.getMp() >= spell.getMpCost()) {
-        parameter.consumeMp(spell.getMpCost());
-        spell.getEffect().apply(parameter);
+    EffectResult result;
+    result.success = false;
+
+    // MP•s‘«
+    if (parameter.getMp() < spell.getMpCost()) {
+        return result;
     }
+
+    int beforeHp = parameter.getHp();
+    int beforeMp = parameter.getMp();
+
+    parameter.consumeMp(spell.getMpCost());
+    spell.getEffect().apply(parameter);
+
+    result.success = true;
+    result.userName = parameter.name;
+    result.itemName = spell.getName();
+
+    result.hpDelta = parameter.getHp() - beforeHp;
+    result.mpDelta = parameter.getMp() - beforeMp;
+
+    return result;
 }

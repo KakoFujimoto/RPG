@@ -24,5 +24,5 @@ public:
 	int getY();
 	const Position& getPosition() const { return pos; }
 	EffectResult useItem(const Item& item);
-	void castSpell(const Spell& spell);
+	EffectResult castSpell(const Spell& spell);
 };
