@@ -70,10 +70,13 @@ EffectResult FieldAlly::useItem(const Item& item)
 EffectResult FieldAlly::castSpell(const Spell& spell)
 {
     EffectResult result;
-    result.success = false;
+    result.actionType = ActionType::Spell;
+    result.userName = getName();
+    result.actionName = spell.getName();
 
-    // MP•s‘«
     if (parameter.getMp() < spell.getMpCost()) {
+        result.success = false;
+        result.mpShortage = true;
         return result;
     }
 
@@ -84,9 +87,6 @@ EffectResult FieldAlly::castSpell(const Spell& spell)
     spell.getEffect().apply(parameter);
 
     result.success = true;
-    result.userName = getName();
-    result.itemName = spell.getName();
-
     result.hpDelta = parameter.getHp() - beforeHp;
     result.mpDelta = parameter.getMp() - beforeMp;
 

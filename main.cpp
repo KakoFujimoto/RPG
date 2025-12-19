@@ -44,8 +44,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
     AllyParameter& allyParameter = gm.getAlly().getParameter();
+
+
     // テストコードここから
     allyParameter.consumeMp(5);
+    allyParameter.takeDamage(20);
 
 	Display display;
 	FieldMenu fieldMenu(&gm, display, allyParameter);
@@ -55,6 +58,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     allyParameter.getSpellManager().learnSpell(hoimi);
    
     bool prevA = false;
+    bool prevS = false;
 
     EffectResult lastResult;
     // テストコードここまで
@@ -65,6 +69,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         // テストコードここから
         bool currentA = CheckHitKey(KEY_INPUT_A);
+        bool currentS = CheckHitKey(KEY_INPUT_S);
+
         if (currentA && !prevA)
         {
             // あめを使用
@@ -72,6 +78,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             fieldMenu.showEffect(lastResult);
         }
         prevA = currentA;
+
+        if (currentS && !prevS)
+        {   
+            // ホイミを使用
+            lastResult = allyParameter.getSpellManager().castSpell("ホイミ", gm.getAlly());
+            fieldMenu.showEffect(lastResult);
+        }
         // テストコードここまで
 
         int bgColor = GetColor(0, 140, 0);

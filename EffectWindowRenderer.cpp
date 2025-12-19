@@ -8,30 +8,54 @@ EffectWindowRenderer::EffectWindowRenderer(Display& d) : display(d) {}
 
 void EffectWindowRenderer::draw()
 {
-    if (!visible || !result || !result->success) {
+    if (!visible || !result) {
         return;
     }
 
     int borderColor = GetColor(255, 255, 255);
     int fillColor = GetColor(0, 0, 0);
 
-    display.drawWindow(posX, posY, width, height, borderColor, fillColor);
+    display.drawWindow(
+        posX, posY,
+        width, height,
+        borderColor, fillColor
+    );
 
     int textColor = GetColor(255, 255, 255);
 
     int textX = posX + 20;
     int textY = posY + 20;
 
-    // 1行目
-    display.drawText(
-        textX,
-        textY,
-        result->userName + "は" + result->itemName + "をつかった！",
-        textColor
-    );
+    // 1行目（行動）
+    if (result->actionType == ActionType::Item) {
+        display.drawText(
+            textX,
+            textY,
+            result->userName + "は" +
+            result->actionName + "をつかった！",
+            textColor
+        );
+    }
+    else if (result->actionType == ActionType::Spell) {
+        display.drawText(
+            textX,
+            textY,
+            result->userName + "は" +
+            result->actionName + "をとなえた！",
+            textColor
+        );
+    }
 
-    // 2行目
-    if (result->hpDelta > 0) {
+    // 2行目（結果）
+    if (!result->success && result->mpShortage) {
+        display.drawText(
+            textX,
+            textY + 30,
+            "しかしMPがたりない！",
+            textColor
+        );
+    }
+    else if (result->hpDelta > 0) {
         display.drawText(
             textX,
             textY + 30,
@@ -49,6 +73,8 @@ void EffectWindowRenderer::draw()
             textColor
         );
     }
+
+    // 自動クローズ
     showFrame++;
     if (showFrame >= 120) { // 約2秒
         hide();

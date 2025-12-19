@@ -31,21 +31,24 @@ EffectResult ItemBag::useItem(
 {
     auto it = find(itemName);
 
+    // Š‚µ‚Ä‚¢‚È‚¢AŒÂ”0‚Ìê‡
     if (it == items.end() || it->getAmount() <= 0)
     {
         EffectResult result;
         result.success = false;
+        result.actionType = ActionType::Item;
         return result;
     }
 
     EffectResult result = ally.useItem(*it);
 
+    result.actionType = ActionType::Item;
+    result.userName = ally.getName();
+    result.actionName = it->getName();
+
     if (result.success)
     {
         it->decreaseAmount();
-
-        result.userName = ally.getName();
-        result.itemName = it->getName();
     }
 
     return result;

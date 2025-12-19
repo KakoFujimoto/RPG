@@ -70,9 +70,6 @@
     <ClInclude Include="FieldItem.h">
       <Filter>src\Core\Field</Filter>
     </ClInclude>
-    <ClInclude Include="FieldItemManager.h">
-      <Filter>src\Core\Field</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>src\Core\Enemy</Filter>
     </ClInclude>
@@ -130,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="EffectWindowRenderer.h">
       <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldItemManager.h">
+      <Filter>src\Core\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
