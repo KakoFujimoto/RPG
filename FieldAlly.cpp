@@ -74,21 +74,22 @@ EffectResult FieldAlly::castSpell(const Spell& spell)
     result.userName = getName();
     result.actionName = spell.getName();
 
-    if (parameter.getMp() < spell.getMpCost()) {
+    if (parameter.getMp() < spell.getMpCost())
+    {
         result.success = false;
         result.mpShortage = true;
         return result;
     }
 
-    int beforeHp = parameter.getHp();
-    int beforeMp = parameter.getMp();
-
     parameter.consumeMp(spell.getMpCost());
-    spell.getEffect().apply(parameter);
 
-    result.success = true;
-    result.hpDelta = parameter.getHp() - beforeHp;
-    result.mpDelta = parameter.getMp() - beforeMp;
+    EffectResult effectRes = spell.getEffect().apply(parameter);
+
+    result.success = effectRes.success;
+    result.mpShortage = false;
+
+    result.hpDelta = effectRes.hpDelta;
+    result.mpDelta = (-spell.getMpCost()) + effectRes.mpDelta;
 
     return result;
 }

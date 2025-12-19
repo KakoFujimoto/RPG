@@ -36,7 +36,7 @@ public:
 	const SpellManager& getSpellManager() const;
 	AllyStatusView getStatusView() const;
 	void takeDamage(int amount);
-	void healHp(int amount);
+	int healHp(int amount);
 	void consumeMp(int amount);
 	void healMp(int amount);
 	int getHp();

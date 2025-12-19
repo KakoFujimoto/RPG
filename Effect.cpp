@@ -7,14 +7,15 @@ EffectResult Effect::apply(AllyParameter& target) const
     int value = rng.getRandomValue(minValue, maxValue);
 
     EffectResult result{};
+    result.success = true;
+    result.mpShortage = false;
 
     switch (type)
     {
     case EffectType::HealHp:
     {
-        int before = target.getHp();
-        target.healHp(value);
-        result.hpDelta = target.getHp() - before;
+        int healed = target.healHp(value);
+        result.hpDelta = healed;
         break;
     }
     case EffectType::HealMp:
@@ -35,8 +36,5 @@ EffectResult Effect::apply(AllyParameter& target) const
         result.success = false;
         break;
     }
-
-    result.success = true;
-
     return result;
 }

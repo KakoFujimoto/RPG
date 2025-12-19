@@ -60,13 +60,15 @@ void AllyParameter::takeDamage(int amount)
     }
 }
 
-void AllyParameter::healHp(int amount)
-{
+int AllyParameter::healHp(int amount)
+{   
+    int before = hp;
     hp += amount;
     if (hp > maxHp)
     {
         hp = maxHp;
     }
+    return hp - before;
 }
 
 void AllyParameter::consumeMp(int amount)

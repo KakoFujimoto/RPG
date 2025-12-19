@@ -3,7 +3,7 @@
 GameManager::GameManager()
     : ally(
         Position{400, 300},
-        AllyParameter("‚Ë‚±", 30, 20, 13, 11, 8, 1, 0)
+        AllyParameter("‚Ë‚±", 500, 20, 13, 11, 8, 1, 0)
     ),
     fieldItemManager(),
     itemBag(){}

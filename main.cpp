@@ -48,7 +48,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     // テストコードここから
     allyParameter.consumeMp(5);
-    allyParameter.takeDamage(20);
+    allyParameter.takeDamage(480);
 
 	Display display;
 	FieldMenu fieldMenu(&gm, display, allyParameter);
@@ -85,6 +85,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             lastResult = allyParameter.getSpellManager().castSpell("ホイミ", gm.getAlly());
             fieldMenu.showEffect(lastResult);
         }
+        prevS = currentS;
+
         // テストコードここまで
 
         int bgColor = GetColor(0, 140, 0);
