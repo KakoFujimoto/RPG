@@ -84,7 +84,7 @@ EffectResult FieldAlly::castSpell(const Spell& spell)
     spell.getEffect().apply(parameter);
 
     result.success = true;
-    result.userName = parameter.name;
+    result.userName = getName();
     result.itemName = spell.getName();
 
     result.hpDelta = parameter.getHp() - beforeHp;
