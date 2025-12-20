@@ -12,6 +12,7 @@
 #include"IdleStatusRenderer.h"
 #include"EffectWindowRenderer.h"
 #include"ItemBag.h"
+#include"EffectResult.h"
 
 class FieldMenu {
 private:
@@ -39,7 +40,9 @@ private:
 	IdleStatusRenderer idleRenderer;
 	EffectWindowRenderer effectRenderer;
 	ItemBag* itemBag;
-	bool prevEnter = false;
+	bool prevEnterMain = false;
+	bool prevEnterItem = false;
+	EffectResult lastEffect;
 
 public:
 	FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter);

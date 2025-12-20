@@ -43,17 +43,20 @@ void FieldMenu::select(bool enterPressed)
 		itemRenderer.setTarget(itemBag);
 		itemRenderer.setPosition(200, 120);
 
-		prevEnter = true;
+		prevEnterItem = CheckHitKey(KEY_INPUT_RETURN);
+		return;
 	}
 	else if (id == "STATUS") {
 		isParameterOpen = true;
 		statusRenderer.setTarget(&allyParameter);
 		statusRenderer.setPosition(200, 120);
+		return;
 	}
 	else if (id == "SPELL") {
 		isSpellListOpen = true;
 		spellRenderer.setTarget(&allyParameter);
 		spellRenderer.setPosition(200, 120);
+		return;
 	}
 }
 
@@ -100,19 +103,31 @@ void FieldMenu::update()
 	}
 
 	bool enter = CheckHitKey(KEY_INPUT_RETURN);
-	bool enterPressed = enter && !prevEnter;
 
 	// SPACEキーで開く
 	if (!isOpen) {
 		if (CheckHitKey(KEY_INPUT_SPACE))
 		{
 			open();
+			prevEnterMain = enter;
+			prevEnterItem = enter;
 		}
+		return;
 	}
 	if (isItemListOpen) {
+		bool enterPressedItem = enter && !prevEnterItem;
+
+		// テストコード
+		DrawString(
+			10, 10,
+			enterPressedItem ? "enterPressedItem=TRUE" : "enterPressedItem=FALSE",
+			GetColor(255, 255, 255)
+		);
+		// テストコードここまで
+
 		itemRenderer.update();
 
-		if (enterPressed)
+		if (enterPressedItem)
 		{
 			const Item* item = itemRenderer.getSelectedItem();
 			if (item)
@@ -126,10 +141,14 @@ void FieldMenu::update()
 		{
 			isItemListOpen = false;
 			escPushed = true;
+			prevEnterMain = enter;
+			prevEnterItem = enter;
+			return;
 		}
-		prevEnter = enter;
+		prevEnterItem = enter;
 		return;
 	}
+
 	if (isParameterOpen) {
 		if (statusRenderer.isCloseRequested())
 		{
@@ -155,9 +174,10 @@ void FieldMenu::update()
 		return;
 		
 	}
+	bool enterPressedMain = enter && !prevEnterMain;
 	choose();
-	select(enterPressed);
-	prevEnter = enter;
+	select(enterPressedMain);
+	prevEnterMain = enter;
 }
 
 void FieldMenu::draw(Display& display)
@@ -248,7 +268,8 @@ bool FieldMenu::isSubWindowOpen()
 
 void FieldMenu::showEffect(const EffectResult& result)
 {
-	effectRenderer.setResult(&result);
+	lastEffect = result;
+	effectRenderer.setResult(&lastEffect);
 	effectRenderer.setPosition(50, 300);
 	effectRenderer.show();
 }
