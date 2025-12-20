@@ -1,5 +1,6 @@
 ﻿#include"FieldMenu.h"
 #include"DxLib.h"
+#include"EffectResult.h"
 
 FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
 	: gm(gm)
@@ -105,6 +106,16 @@ void FieldMenu::update()
 	if (isItemListOpen) {
 		itemRenderer.update();
 
+		if (CheckHitKey(KEY_INPUT_RETURN))
+		{
+			const Item* item = itemRenderer.getSelectedItem();
+			if (item)
+			{
+				EffectResult r =
+					itemBag->useItem(item->getName(), gm->getAlly());
+				showEffect(r);
+			}
+		}
 		if (itemRenderer.isCloseRequested())
 		{
 			isItemListOpen = false;

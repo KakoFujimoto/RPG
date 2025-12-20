@@ -102,3 +102,25 @@ void ItemWindowRenderer::update()
     prevUp = up;
     prevDown = down;
 }
+
+const Item* ItemWindowRenderer::getSelectedItem() const
+{
+    if (!itemBag)
+    {
+        return nullptr;
+    }
+
+    int index = 0;
+    for (const auto& item : itemBag->getItems())
+    {
+        if (item.getAmount() > 0)
+        {
+            if (index == selectedIndex)
+            {
+                return &item;
+            }
+            index++;
+        }
+        return nullptr;
+    }
+}
