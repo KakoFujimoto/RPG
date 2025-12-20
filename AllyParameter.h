@@ -37,8 +37,8 @@ public:
 	AllyStatusView getStatusView() const;
 	void takeDamage(int amount);
 	int healHp(int amount);
-	void consumeMp(int amount);
-	void healMp(int amount);
+	int consumeMp(int amount);
+	int healMp(int amount);
 	int getHp();
 	int getMp();
 };

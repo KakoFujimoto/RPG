@@ -71,23 +71,28 @@ int AllyParameter::healHp(int amount)
     return hp - before;
 }
 
-void AllyParameter::consumeMp(int amount)
+int AllyParameter::consumeMp(int amount)
 {
+    int before = mp;
     mp -= amount;
     if (mp < 0)
     {
         mp = 0;
     }
+    return mp - before;
 }
 
-void AllyParameter::healMp(int amount)
+int AllyParameter::healMp(int amount)
 {
+    int before = mp;
     mp += amount;
     if (mp > maxMp)
     {
         mp = maxMp;
     }
+    return mp - before;
 }
+
 
 int AllyParameter::getHp()
 {

@@ -81,15 +81,16 @@ EffectResult FieldAlly::castSpell(const Spell& spell)
         return result;
     }
 
-    parameter.consumeMp(spell.getMpCost());
+    int mpCostDelta = parameter.consumeMp(spell.getMpCost());
 
     EffectResult effectRes = spell.getEffect().apply(parameter);
 
-    result.success = effectRes.success;
+    result.success = true;
     result.mpShortage = false;
 
     result.hpDelta = effectRes.hpDelta;
-    result.mpDelta = (-spell.getMpCost()) + effectRes.mpDelta;
+    result.mpDelta = mpCostDelta + effectRes.mpDelta;
 
     return result;
 }
+

@@ -14,15 +14,12 @@ EffectResult Effect::apply(AllyParameter& target) const
     {
     case EffectType::HealHp:
     {
-        int healed = target.healHp(value);
-        result.hpDelta = healed;
+        result.hpDelta = target.healHp(value);
         break;
     }
     case EffectType::HealMp:
     {
-        int before = target.getMp();
-        target.healMp(value);
-        result.mpDelta = target.getMp() - before;
+        result.mpDelta = target.healMp(value);
         break;
     }
     case EffectType::Damage:
