@@ -116,15 +116,6 @@ void FieldMenu::update()
 	}
 	if (isItemListOpen) {
 		bool enterPressedItem = enter && !prevEnterItem;
-
-		// テストコード
-		DrawString(
-			10, 10,
-			enterPressedItem ? "enterPressedItem=TRUE" : "enterPressedItem=FALSE",
-			GetColor(255, 255, 255)
-		);
-		// テストコードここまで
-
 		itemRenderer.update();
 
 		if (enterPressedItem)
@@ -135,6 +126,7 @@ void FieldMenu::update()
 				EffectResult r =
 					itemBag->useItem(item->getName(), gm->getAlly());
 				showEffect(r);
+				itemRenderer.clampSelectedIndex();
 			}
 		}
 		if (itemRenderer.isCloseRequested())

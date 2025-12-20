@@ -20,4 +20,6 @@ public:
     void update();
     bool isCloseRequested() const;
     const Item* getSelectedItem() const;
+    int getVisibleCount() const;
+    void clampSelectedIndex();
 };

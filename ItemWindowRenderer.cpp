@@ -125,3 +125,33 @@ const Item* ItemWindowRenderer::getSelectedItem() const
     }
         return nullptr;
 }
+int ItemWindowRenderer::getVisibleCount() const
+{
+    if (!itemBag)
+    {
+        return 0;
+    }
+    int count = 0;
+    for (const auto& item : itemBag->getItems())
+    {
+        if (item.getAmount() > 0)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+void ItemWindowRenderer::clampSelectedIndex()
+{
+    int visibleCount = getVisibleCount();
+    if (visibleCount == 0)
+    {
+        selectedIndex = 0;
+        return;
+    }
+
+    if (selectedIndex >= visibleCount)
+    {
+        selectedIndex = visibleCount - 1;
+    }
+}
