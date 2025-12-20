@@ -103,6 +103,8 @@ void FieldMenu::update()
 		}
 	}
 	if (isItemListOpen) {
+		itemRenderer.update();
+
 		if (itemRenderer.isCloseRequested())
 		{
 			isItemListOpen = false;

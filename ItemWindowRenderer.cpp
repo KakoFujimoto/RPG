@@ -86,11 +86,17 @@ void ItemWindowRenderer::update()
     bool down = CheckHitKey(KEY_INPUT_DOWN);
 
     if (up && !prevUp) {
-        selectedIndex = (selectedIndex - 1 + visibleCount) % visibleCount;
+        selectedIndex--;
+        if (selectedIndex < 0) {
+            selectedIndex = visibleCount - 1;
+        }
     }
 
     if (down && !prevDown) {
-        selectedIndex = (selectedIndex + 1) % visibleCount;
+        selectedIndex++;
+        if (selectedIndex >= visibleCount) {
+            selectedIndex = 0;
+        }
     }
 
     prevUp = up;
