@@ -27,11 +27,6 @@ void ItemWindowRenderer::draw()
             visibleCount++;
         }
     }
-
-    if (visibleCount == 0) {
-        return;
-    }
-
     int width = 220;
     int height = 40 + visibleCount * 20;
 
