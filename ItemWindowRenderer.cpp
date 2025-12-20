@@ -113,14 +113,15 @@ const Item* ItemWindowRenderer::getSelectedItem() const
     int index = 0;
     for (const auto& item : itemBag->getItems())
     {
-        if (item.getAmount() > 0)
+        if (item.getAmount() <= 0)
         {
-            if (index == selectedIndex)
-            {
-                return &item;
-            }
-            index++;
+            continue;
         }
-        return nullptr;
+        if (index == selectedIndex)
+        {
+            return &item;
+        }
+        index++;
     }
+        return nullptr;
 }
