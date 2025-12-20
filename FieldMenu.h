@@ -39,11 +39,12 @@ private:
 	IdleStatusRenderer idleRenderer;
 	EffectWindowRenderer effectRenderer;
 	ItemBag* itemBag;
+	bool prevEnter = false;
 
 public:
 	FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter);
 	void choose();
-	void select();
+	void select(bool enterPressed);
 	void open();
 	void close();
 	void update();

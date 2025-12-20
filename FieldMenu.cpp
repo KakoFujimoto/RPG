@@ -17,40 +17,43 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	idleRenderer.setPosition(520, 420);
 }
 
-void FieldMenu::select()
+void FieldMenu::select(bool enterPressed)
 {
-	if (CheckHitKey(KEY_INPUT_RETURN))
-	{	
-		if (!isOpen)
-		{
-			return;
-		}
+	if (!enterPressed)
+	{
+		return;
+	}
+	if (!isOpen)
+	{
+		return;
+	}
 
-		if (isSubWindowOpen())
-		{
-			return;
-		}
+	if (isSubWindowOpen())
+	{
+		return;
+	}
 
-		std::string id = menuItems[selectedIndex].id;
+	std::string id = menuItems[selectedIndex].id;
 
-		if (id == "BACK") {
-			isOpen = false;
-		}
-		else if (id == "ITEM") {
-			isItemListOpen = true;
-			itemRenderer.setTarget(itemBag);
-			itemRenderer.setPosition(200, 120);
-		}
-		else if (id == "STATUS") {
-			isParameterOpen = true;
-			statusRenderer.setTarget(&allyParameter);
-			statusRenderer.setPosition(200, 120);
-		}
-		else if (id == "SPELL") {
-			isSpellListOpen = true;
-			spellRenderer.setTarget(&allyParameter);
-			spellRenderer.setPosition(200, 120);
-		}
+	if (id == "BACK") {
+		isOpen = false;
+	}
+	else if (id == "ITEM") {
+		isItemListOpen = true;
+		itemRenderer.setTarget(itemBag);
+		itemRenderer.setPosition(200, 120);
+
+		prevEnter = true;
+	}
+	else if (id == "STATUS") {
+		isParameterOpen = true;
+		statusRenderer.setTarget(&allyParameter);
+		statusRenderer.setPosition(200, 120);
+	}
+	else if (id == "SPELL") {
+		isSpellListOpen = true;
+		spellRenderer.setTarget(&allyParameter);
+		spellRenderer.setPosition(200, 120);
 	}
 }
 
@@ -96,6 +99,9 @@ void FieldMenu::update()
 		escPushed = false;
 	}
 
+	bool enter = CheckHitKey(KEY_INPUT_RETURN);
+	bool enterPressed = enter && !prevEnter;
+
 	// SPACEキーで開く
 	if (!isOpen) {
 		if (CheckHitKey(KEY_INPUT_SPACE))
@@ -106,7 +112,7 @@ void FieldMenu::update()
 	if (isItemListOpen) {
 		itemRenderer.update();
 
-		if (CheckHitKey(KEY_INPUT_RETURN))
+		if (enterPressed)
 		{
 			const Item* item = itemRenderer.getSelectedItem();
 			if (item)
@@ -121,6 +127,7 @@ void FieldMenu::update()
 			isItemListOpen = false;
 			escPushed = true;
 		}
+		prevEnter = enter;
 		return;
 	}
 	if (isParameterOpen) {
@@ -149,7 +156,8 @@ void FieldMenu::update()
 		
 	}
 	choose();
-	select();
+	select(enterPressed);
+	prevEnter = enter;
 }
 
 void FieldMenu::draw(Display& display)
