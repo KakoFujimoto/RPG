@@ -82,9 +82,6 @@
     <ClInclude Include="MenuItem.h">
       <Filter>src\UI</Filter>
     </ClInclude>
-    <ClInclude Include="StatusWindowRenderer.h">
-      <Filter>src\UI</Filter>
-    </ClInclude>
     <ClInclude Include="FieldItem.h" />
     <ClInclude Include="ItemWindowRenderer.h">
       <Filter>src\UI</Filter>
@@ -121,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="BattleStartInfo.h">
       <Filter>src\Core\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusWindowRenderer.h">
+      <Filter>src\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

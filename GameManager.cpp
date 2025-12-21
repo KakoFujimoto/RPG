@@ -47,10 +47,12 @@ FieldAlly& GameManager::getAlly()
 
 bool GameManager::checkEncount()
 {
-    auto& enemies = fieldEnemyMamager.getEnemies();
+    auto& enemies = fieldEnemyManager.getEnemies();
 
-    for (auto& e : enemies)
+    for (int i = 0; i < static_cast<int>(enemies.size()); ++i)
     {
+        auto& e = enemies[i];
+
         if (!e.getIsActive())
         {
             continue;
@@ -58,6 +60,8 @@ bool GameManager::checkEncount()
 
         if (hitCheck.check(ally.getPosition(), e.getPosition()))
         {
+            e.setIsActive(false);
+
             currentBattleInfo.enemyName = e.getParameter().getName();
             currentBattleInfo.count = 1;
 
@@ -65,12 +69,14 @@ bool GameManager::checkEncount()
             return true;
         }
     }
+
     return false;
 }
 
+
 FieldEnemyManager& GameManager::getFieldEnemyManager()
 {
-    return fieldEnemyMamager;
+    return fieldEnemyManager;
 }
 
 bool GameManager::isBattle() const

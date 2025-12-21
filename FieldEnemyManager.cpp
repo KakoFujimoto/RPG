@@ -7,6 +7,10 @@ void FieldEnemyManager::spawn(const FieldEnemy& fieldEnemy, int maxX, int maxY, 
 	fe.spawn(maxX, maxY, rng);
 	fieldEnemies.push_back(fe);
 }
+std::vector<FieldEnemy>& FieldEnemyManager::getEnemies()
+{
+	return fieldEnemies;
+}
 const std::vector<FieldEnemy>& FieldEnemyManager::getEnemies() const
 {
 	return fieldEnemies;

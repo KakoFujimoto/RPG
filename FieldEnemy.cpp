@@ -37,6 +37,10 @@ bool FieldEnemy::getIsActive() const
 {
     return isActive;
 }
+void FieldEnemy::setIsActive(bool state)
+{
+    isActive = state;
+}
 int FieldEnemy::getX() {
     return pos.getX();
 }

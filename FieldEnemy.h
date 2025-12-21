@@ -17,6 +17,7 @@ public:
 	void draw() const;
 	void setEncountered();
 	bool getIsActive() const;
+	void setIsActive(bool state);
 	int getX();
 	int getY();
 	const Position& getPosition() const;

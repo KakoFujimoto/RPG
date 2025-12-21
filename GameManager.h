@@ -14,7 +14,7 @@ private:
 	FieldAlly ally;
 	ItemBag itemBag;
 	FieldItemManager fieldItemManager;
-	FieldEnemyManager fieldEnemyMamager;
+	FieldEnemyManager fieldEnemyManager;
 	HitCheck hitCheck;
 	bool isInBattle = false;
 	BattleStartInfo currentBattleInfo;

@@ -10,6 +10,7 @@ private:
 	std::vector<FieldEnemy> fieldEnemies;
 public:
 	void spawn(const FieldEnemy& fieldEnemy, int x, int y, RandomGenerator& rng);
+	std::vector<FieldEnemy>& getEnemies();
 	const std::vector<FieldEnemy>& getEnemies() const;
 	void draw() const;
 };
