@@ -150,6 +150,7 @@ void FieldMenu::update()
 		return;
 	}
 	if (isSpellListOpen) {
+		spellRenderer.update();
 		if (spellRenderer.isCloseRequested())
 		{
 			isSpellListOpen = false;
