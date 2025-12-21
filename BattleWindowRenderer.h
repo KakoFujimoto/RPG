@@ -18,4 +18,5 @@ public:
     void drawEnemyInfo();
     void setBattleInfo(const BattleStartInfo* info);
     void drawMessage();
+    void drawMonster();
 };

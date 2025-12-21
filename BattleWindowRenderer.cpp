@@ -36,6 +36,7 @@ void BattleWindowRenderer::draw()
     );
 
     drawEnemyInfo();
+    drawMonster();
     drawMessage();
 }
 void BattleWindowRenderer::drawEnemyInfo()
@@ -113,6 +114,33 @@ void BattleWindowRenderer::drawMessage()
         msgX + 10,
         msgY + 20,
         message.c_str(),
+        GetColor(255, 255, 255)
+    );
+}
+void BattleWindowRenderer::drawMonster()
+{
+    if (!battleInfo)
+    {
+        return;
+    }
+
+    int areaX = x + 100;
+    int areaY = y + 100;
+    int areaW = width - 200;
+    int areaH = height - 250;
+
+    const std::string& name = battleInfo->enemyName;
+
+    int textWidth = static_cast<int>(name.size()) * 16;
+    int textHeight = 16;
+
+    int textX = areaX + (areaW - textWidth) / 2;
+    int textY = areaY + (areaH - textHeight) / 2;
+
+    DrawString(
+        textX,
+        textY,
+        name.c_str(),
         GetColor(255, 255, 255)
     );
 }
