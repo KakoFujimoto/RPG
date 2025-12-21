@@ -42,6 +42,7 @@ private:
 	ItemBag* itemBag;
 	bool prevEnterMain = false;
 	bool prevEnterItem = false;
+	bool prevEnterSpell = false;
 	EffectResult lastEffect;
 
 public:

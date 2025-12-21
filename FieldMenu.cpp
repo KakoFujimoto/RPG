@@ -42,7 +42,6 @@ void FieldMenu::select(bool enterPressed)
 		isItemListOpen = true;
 		itemRenderer.setTarget(itemBag);
 		itemRenderer.setPosition(200, 120);
-
 		prevEnterItem = CheckHitKey(KEY_INPUT_RETURN);
 		return;
 	}
@@ -56,6 +55,7 @@ void FieldMenu::select(bool enterPressed)
 		isSpellListOpen = true;
 		spellRenderer.setTarget(&allyParameter);
 		spellRenderer.setPosition(200, 120);
+		prevEnterSpell = CheckHitKey(KEY_INPUT_RETURN);
 		return;
 	}
 }
@@ -150,7 +150,7 @@ void FieldMenu::update()
 		return;
 	}
 	if (isSpellListOpen) {
-		bool enterPressedSpell = enter && !prevEnterItem;
+		bool enterPressedSpell = enter && !prevEnterSpell;
 
 		spellRenderer.update();
 
@@ -170,10 +170,10 @@ void FieldMenu::update()
 		{
 			isSpellListOpen = false;
 			escPushed = true;
-			prevEnterItem = enter;
+			prevEnterSpell = enter;
 			return;
 		}
-		prevEnterItem = enter;
+		prevEnterSpell = enter;
 		return;
 	}
 	
