@@ -2,6 +2,8 @@
 #include"FieldAlly.h"
 #include"EffectResult.h"
 
+ItemBag::ItemBag() {}
+
 void ItemBag::add(const Item& item)
 {
 	items.push_back(item);

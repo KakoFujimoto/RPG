@@ -8,7 +8,8 @@ GameManager::GameManager()
         AllyParameter("ねこ", 500, 20, 13, 11, 8, 1, 0)
     ),
     fieldItemManager(),
-    itemBag(){}
+    itemBag()
+{}
 
 void GameManager::updateItemBag()
 {   
@@ -44,7 +45,7 @@ FieldAlly& GameManager::getAlly()
     return ally;
 }
 
-void GameManager::checkEncount()
+bool GameManager::checkEncount()
 {
     auto& enemies = fieldEnemyMamager.getEnemies();
 
@@ -57,13 +58,32 @@ void GameManager::checkEncount()
 
         if (hitCheck.check(ally.getPosition(), e.getPosition()))
         {
-            DrawString(20, 440, "敵とエンカウント！", GetColor(255, 255, 255));
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 FieldEnemyManager& GameManager::getFieldEnemyManager()
 {
     return fieldEnemyMamager;
+}
+
+bool GameManager::isBattle() const
+{ 
+    return isInBattle;
+}
+void GameManager::setBattle(bool v)
+{ 
+    isInBattle = v;
+}
+void GameManager::update()
+{
+    if (!isInBattle)
+    {
+        if (checkEncount())
+        {
+            isInBattle = true;
+        }
+    }
 }

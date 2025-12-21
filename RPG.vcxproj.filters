@@ -131,6 +131,9 @@
     <ClInclude Include="EnemyParameter.h">
       <Filter>src\Core\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="BattleWindowRenderer.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -204,6 +207,9 @@
     </ClCompile>
     <ClCompile Include="EnemyParameter.cpp">
       <Filter>src\Core\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleWindowRenderer.cpp">
+      <Filter>src\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

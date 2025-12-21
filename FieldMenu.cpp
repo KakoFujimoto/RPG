@@ -11,6 +11,7 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	, itemRenderer(display)
 	, idleRenderer(display)
 	, effectRenderer(display)
+	, battleRenderer(display)
 	, itemBag(&gm->getItemBag())
 {
 	idleRenderer.setTarget(&allyParameter);
@@ -192,7 +193,13 @@ void FieldMenu::update()
 }
 
 void FieldMenu::draw(Display& display)
-{
+{	
+	if (gm && gm->isBattle())
+	{
+		battleRenderer.draw();
+		DrawString(20, 440, "敵とエンカウント！", GetColor(255, 255, 255));
+		return;
+	}
 	if (isIdleStatusVisible) {
 		idleRenderer.draw();
 	}

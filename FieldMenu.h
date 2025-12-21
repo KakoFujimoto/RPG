@@ -13,6 +13,7 @@
 #include"EffectWindowRenderer.h"
 #include"ItemBag.h"
 #include"EffectResult.h"
+#include"BattleWindowRenderer.h"
 
 class FieldMenu {
 private:
@@ -39,6 +40,7 @@ private:
 	ItemWindowRenderer itemRenderer;
 	IdleStatusRenderer idleRenderer;
 	EffectWindowRenderer effectRenderer;
+	BattleWindowRenderer battleRenderer;
 	ItemBag* itemBag;
 	bool prevEnterMain = false;
 	bool prevEnterItem = false;

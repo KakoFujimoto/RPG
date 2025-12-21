@@ -9,6 +9,7 @@ class ItemBag {
 private:
 	std::vector<Item> items;
 public:
+	ItemBag();
 	void add(const Item& item);
 	std::vector<Item>::iterator find(const std::string& itemName);
 	const std::vector<Item>& getItems() const;

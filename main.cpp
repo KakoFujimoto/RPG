@@ -100,17 +100,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         int bgColor = GetColor(0, 140, 0);
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
+        gm.update();
         fieldMenu.update();
         
         if (!fieldMenu.getIsOpen()) {
             gm.getAlly().move();
         }
 
+        // == 仮の処理(味方キャラの文字列描画) ==
         DrawString(gm.getAlly().getX(), gm.getAlly().getY(), gm.getAlly().getName().c_str(), GetColor(255, 255, 255));
+        // == 仮の処理ここまで ==
+
         fieldMenu.draw(display);
-
         gm.getFieldItemManager().draw();
-
         gm.updateItemBag();
 
         ////////// テストコードここから //////////

@@ -21,7 +21,10 @@ void FieldEnemy::spawn(int maxX, int maxY, RandomGenerator& rng)
 
 void FieldEnemy::draw() const
 {
-    if (!isActive) return;
+    if (!isActive)
+    {
+        return;
+    }
 
     int color = GetColor(255, 0, 0);
     DrawString(pos.x, pos.y, parameter.getName().c_str(), color);

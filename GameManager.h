@@ -7,6 +7,7 @@
 #include"HitCheck.h"
 #include"FieldEnemyManager.h"
 
+class Display;
 class GameManager {
 private:
 	FieldAlly ally;
@@ -14,6 +15,7 @@ private:
 	FieldItemManager fieldItemManager;
 	FieldEnemyManager fieldEnemyMamager;
 	HitCheck hitCheck;
+	bool isInBattle = false;
 public:
 	GameManager();
 	void updateItemBag();
@@ -21,5 +23,8 @@ public:
 	FieldItemManager& getFieldItemManager();
 	FieldEnemyManager& getFieldEnemyManager();
 	FieldAlly& getAlly();
-	void checkEncount();
+	bool checkEncount();
+	bool isBattle() const;
+	void setBattle(bool v);
+	void update();
 };
