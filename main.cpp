@@ -117,7 +117,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         ////////// テストコードここから //////////
         // == 敵の描画 ==
-        gm.getFieldEnemyManager().draw();
+        if (!gm.isBattle())
+        {
+            gm.getFieldEnemyManager().draw();
+        }
         ////////// テストコードここまで //////////
 
         gm.checkEncount();
