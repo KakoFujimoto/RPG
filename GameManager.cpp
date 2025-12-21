@@ -1,4 +1,6 @@
 #include"GameManager.h"
+#include"FieldEnemy.h"
+#include"DxLib.h"
 
 GameManager::GameManager()
     : ally(
@@ -40,4 +42,28 @@ FieldItemManager& GameManager::getFieldItemManager()
 FieldAlly& GameManager::getAlly()
 { 
     return ally;
+}
+
+void GameManager::checkEncount()
+{
+    auto& enemies = fieldEnemyMamager.getEnemies();
+
+    for (auto& e : enemies)
+    {
+        if (!e.getIsActive())
+        {
+            continue;
+        }
+
+        if (hitCheck.check(ally.getPosition(), e.getPosition()))
+        {
+            DrawString(20, 440, "敵とエンカウント！", GetColor(255, 255, 255));
+            return;
+        }
+    }
+}
+
+FieldEnemyManager& GameManager::getFieldEnemyManager()
+{
+    return fieldEnemyMamager;
 }

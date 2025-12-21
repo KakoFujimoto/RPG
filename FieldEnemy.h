@@ -7,7 +7,7 @@ class FieldEnemy {
 private:
 	Position pos;
 	EnemyParameter parameter;
-	bool isActive;
+	bool isActive = true;
 
 public:
 	FieldEnemy();

@@ -7,5 +7,5 @@ bool HitCheck::check(const Position& allyPosition, const Position& object)
 
     float distance = (dx * dx + dy * dy);
 
-    return (distance < 10.0f * 10.0f);
+    return (distance < 30.0f * 30.0f);
 }

@@ -9,8 +9,6 @@
 #include"EffectResult.h"
 #include"FieldEnemy.h"
 #include"EnemyParameter.h"
-#include"FieldEnemyManager.h"
-
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -84,9 +82,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         Position{ 400, 300 },
         EnemyParameter("スライム", 10, 0, 13, 11, 8, 1, 0)
     );
+
+    FieldEnemy druky(
+        Position{ 200, 200 },
+        EnemyParameter("ドラキー", 14, 10, 13, 11, 8, 1, 0)
+    );
     // == 敵をフィールド上に湧かせる ==
-    FieldEnemyManager fieldEnemyManager;
-    fieldEnemyManager.spawn(slime, 200, 200, rng);
+    gm.getFieldEnemyManager().spawn(slime, 200, 200, rng);
+    gm.getFieldEnemyManager().spawn(druky, 100, 300, rng);
 
     ////////// テストコードここまで //////////
 
@@ -112,10 +115,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         ////////// テストコードここから //////////
         // == 敵の描画 ==
-        fieldEnemyManager.draw();
+        gm.getFieldEnemyManager().draw();
         ////////// テストコードここまで //////////
 
-     
+        gm.checkEncount();
+
         ScreenFlip(); // 裏画面と表画面を入れ替え
     }
 
