@@ -54,10 +54,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
     // フィールドメニューで表示させるため、味方キャラにホイミ等を習得させる(仮の処理)
-    Spell hoimi(rng, "ホイミ", 3, healHpEffect);
+    Effect hoimiEffect{
+         EffectType::HealHp,
+         30,
+         50
+    };
+    Effect behoimiEffect{
+        EffectType::HealHp,
+        80,
+        120
+    };
+    Spell hoimi(rng, "ホイミ", 3, hoimiEffect);
     allyParameter.getSpellManager().learnSpell(hoimi);
 
-    Spell behoimi(rng, "ベホイミ", 6, healHpEffect);
+    Spell behoimi(rng, "ベホイミ", 6, behoimiEffect);
     allyParameter.getSpellManager().learnSpell(behoimi);
    
     bool prevA = false;

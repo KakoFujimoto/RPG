@@ -55,9 +55,6 @@
     <ClInclude Include="GameManager.h">
       <Filter>src\System</Filter>
     </ClInclude>
-    <ClInclude Include="Hoimi.h">
-      <Filter>src\Core\Spell</Filter>
-    </ClInclude>
     <ClInclude Include="HitCheck.h">
       <Filter>src\System</Filter>
     </ClInclude>
@@ -72,9 +69,6 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>src\Core\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="RecoverSpell.h">
-      <Filter>src\Core\Spell</Filter>
     </ClInclude>
     <ClInclude Include="SavePoint.h">
       <Filter>src\Core\Field</Filter>
