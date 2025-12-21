@@ -36,6 +36,7 @@ void BattleWindowRenderer::draw()
     );
 
     drawEnemyInfo();
+    drawMessage();
 }
 void BattleWindowRenderer::drawEnemyInfo()
 {
@@ -48,14 +49,70 @@ void BattleWindowRenderer::drawEnemyInfo()
         battleInfo->enemyName + " - " +
         std::to_string(battleInfo->count) + "Ç–Ç´";
 
+    int infoX = x + width - 260;
+    int infoY = y + 20;
+    int infoW = 240;
+    int infoH = 60;
+
+    DrawBox(
+        infoX, infoY,
+        infoX + infoW, infoY + infoH,
+        GetColor(0, 0, 0),
+        TRUE
+    );
+
+    DrawBox(
+        infoX, infoY,
+        infoX + infoW, infoY + infoH,
+        GetColor(255, 255, 255),
+        FALSE
+    );
+
     DrawString(
-        x + width - 220,
-        y + 20,
+        infoX + 10,
+        infoY + 20,
         text.c_str(),
         GetColor(255, 255, 255)
     );
 }
+
 void BattleWindowRenderer::setBattleInfo(const BattleStartInfo* info)
 {
     battleInfo = info;
+}
+void BattleWindowRenderer::drawMessage()
+{
+    if (!battleInfo)
+    {
+        return;
+    }
+
+    std::string message =
+        battleInfo->enemyName + "Ç™Ç†ÇÁÇÌÇÍÇΩÅI";
+
+    int msgX = x + 20;
+    int msgY = y + height - 100;
+    int msgW = width - 40;
+    int msgH = 80;
+
+    DrawBox(
+        msgX, msgY,
+        msgX + msgW, msgY + msgH,
+        GetColor(0, 0, 0),
+        TRUE
+    );
+
+    DrawBox(
+        msgX, msgY,
+        msgX + msgW, msgY + msgH,
+        GetColor(255, 255, 255),
+        FALSE
+    );
+
+    DrawString(
+        msgX + 10,
+        msgY + 20,
+        message.c_str(),
+        GetColor(255, 255, 255)
+    );
 }
