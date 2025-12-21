@@ -103,3 +103,25 @@ void SpellWindowRenderer::update()
 	prevUp = up;
 	prevDown = down;
 }
+
+const Spell* SpellWindowRenderer::getSelectedSpells() const
+{
+	if (!target)
+	{
+		return nullptr;
+	}
+	const auto& spells =
+		target->getSpellManager().getLearnedSpells();
+
+	if (spells.empty())
+	{
+		return nullptr;
+	}
+
+	if (selectedIndex < 0 ||
+		selectedIndex >= static_cast<int>(spells.size()))
+	{
+		return nullptr;
+	}
+	return spells[selectedIndex];
+}

@@ -21,4 +21,5 @@ public:
     void draw();
     void update();
     bool isCloseRequested() const;
+    const Spell* getSelectedSpells() const;
 };

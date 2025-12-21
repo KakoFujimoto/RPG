@@ -150,12 +150,30 @@ void FieldMenu::update()
 		return;
 	}
 	if (isSpellListOpen) {
+		bool enterPressedSpell = enter && !prevEnterItem;
+
 		spellRenderer.update();
+
+		if (enterPressedSpell)
+		{
+			const Spell* spell = spellRenderer.getSelectedSpells();
+			if (spell)
+			{
+				EffectResult r =
+					allyParameter
+					.getSpellManager()
+					.castSpell(spell->getName(), gm->getAlly());
+				showEffect(r);
+			}
+		}
 		if (spellRenderer.isCloseRequested())
 		{
 			isSpellListOpen = false;
 			escPushed = true;
+			prevEnterItem = enter;
+			return;
 		}
+		prevEnterItem = enter;
 		return;
 	}
 	
