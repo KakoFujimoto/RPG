@@ -196,8 +196,8 @@ void FieldMenu::draw(Display& display)
 {	
 	if (gm && gm->isBattle())
 	{
+		battleRenderer.setBattleInfo(&gm->getBattleInfo());
 		battleRenderer.draw();
-		DrawString(20, 440, "敵とエンカウント！", GetColor(255, 255, 255));
 		return;
 	}
 	if (isIdleStatusVisible) {

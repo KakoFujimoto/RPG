@@ -58,6 +58,10 @@ bool GameManager::checkEncount()
 
         if (hitCheck.check(ally.getPosition(), e.getPosition()))
         {
+            currentBattleInfo.enemyName = e.getParameter().getName();
+            currentBattleInfo.count = 1;
+
+            isInBattle = true;
             return true;
         }
     }
@@ -86,4 +90,8 @@ void GameManager::update()
             isInBattle = true;
         }
     }
+}
+const BattleStartInfo& GameManager::getBattleInfo() const
+{
+    return currentBattleInfo;
 }

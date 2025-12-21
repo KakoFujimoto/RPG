@@ -20,4 +20,5 @@ public:
 	int getX();
 	int getY();
 	const Position& getPosition() const;
+	const EnemyParameter& getParameter() const;
 };

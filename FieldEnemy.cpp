@@ -47,3 +47,6 @@ int FieldEnemy::getY() {
 const Position& FieldEnemy::getPosition() const {
     return pos;
 }
+const EnemyParameter& FieldEnemy::getParameter() const{
+    return parameter;
+}

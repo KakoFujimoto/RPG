@@ -6,6 +6,7 @@
 #include"ItemBag.h"
 #include"HitCheck.h"
 #include"FieldEnemyManager.h"
+#include"BattleStartInfo.h"
 
 class Display;
 class GameManager {
@@ -16,6 +17,7 @@ private:
 	FieldEnemyManager fieldEnemyMamager;
 	HitCheck hitCheck;
 	bool isInBattle = false;
+	BattleStartInfo currentBattleInfo;
 public:
 	GameManager();
 	void updateItemBag();
@@ -27,4 +29,5 @@ public:
 	bool isBattle() const;
 	void setBattle(bool v);
 	void update();
+	const BattleStartInfo& getBattleInfo() const;
 };

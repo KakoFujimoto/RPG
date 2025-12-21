@@ -79,21 +79,6 @@
     <ClInclude Include="FieldMenu.h">
       <Filter>src\Core\Field</Filter>
     </ClInclude>
-    <ClInclude Include="BattleProperty.h">
-      <Filter>src\Core\Battle</Filter>
-    </ClInclude>
-    <ClInclude Include="IAttack.h">
-      <Filter>src\Core\Battle</Filter>
-    </ClInclude>
-    <ClInclude Include="IBuff.h">
-      <Filter>src\Core\Battle</Filter>
-    </ClInclude>
-    <ClInclude Include="IDebuff.h">
-      <Filter>src\Core\Battle</Filter>
-    </ClInclude>
-    <ClInclude Include="IHealing.h">
-      <Filter>src\Core\Battle</Filter>
-    </ClInclude>
     <ClInclude Include="MenuItem.h">
       <Filter>src\UI</Filter>
     </ClInclude>
@@ -133,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="BattleWindowRenderer.h">
       <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleStartInfo.h">
+      <Filter>src\Core\Battle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

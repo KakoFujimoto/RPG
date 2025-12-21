@@ -142,7 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AllyParameter.h" />
-    <ClInclude Include="BattleProperty.h" />
+    <ClInclude Include="BattleStartInfo.h" />
     <ClInclude Include="BattleWindowRenderer.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Effect.h" />
@@ -157,11 +157,7 @@
     <ClInclude Include="FieldMenu.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="HitCheck.h" />
-    <ClInclude Include="IAttack.h" />
-    <ClInclude Include="IBuff.h" />
-    <ClInclude Include="IDebuff.h" />
     <ClInclude Include="IdleStatusRenderer.h" />
-    <ClInclude Include="IHealing.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBag.h" />
     <ClInclude Include="ItemWindowRenderer.h" />
