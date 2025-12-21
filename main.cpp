@@ -7,6 +7,10 @@
 #include"RandomGenerator.h"
 #include"EffectType.h"
 #include"EffectResult.h"
+#include"FieldEnemy.h"
+#include"EnemyParameter.h"
+#include"FieldEnemyManager.h"
+
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -24,11 +28,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     GameManager gm;
 
+
+    ////////// テストコードここから //////////
+    // == あめとわたがしの効果を設定 ==
+    // あめ(MP回復)
     Effect healMpEffect{
          EffectType::HealMp,
          8,
          21
     };
+    // わたがし(HP回復)
     Effect healHpEffect{
          EffectType::HealHp,
          30,
@@ -37,23 +46,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     Item candy("あめ", healMpEffect, 1);
     Item cottonCandy("わたがし", healHpEffect, 1);
 
-
+    // == あめとわたがしをフィールド上に湧かせる ==
     RandomGenerator rng;
     gm.getFieldItemManager().spawn(candy, 800, 600, rng);
     gm.getFieldItemManager().spawn(cottonCandy, 500, 100, rng);
 
 
+    // == 回復効果の確認用に手動で味方キャラのパラメータを下げる ==
     AllyParameter& allyParameter = gm.getAlly().getParameter();
-
-
-    // テストコードここから
     allyParameter.consumeMp(5);
     allyParameter.takeDamage(480);
 
 	Display display;
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
-    // フィールドメニューで表示させるため、味方キャラにホイミ等を習得させる(仮の処理)
+    // == 手動で味方キャラにホイミとベホイミを習得させる ==
+    // == ホイミとベホイミの効果を設定 ==
     Effect hoimiEffect{
          EffectType::HealHp,
          30,
@@ -64,43 +72,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         80,
         120
     };
+    // == ホイミとベホイミをインスタンス化/味方キャラに習得させる ==
     Spell hoimi(rng, "ホイミ", 3, hoimiEffect);
     allyParameter.getSpellManager().learnSpell(hoimi);
 
     Spell behoimi(rng, "ベホイミ", 6, behoimiEffect);
     allyParameter.getSpellManager().learnSpell(behoimi);
    
-    bool prevA = false;
-    bool prevS = false;
+    // == 敵のインスタンス化 ==
+    FieldEnemy slime(
+        Position{ 400, 300 },
+        EnemyParameter("スライム", 10, 0, 13, 11, 8, 1, 0)
+    );
+    // == 敵をフィールド上に湧かせる ==
+    FieldEnemyManager fieldEnemyManager;
+    fieldEnemyManager.spawn(slime, 200, 200, rng);
 
-    EffectResult lastResult;
-    // テストコードここまで
+    ////////// テストコードここまで //////////
 
     while (ProcessMessage() == 0)
 	{
 		ClearDrawScreen(); // 画面をクリア
-
-        // テストコードここから
-        bool currentA = CheckHitKey(KEY_INPUT_A);
-        bool currentS = CheckHitKey(KEY_INPUT_S);
-
-        if (currentA && !prevA)
-        {
-            // あめを使用
-            lastResult = gm.getItemBag().useItem("あめ", gm.getAlly());
-            fieldMenu.showEffect(lastResult);
-        }
-        prevA = currentA;
-
-        if (currentS && !prevS)
-        {   
-            // ホイミを使用
-            lastResult = allyParameter.getSpellManager().castSpell("ホイミ", gm.getAlly());
-            fieldMenu.showEffect(lastResult);
-        }
-        prevS = currentS;
-
-        // テストコードここまで
 
         int bgColor = GetColor(0, 140, 0);
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
@@ -118,6 +110,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         gm.updateItemBag();
 
+        ////////// テストコードここから //////////
+        // == 敵の描画 ==
+        fieldEnemyManager.draw();
+        ////////// テストコードここまで //////////
+
+     
         ScreenFlip(); // 裏画面と表画面を入れ替え
     }
 

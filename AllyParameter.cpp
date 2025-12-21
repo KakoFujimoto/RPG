@@ -4,6 +4,8 @@ AllyParameter::AllyParameter()
     : name(""),
     hp(0),
     mp(0),
+    maxHp(0),
+    maxMp(0),
     attackPower(0),
     defensePower(0),
     speed(0),

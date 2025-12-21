@@ -67,7 +67,7 @@
     <ClInclude Include="FieldItem.h">
       <Filter>src\Core\Field</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="FieldEnemy.h">
       <Filter>src\Core\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="SavePoint.h">
@@ -124,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="FieldItemManager.h">
       <Filter>src\Core\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldEnemyManager.h">
+      <Filter>src\Core\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyParameter.h">
+      <Filter>src\Core\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +195,15 @@
     </ClCompile>
     <ClCompile Include="EffectWindowRenderer.cpp">
       <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldEnemy.cpp">
+      <Filter>src\Core\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldEnemyManager.cpp">
+      <Filter>src\Core\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyParameter.cpp">
+      <Filter>src\Core\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

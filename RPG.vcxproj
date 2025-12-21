@@ -147,7 +147,9 @@
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EffectType.h" />
     <ClInclude Include="EffectWindowRenderer.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyParameter.h" />
+    <ClInclude Include="FieldEnemyManager.h" />
+    <ClInclude Include="FieldEnemy.h" />
     <ClInclude Include="FieldAlly.h" />
     <ClInclude Include="FieldItem.h" />
     <ClInclude Include="FieldItemManager.h" />
@@ -177,7 +179,10 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectResult.h" />
     <ClCompile Include="EffectWindowRenderer.cpp" />
+    <ClCompile Include="EnemyParameter.cpp" />
+    <ClCompile Include="FieldEnemyManager.cpp" />
     <ClCompile Include="FieldAlly.cpp" />
+    <ClCompile Include="FieldEnemy.cpp" />
     <ClCompile Include="FieldItem.cpp" />
     <ClCompile Include="FieldItemManager.cpp" />
     <ClCompile Include="FieldMenu.cpp" />
