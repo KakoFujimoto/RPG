@@ -38,6 +38,7 @@ void BattleWindowRenderer::draw()
     drawAllyStatus();
     drawEnemyInfo();
     drawMonster();
+    drawMenu();
     drawMessage();
 }
 void BattleWindowRenderer::drawEnemyInfo()
@@ -166,4 +167,48 @@ void BattleWindowRenderer::drawAllyStatus()
     allyStatusRenderer.setMode(StatusViewMode::BattleParameter);
     allyStatusRenderer.setPosition(statusX, statusY);
     allyStatusRenderer.draw();
+}
+
+void BattleWindowRenderer::drawMenu()
+{
+    int menuX = x + 20;
+    int menuY = y + height - 100;
+    int menuW = static_cast<int>(width * 0.25);
+    int menuH = 80;
+
+    DrawBox(
+        menuX, menuY,
+        menuX + menuW, menuY + menuH,
+        GetColor(0, 0, 0),
+        TRUE
+    );
+
+    DrawBox(
+        menuX, menuY,
+        menuX + menuW, menuY + menuH,
+        GetColor(255, 255, 255),
+        FALSE
+    );
+
+    int textX = menuX + 25;
+    int textY = menuY + 10;
+    int lineHeight = 14;
+    int cursorColor = GetColor(255, 255, 255);
+
+    for (int i = 0; i < static_cast<int>(battleMenuItems.size()); ++i)
+    {
+        int itemY = textY + i * lineHeight;
+
+        if (i == selectedMenuIndex)
+        {
+            display.drawCursor(menuX + 5, itemY, cursorColor);
+        }
+
+        DrawString(
+            textX,
+            itemY,
+            battleMenuItems[i].c_str(),
+            GetColor(255, 255, 255)
+        );
+    }
 }
