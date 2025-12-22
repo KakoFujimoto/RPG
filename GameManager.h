@@ -7,6 +7,8 @@
 #include"HitCheck.h"
 #include"FieldEnemyManager.h"
 #include"BattleStartInfo.h"
+#include"BattleWindowRenderer.h"
+
 
 class Display;
 class GameManager {
@@ -18,8 +20,9 @@ private:
 	HitCheck hitCheck;
 	bool isInBattle = false;
 	BattleStartInfo currentBattleInfo;
+	BattleWindowRenderer battleWindowRenderer;
 public:
-	GameManager();
+	GameManager(Display& display);
 	void updateItemBag();
 	ItemBag& getItemBag();
 	FieldItemManager& getFieldItemManager();
@@ -31,4 +34,6 @@ public:
 	void update();
 	const BattleStartInfo& getBattleInfo() const;
 	void endBattle();
+	int getBattleMenuCount() const;
+	BattleWindowRenderer& getBattleWindowRenderer();
 };

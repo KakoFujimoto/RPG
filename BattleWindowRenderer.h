@@ -34,4 +34,6 @@ public:
     void draw();
     void setBattleInfo(const BattleStartInfo* info);
     void setAllyParameter(const AllyParameter* ally);
+    void setSelectedMenuIndex(int index);
+    int getMenuCount() const;
 };

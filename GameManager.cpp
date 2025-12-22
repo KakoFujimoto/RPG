@@ -2,13 +2,14 @@
 #include"FieldEnemy.h"
 #include"DxLib.h"
 
-GameManager::GameManager()
+GameManager::GameManager(Display& display)
     : ally(
         Position{400, 300},
         AllyParameter("ねこ", 500, 20, 13, 11, 8, 1, 0)
     ),
     fieldItemManager(),
-    itemBag()
+    itemBag(),
+    battleWindowRenderer(display)
 {}
 
 void GameManager::updateItemBag()
@@ -104,4 +105,32 @@ const BattleStartInfo& GameManager::getBattleInfo() const
 void GameManager::endBattle()
 {
     isInBattle = false;
+}
+int GameManager::getBattleMenuCount() const
+{
+    return battleWindowRenderer.getMenuCount();
+}
+
+BattleWindowRenderer& GameManager::getBattleWindowRenderer()
+{
+    return battleWindowRenderer;
+}
+void BattleWindowRenderer::setSelectedMenuIndex(int index)
+{
+    // メニューが無いなら何もしない
+    int count = static_cast<int>(battleMenuItems.size());
+    if (count <= 0) {
+        selectedMenuIndex = 0;
+        return;
+    }
+
+    // 範囲外なら丸める（clamp）
+    if (index < 0) {
+        index = 0;
+    }
+    else if (index >= count) {
+        index = count - 1;
+    }
+
+    selectedMenuIndex = index;
 }

@@ -222,3 +222,8 @@ void BattleWindowRenderer::drawMenu()
         );
     }
 }
+
+int BattleWindowRenderer::getMenuCount() const
+{
+    return static_cast<int>(battleMenuItems.size());
+}

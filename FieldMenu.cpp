@@ -80,9 +80,46 @@ void FieldMenu::close()
 }
 
 void FieldMenu::update()
-{	
-	bool idle = !CheckHitKeyAll();
+{
+	// =========================
+	// 戦闘中の入力（ここで完結）
+	// =========================
+	if (gm && gm->isBattle())
+	{
+		// 戦闘中はアイドル表示を止める
+		idleFrameCount = 0;
+		isIdleStatusVisible = false;
 
+		// ESCで戦闘終了（1回押し検知）
+		bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
+		if (esc && !prevBattleEsc)
+		{
+			gm->endBattle();
+
+			// 戦闘用入力状態をリセット（押しっぱなし誤動作防止）
+			prevBattleUp = false;
+			prevBattleDown = false;
+			prevBattleEsc = false;
+			battleMenuIndex = 0;
+
+			return;
+		}
+		prevBattleEsc = esc;
+
+		// 戦闘メニューのカーソル移動
+		updateBattleMenu();
+		return; // 戦闘中はフィールドメニュー処理に入らない
+	}
+
+	// =========================
+	// ここから下はフィールド専用
+	// =========================
+
+	// 戦闘から戻った直後に押下状態が残らないようリセット
+	prevBattleEsc = false;
+
+	// アイドル表示（キー入力が無い時にステータス表示）
+	bool idle = !CheckHitKeyAll();
 	if (idle)
 	{
 		idleFrameCount++;
@@ -91,20 +128,15 @@ void FieldMenu::update()
 			isIdleStatusVisible = true;
 		}
 	}
-	else {
+	else
+	{
 		idleFrameCount = 0;
 		isIdleStatusVisible = false;
 	}
-	
+
+	// ESC（フィールドメニュー/サブウィンドウ用）
 	int esc = CheckHitKey(KEY_INPUT_ESCAPE);
-	if (gm && gm->isBattle())
-	{
-		if (esc)
-		{
-			gm->endBattle();
-		}
-		return;
-	}
+
 	if (!esc)
 	{
 		escPushed = false;
@@ -112,8 +144,9 @@ void FieldMenu::update()
 
 	bool enter = CheckHitKey(KEY_INPUT_RETURN);
 
-	// SPACEキーで開く
-	if (!isOpen) {
+	// SPACEキーでフィールドメニューを開く
+	if (!isOpen)
+	{
 		if (CheckHitKey(KEY_INPUT_SPACE))
 		{
 			open();
@@ -122,7 +155,12 @@ void FieldMenu::update()
 		}
 		return;
 	}
-	if (isItemListOpen) {
+
+	// ===== サブウィンドウ類 =====
+
+	// アイテム
+	if (isItemListOpen)
+	{
 		bool enterPressedItem = enter && !prevEnterItem;
 		itemRenderer.update();
 
@@ -137,6 +175,7 @@ void FieldMenu::update()
 				itemRenderer.clampSelectedIndex();
 			}
 		}
+
 		if (itemRenderer.isCloseRequested())
 		{
 			isItemListOpen = false;
@@ -145,11 +184,14 @@ void FieldMenu::update()
 			prevEnterItem = enter;
 			return;
 		}
+
 		prevEnterItem = enter;
 		return;
 	}
 
-	if (isParameterOpen) {
+	// ステータス
+	if (isParameterOpen)
+	{
 		if (statusRenderer.isCloseRequested())
 		{
 			isParameterOpen = false;
@@ -157,7 +199,10 @@ void FieldMenu::update()
 		}
 		return;
 	}
-	if (isSpellListOpen) {
+
+	// じゅもん
+	if (isSpellListOpen)
+	{
 		bool enterPressedSpell = enter && !prevEnterSpell;
 
 		spellRenderer.update();
@@ -168,12 +213,11 @@ void FieldMenu::update()
 			if (spell)
 			{
 				EffectResult r =
-					allyParameter
-					.getSpellManager()
-					.castSpell(spell->getName(), gm->getAlly());
+					allyParameter.getSpellManager().castSpell(spell->getName(), gm->getAlly());
 				showEffect(r);
 			}
 		}
+
 		if (spellRenderer.isCloseRequested())
 		{
 			isSpellListOpen = false;
@@ -181,23 +225,29 @@ void FieldMenu::update()
 			prevEnterSpell = enter;
 			return;
 		}
+
 		prevEnterSpell = enter;
 		return;
 	}
-	
-	// ESCキーで閉じる
-	if (!escPushed && esc) {
-		
+
+	// ===== メインメニュー =====
+
+	// ESCで閉じる（押しっぱなし対策）
+	if (!escPushed && esc)
+	{
 		close();
 		escPushed = true;
 		return;
-		
 	}
+
 	bool enterPressedMain = enter && !prevEnterMain;
+
 	choose();
 	select(enterPressedMain);
+
 	prevEnterMain = enter;
 }
+
 
 void FieldMenu::draw(Display& display)
 {	
@@ -254,28 +304,21 @@ void FieldMenu::draw(Display& display)
 bool FieldMenu::getIsOpen() const {
 	return isOpen;
 }
-void FieldMenu::choose() {
-	if (!isOpen) {
-		return;
-	}
+void FieldMenu::choose()
+{
+	if (!isOpen) return;
+	if (isSubWindowOpen()) return;
 
-	if (isSubWindowOpen()) {
-		return;
-	}
+	bool currentUp = CheckHitKey(KEY_INPUT_UP);
+	bool currentDown = CheckHitKey(KEY_INPUT_DOWN);
 
-	static int prevUp = 0;
-	static int prevDown = 0;
-
-	int currentUp = CheckHitKey(KEY_INPUT_UP);
-	int currentDown = CheckHitKey(KEY_INPUT_DOWN);
-
-	// キーの押下を1回ずつだけ検知
 	if (currentUp && !prevUp) {
 		selectedIndex--;
 		if (selectedIndex < 0) {
 			selectedIndex = static_cast<int>(menuItems.size()) - 1;
 		}
 	}
+
 	if (currentDown && !prevDown) {
 		selectedIndex++;
 		if (selectedIndex >= static_cast<int>(menuItems.size())) {
@@ -298,4 +341,37 @@ void FieldMenu::showEffect(const EffectResult& result)
 	effectRenderer.setResult(&lastEffect);
 	effectRenderer.setPosition(50, 300);
 	effectRenderer.show();
+}
+void FieldMenu::updateBattleMenu()
+{	
+	DrawString(10, 10, "updateBattleMenu()", GetColor(255, 0, 0));
+	bool up = CheckHitKey(KEY_INPUT_UP);
+	bool down = CheckHitKey(KEY_INPUT_DOWN);
+
+	int menuCount = gm->getBattleMenuCount();
+	if (menuCount <= 0) return;
+
+	if (up && !prevBattleUp)
+	{
+		battleMenuIndex--;
+		if (battleMenuIndex < 0)
+		{
+			battleMenuIndex = menuCount - 1;
+		}
+	}
+
+	if (down && !prevBattleDown)
+	{
+		battleMenuIndex++;
+		if (battleMenuIndex >= menuCount)
+		{
+			battleMenuIndex = 0;
+		}
+	}
+
+	gm->getBattleWindowRenderer()
+		.setSelectedMenuIndex(battleMenuIndex);
+
+	prevBattleUp = up;
+	prevBattleDown = down;
 }

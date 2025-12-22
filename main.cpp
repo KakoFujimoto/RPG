@@ -24,15 +24,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // 描画先を裏画面にする
     SetDrawScreen(DX_SCREEN_BACK);
 
-    GameManager gm;
 
+    SetDrawScreen(DX_SCREEN_BACK);
+
+
+    Display display;
+    GameManager gm(display);
 
     ////////// テストコードここから //////////
     // == あめとわたがしの効果を設定 ==
     // あめ(MP回復)
     Effect healMpEffect{
          EffectType::HealMp,
-         8,
          21
     };
     // わたがし(HP回復)
@@ -55,7 +58,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     allyParameter.consumeMp(5);
     allyParameter.takeDamage(480);
 
-	Display display;
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
     // == 手動で味方キャラにホイミとベホイミを習得させる ==
@@ -103,7 +105,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         gm.update();
         fieldMenu.update();
         
-        if (!fieldMenu.getIsOpen()) {
+        if (!gm.isBattle() && !fieldMenu.getIsOpen()) {
             gm.getAlly().move();
         }
 

@@ -32,6 +32,15 @@ private:
 	int selectedIndex = 0;
 	int idleFrameCount = 0;
 	bool isIdleStatusVisible = false;
+	bool prevEnterMain = false;
+	bool prevEnterItem = false;
+	bool prevEnterSpell = false;
+	bool prevBattleUp = false;
+	bool prevBattleDown = false;
+	bool prevUp = false;
+	bool prevDown = false;
+	int battleMenuIndex = 0;
+	bool prevBattleEsc = false;
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;
@@ -42,9 +51,6 @@ private:
 	EffectWindowRenderer effectRenderer;
 	BattleWindowRenderer battleRenderer;
 	ItemBag* itemBag;
-	bool prevEnterMain = false;
-	bool prevEnterItem = false;
-	bool prevEnterSpell = false;
 	EffectResult lastEffect;
 
 public:
@@ -58,4 +64,5 @@ public:
 	bool getIsOpen () const;
 	bool isSubWindowOpen();
 	void showEffect(const EffectResult& result);
+	void updateBattleMenu();
 };
