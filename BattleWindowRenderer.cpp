@@ -38,9 +38,14 @@ void BattleWindowRenderer::draw()
     drawAllyStatus();
     drawEnemyInfo();
     drawMonster();
-    drawMenu();
     drawMessage();
+
+    if (GetNowCount() - battleStartFrame >= 1000)
+    {
+        drawMenu();
+    }
 }
+
 void BattleWindowRenderer::drawEnemyInfo()
 {
     if (!battleInfo)
@@ -82,6 +87,11 @@ void BattleWindowRenderer::drawEnemyInfo()
 void BattleWindowRenderer::setBattleInfo(const BattleStartInfo* info)
 {
     battleInfo = info;
+
+    if (battleStartFrame < 0)
+    {
+        battleStartFrame = GetNowCount();
+    }
 }
 void BattleWindowRenderer::drawMessage()
 {

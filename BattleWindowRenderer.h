@@ -12,6 +12,7 @@ private:
     int height = 500;
     int selectedMenuIndex = 0;
     const BattleStartInfo* battleInfo = nullptr;
+    int battleStartFrame = -1;
     std::vector<std::string> battleMenuItems{
     "‚½‚½‚©‚¤",
     "‚¶‚ã‚à‚ñ",
