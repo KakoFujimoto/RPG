@@ -92,10 +92,12 @@ void BattleWindowRenderer::drawMessage()
     std::string message =
         battleInfo->enemyName + "Ç™Ç†ÇÁÇÌÇÍÇΩÅI";
 
-    int msgX = x + 20;
-    int msgY = y + height - 100;
-    int msgW = width - 40;
     int msgH = 80;
+
+    int msgW = static_cast<int>(width * 0.70);
+
+    int msgX = x + width - msgW - 20;
+    int msgY = y + height - msgH - 20;
 
     DrawBox(
         msgX, msgY,
@@ -118,6 +120,7 @@ void BattleWindowRenderer::drawMessage()
         GetColor(255, 255, 255)
     );
 }
+
 void BattleWindowRenderer::drawMonster()
 {
     if (!battleInfo)
