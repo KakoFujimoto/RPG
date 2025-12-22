@@ -97,7 +97,14 @@ void FieldMenu::update()
 	}
 	
 	int esc = CheckHitKey(KEY_INPUT_ESCAPE);
-
+	if (gm && gm->isBattle())
+	{
+		if (esc)
+		{
+			gm->endBattle();
+		}
+		return;
+	}
 	if (!esc)
 	{
 		escPushed = false;

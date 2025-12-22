@@ -30,4 +30,5 @@ public:
 	void setBattle(bool v);
 	void update();
 	const BattleStartInfo& getBattleInfo() const;
+	void endBattle();
 };

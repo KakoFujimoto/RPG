@@ -101,3 +101,7 @@ const BattleStartInfo& GameManager::getBattleInfo() const
 {
     return currentBattleInfo;
 }
+void GameManager::endBattle()
+{
+    isInBattle = false;
+}
