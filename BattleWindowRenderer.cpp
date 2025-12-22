@@ -160,6 +160,7 @@ void BattleWindowRenderer::drawAllyStatus()
     int statusX = x + 20;
     int statusY = y + 20;
 
+    allyStatusRenderer.setMode(StatusViewMode::BattleParameter);
     allyStatusRenderer.setPosition(statusX, statusY);
     allyStatusRenderer.draw();
 }
