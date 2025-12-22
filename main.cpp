@@ -112,7 +112,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         // == 仮の処理ここまで ==
 
         fieldMenu.draw(display);
-        gm.getFieldItemManager().draw();
         gm.updateItemBag();
 
         ////////// テストコードここから //////////
@@ -120,6 +119,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         if (!gm.isBattle())
         {
             gm.getFieldEnemyManager().draw();
+            gm.getFieldItemManager().draw();
         }
         ////////// テストコードここまで //////////
 
