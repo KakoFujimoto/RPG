@@ -197,6 +197,7 @@ void FieldMenu::draw(Display& display)
 	if (gm && gm->isBattle())
 	{
 		battleRenderer.setBattleInfo(&gm->getBattleInfo());
+		battleRenderer.setAllyParameter(&gm->getAlly().getParameter());
 		battleRenderer.draw();
 		return;
 	}

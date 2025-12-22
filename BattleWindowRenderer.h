@@ -1,5 +1,6 @@
 #pragma once
 #include "Display.h"
+#include "StatusWindowRenderer.h"
 
 struct BattleStartInfo;
 class BattleWindowRenderer {
@@ -10,13 +11,18 @@ private:
     int width = 700;
     int height = 500;
     const BattleStartInfo* battleInfo = nullptr;
+    void drawEnemyInfo();
+    void drawMessage();
+    void drawMonster();
+    void drawAllyStatus();
+    const AllyParameter* allyParam = nullptr;
+    StatusWindowRenderer allyStatusRenderer;
+
 public:
     BattleWindowRenderer(Display& d);
     void setPosition(int px, int py);
     void setSize(int w, int h);
     void draw();
-    void drawEnemyInfo();
     void setBattleInfo(const BattleStartInfo* info);
-    void drawMessage();
-    void drawMonster();
+    void setAllyParameter(const AllyParameter* ally);
 };

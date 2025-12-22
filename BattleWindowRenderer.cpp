@@ -3,7 +3,7 @@
 #include"BattleStartInfo.h"
 
 BattleWindowRenderer::BattleWindowRenderer(Display& d)
-    : display(d)
+    : display(d), allyStatusRenderer(d)
 {
 }
 
@@ -35,6 +35,7 @@ void BattleWindowRenderer::draw()
         FALSE
     );
 
+    drawAllyStatus();
     drawEnemyInfo();
     drawMonster();
     drawMessage();
@@ -143,4 +144,22 @@ void BattleWindowRenderer::drawMonster()
         name.c_str(),
         GetColor(255, 255, 255)
     );
+}
+void BattleWindowRenderer::setAllyParameter(const AllyParameter* ally)
+{
+    allyParam = ally;
+    allyStatusRenderer.setTarget(ally);
+}
+void BattleWindowRenderer::drawAllyStatus()
+{
+    if (!allyParam)
+    {
+        return;
+    }
+
+    int statusX = x + 20;
+    int statusY = y + 20;
+
+    allyStatusRenderer.setPosition(statusX, statusY);
+    allyStatusRenderer.draw();
 }
