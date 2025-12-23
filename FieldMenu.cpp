@@ -99,6 +99,7 @@ void FieldMenu::update()
 			prevBattleDown = false;
 			prevBattleEsc = false;
 			battleMenuIndex = 0;
+			resetBattleUi();
 
 			return;
 		}
@@ -385,3 +386,17 @@ void FieldMenu::updateBattleMenu()
 	prevBattleDown = down;
 	prevBattleEnter = enter;
 }
+void FieldMenu::resetBattleUi()
+{
+	isBattleItemListOpen = false;
+
+	// 入力状態リセット(押しっぱなし対策)
+	prevBattleUp = false;
+	prevBattleDown = false;
+	prevBattleEnter = false;
+	prevBattleEsc = false;
+
+	// 戦闘コマンドカーソル初期化
+	battleMenuIndex = 0;
+}
+

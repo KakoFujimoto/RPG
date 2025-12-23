@@ -65,4 +65,5 @@ public:
 	bool isSubWindowOpen();
 	void showEffect(const EffectResult& result);
 	void updateBattleMenu();
+	void resetBattleUi();
 };
