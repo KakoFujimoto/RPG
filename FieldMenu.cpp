@@ -80,7 +80,6 @@ void FieldMenu::close()
 
 void FieldMenu::update()
 {
-
 	// 戦闘中の入力（ここで完結）
 	if (gm && gm->isBattle())
 	{
@@ -88,17 +87,30 @@ void FieldMenu::update()
 		idleFrameCount = 0;
 		isIdleStatusVisible = false;
 
-		// ESCで戦闘終了
+		// 最前面：どうぐウィンドウ
+		if (isBattleItemListOpen)
+		{
+			itemRenderer.update();
+
+			// ESCで閉じる
+			if (itemRenderer.isCloseRequested())
+			{
+				isBattleItemListOpen = false;
+
+				// 押しっぱなし防止
+				prevBattleEnter = true;
+			}
+
+			return;
+		}
+
+		// 戦闘メニュー（どうぐ未表示時）
 		bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
 		if (esc && !prevBattleEsc)
 		{
 			gm->endBattle();
 
 			// 戦闘用入力状態をリセット
-			prevBattleUp = false;
-			prevBattleDown = false;
-			prevBattleEsc = false;
-			battleMenuIndex = 0;
 			resetBattleUi();
 
 			return;

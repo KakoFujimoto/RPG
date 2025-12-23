@@ -17,7 +17,9 @@ void ItemWindowRenderer::setPosition(int x, int y)
 
 void ItemWindowRenderer::draw()
 {
-    if (!itemBag) return;
+    if (!itemBag) {
+        return;
+    }
 
     const auto& items = itemBag->getItems();
 
