@@ -94,18 +94,25 @@ void BattleWindowRenderer::setBattleInfo(const BattleStartInfo* info)
         battleStartFrame = GetNowCount();
     }
 }
+
 void BattleWindowRenderer::drawMessage()
 {
-    if (!battleInfo)
+    std::string message;
+
+    if (!currentMessage.empty())
+    {
+        message = currentMessage;
+    }
+    else if (battleInfo)
+    {
+        message = battleInfo->enemyName + "Ç™Ç†ÇÁÇÌÇÍÇΩÅI";
+    }
+    else
     {
         return;
     }
 
-    std::string message =
-        battleInfo->enemyName + "Ç™Ç†ÇÁÇÌÇÍÇΩÅI";
-
     int msgH = 80;
-
     int msgW = static_cast<int>(width * 0.70);
 
     int msgX = x + width - msgW - 20;
@@ -132,6 +139,7 @@ void BattleWindowRenderer::drawMessage()
         GetColor(255, 255, 255)
     );
 }
+
 
 void BattleWindowRenderer::drawMonster()
 {
@@ -245,4 +253,12 @@ void BattleWindowRenderer::prepareItemWindow(ItemWindowRenderer& itemRenderer)
         msgX + offsetX,
         msgY + offsetY
     );
+}
+void BattleWindowRenderer::setMessage(const std::string& msg)
+{
+    currentMessage = msg;
+}
+void BattleWindowRenderer::clearMessage()
+{
+    currentMessage.clear();
 }

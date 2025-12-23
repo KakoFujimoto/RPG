@@ -28,6 +28,7 @@ private:
     void drawMenu();
     const AllyParameter* allyParam = nullptr;
     StatusWindowRenderer allyStatusRenderer;
+    std::string currentMessage;
 public:
     BattleWindowRenderer(Display& d);
     void setPosition(int px, int py);
@@ -38,5 +39,6 @@ public:
     void setSelectedMenuIndex(int index);
     int getMenuCount() const;
     void prepareItemWindow(ItemWindowRenderer& itemRenderer);
-
+    void setMessage(const std::string& msg);
+    void clearMessage();
 };

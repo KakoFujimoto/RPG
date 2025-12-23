@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AllyParameter.h" />
+    <ClInclude Include="BattleMessageBuilder.h" />
     <ClInclude Include="BattleStartInfo.h" />
     <ClInclude Include="BattleWindowRenderer.h" />
     <ClInclude Include="Display.h" />
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AllyParameter.cpp" />
+    <ClCompile Include="BattleMessageBuilder.cpp" />
     <ClCompile Include="BattleWindowRenderer.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Effect.cpp" />

@@ -1,6 +1,7 @@
 ﻿#include"FieldMenu.h"
 #include"DxLib.h"
 #include"EffectResult.h"
+#include"BattleMessageBuilder.h"
 
 FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
 	: gm(gm)
@@ -90,20 +91,41 @@ void FieldMenu::update()
 		// 最前面：戦闘中どうぐウィンドウ
 		if (isBattleItemListOpen)
 		{
+			bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
+			bool enterPressed = enter && !prevBattleEnter;
+
 			itemRenderer.update();
 
-			// ESCでどうぐウィンドウだけ閉じる
+			// Enterでアイテム使用
+			if (enterPressed)
+			{
+				const Item* item = itemRenderer.getSelectedItem();
+				if (item)
+				{
+					EffectResult result =
+						itemBag->useItem(item->getName(), gm->getAlly());
+
+					std::string msg = BattleMessageBuilder::build(result);
+
+					gm->getBattleWindowRenderer()
+						.setMessage(msg);
+
+					// 個数減少後に選択位置補正
+					itemRenderer.clampSelectedIndex();
+				}
+			}
+
+			// Escで「どうぐ」だけ閉じる
 			if (itemRenderer.isCloseRequested())
 			{
 				isBattleItemListOpen = false;
-
-				// 押しっぱなし防止
-				prevBattleEsc = true;
-				prevBattleEnter = true;
+				prevBattleEnter = true; // 押しっぱなし防止
 			}
 
+			prevBattleEnter = enter;
 			return;
 		}
+
 
 		// 戦闘メニュー（どうぐ未表示時）
 		bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
