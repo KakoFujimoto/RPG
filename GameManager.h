@@ -30,7 +30,7 @@ public:
 	FieldAlly& getAlly();
 	bool checkEncount();
 	bool isBattle() const;
-	void setBattle(bool v);
+	void startBattle(const BattleStartInfo& info);
 	void update();
 	const BattleStartInfo& getBattleInfo() const;
 	void endBattle();

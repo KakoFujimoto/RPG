@@ -50,10 +50,8 @@ bool GameManager::checkEncount()
 {
     auto& enemies = fieldEnemyManager.getEnemies();
 
-    for (int i = 0; i < static_cast<int>(enemies.size()); ++i)
+    for (auto& e : enemies)
     {
-        auto& e = enemies[i];
-
         if (!e.getIsActive())
         {
             continue;
@@ -63,10 +61,11 @@ bool GameManager::checkEncount()
         {
             e.setIsActive(false);
 
-            currentBattleInfo.enemyName = e.getParameter().getName();
-            currentBattleInfo.count = 1;
+            BattleStartInfo info;
+            info.enemyName = e.getParameter().getName();
+            info.count = 1;
 
-            isInBattle = true;
+            startBattle(info);
             return true;
         }
     }
@@ -83,10 +82,6 @@ FieldEnemyManager& GameManager::getFieldEnemyManager()
 bool GameManager::isBattle() const
 { 
     return isInBattle;
-}
-void GameManager::setBattle(bool v)
-{ 
-    isInBattle = v;
 }
 void GameManager::update()
 {
@@ -133,4 +128,12 @@ void BattleWindowRenderer::setSelectedMenuIndex(int index)
     }
 
     selectedMenuIndex = index;
+}
+void GameManager::startBattle(const BattleStartInfo& info)
+{
+    currentBattleInfo = info;
+    isInBattle = true;
+
+    // 戦闘コマンドのカーソル位置の初期化
+    battleWindowRenderer.setSelectedMenuIndex(0);
 }
