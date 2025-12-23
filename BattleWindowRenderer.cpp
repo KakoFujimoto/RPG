@@ -38,12 +38,12 @@ void BattleWindowRenderer::draw()
     drawAllyStatus();
     drawEnemyInfo();
     drawMonster();
-    drawMessage();
-
     if (GetNowCount() - battleStartFrame >= 1000)
     {
         drawMenu();
     }
+    drawMessage();
+
 }
 
 void BattleWindowRenderer::drawEnemyInfo()

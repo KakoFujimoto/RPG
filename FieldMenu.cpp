@@ -11,7 +11,6 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	, itemRenderer(display)
 	, idleRenderer(display)
 	, effectRenderer(display)
-	, battleRenderer(display)
 	, itemBag(&gm->getItemBag())
 {
 	idleRenderer.setTarget(&allyParameter);
@@ -81,22 +80,21 @@ void FieldMenu::close()
 
 void FieldMenu::update()
 {
-	// =========================
+
 	// 戦闘中の入力（ここで完結）
-	// =========================
 	if (gm && gm->isBattle())
 	{
 		// 戦闘中はアイドル表示を止める
 		idleFrameCount = 0;
 		isIdleStatusVisible = false;
 
-		// ESCで戦闘終了（1回押し検知）
+		// ESCで戦闘終了
 		bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
 		if (esc && !prevBattleEsc)
 		{
 			gm->endBattle();
 
-			// 戦闘用入力状態をリセット（押しっぱなし誤動作防止）
+			// 戦闘用入力状態をリセット
 			prevBattleUp = false;
 			prevBattleDown = false;
 			prevBattleEsc = false;
@@ -106,19 +104,13 @@ void FieldMenu::update()
 		}
 		prevBattleEsc = esc;
 
-		// 戦闘メニューのカーソル移動
 		updateBattleMenu();
-		return; // 戦闘中はフィールドメニュー処理に入らない
+		return;
 	}
 
-	// =========================
 	// ここから下はフィールド専用
-	// =========================
-
-	// 戦闘から戻った直後に押下状態が残らないようリセット
 	prevBattleEsc = false;
 
-	// アイドル表示（キー入力が無い時にステータス表示）
 	bool idle = !CheckHitKeyAll();
 	if (idle)
 	{
@@ -134,7 +126,6 @@ void FieldMenu::update()
 		isIdleStatusVisible = false;
 	}
 
-	// ESC（フィールドメニュー/サブウィンドウ用）
 	int esc = CheckHitKey(KEY_INPUT_ESCAPE);
 
 	if (!esc)
@@ -144,7 +135,6 @@ void FieldMenu::update()
 
 	bool enter = CheckHitKey(KEY_INPUT_RETURN);
 
-	// SPACEキーでフィールドメニューを開く
 	if (!isOpen)
 	{
 		if (CheckHitKey(KEY_INPUT_SPACE))
@@ -156,8 +146,7 @@ void FieldMenu::update()
 		return;
 	}
 
-	// ===== サブウィンドウ類 =====
-
+	// サブウィンドウ類
 	// アイテム
 	if (isItemListOpen)
 	{
@@ -230,9 +219,8 @@ void FieldMenu::update()
 		return;
 	}
 
-	// ===== メインメニュー =====
+	// メインメニュー
 
-	// ESCで閉じる（押しっぱなし対策）
 	if (!escPushed && esc)
 	{
 		close();
@@ -253,6 +241,7 @@ void FieldMenu::draw(Display& display)
 {	
 	if (gm && gm->isBattle())
 	{
+		auto& battleRenderer = gm->getBattleWindowRenderer();
 		battleRenderer.setBattleInfo(&gm->getBattleInfo());
 		battleRenderer.setAllyParameter(&gm->getAlly().getParameter());
 		battleRenderer.draw();
@@ -344,7 +333,6 @@ void FieldMenu::showEffect(const EffectResult& result)
 }
 void FieldMenu::updateBattleMenu()
 {	
-	DrawString(10, 10, "updateBattleMenu()", GetColor(255, 0, 0));
 	bool up = CheckHitKey(KEY_INPUT_UP);
 	bool down = CheckHitKey(KEY_INPUT_DOWN);
 
