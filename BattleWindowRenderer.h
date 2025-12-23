@@ -3,6 +3,7 @@
 #include "StatusWindowRenderer.h"
 
 struct BattleStartInfo;
+class ItemWindowRenderer;
 class BattleWindowRenderer {
 private:
     Display& display;
@@ -36,4 +37,6 @@ public:
     void setAllyParameter(const AllyParameter* ally);
     void setSelectedMenuIndex(int index);
     int getMenuCount() const;
+    void prepareItemWindow(ItemWindowRenderer& itemRenderer);
+
 };

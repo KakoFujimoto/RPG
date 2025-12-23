@@ -1,6 +1,7 @@
 #include"BattleWindowRenderer.h"
 #include"DxLib.h"
 #include"BattleStartInfo.h"
+#include"ItemWindowRenderer.h"
 
 BattleWindowRenderer::BattleWindowRenderer(Display& d)
     : display(d), allyStatusRenderer(d)
@@ -226,4 +227,22 @@ void BattleWindowRenderer::drawMenu()
 int BattleWindowRenderer::getMenuCount() const
 {
     return static_cast<int>(battleMenuItems.size());
+}
+
+void BattleWindowRenderer::prepareItemWindow(ItemWindowRenderer& itemRenderer)
+{
+    int msgH = 80;
+    int msgW = static_cast<int>(width * 0.70);
+
+    int msgX = x + width - msgW - 20;
+    int msgY = y + height - msgH - 20;
+
+    // ­‚µ‚¾‚¯‚¸‚ç‚·(d‚È‚Á‚Ä‚¢‚é‚Æ•ª‚©‚é’ö“x)
+    int offsetX = -10;
+    int offsetY = -10;
+
+    itemRenderer.setPosition(
+        msgX + offsetX,
+        msgY + offsetY
+    );
 }

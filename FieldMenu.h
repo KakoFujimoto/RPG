@@ -40,6 +40,8 @@ private:
 	bool prevDown = false;
 	int battleMenuIndex = 0;
 	bool prevBattleEsc = false;
+	bool isBattleItemListOpen = false;
+	bool prevBattleEnter = false;
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;

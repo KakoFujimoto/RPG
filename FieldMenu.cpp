@@ -239,12 +239,18 @@ void FieldMenu::update()
 
 void FieldMenu::draw(Display& display)
 {	
+	// 設計上問題があるように思うが、完成させることを重視
 	if (gm && gm->isBattle())
 	{
 		auto& battleRenderer = gm->getBattleWindowRenderer();
 		battleRenderer.setBattleInfo(&gm->getBattleInfo());
 		battleRenderer.setAllyParameter(&gm->getAlly().getParameter());
 		battleRenderer.draw();
+
+		if (isBattleItemListOpen)
+		{
+			itemRenderer.draw();
+		}
 		return;
 	}
 	if (isIdleStatusVisible) {
@@ -332,9 +338,12 @@ void FieldMenu::showEffect(const EffectResult& result)
 	effectRenderer.show();
 }
 void FieldMenu::updateBattleMenu()
-{	
+{
 	bool up = CheckHitKey(KEY_INPUT_UP);
 	bool down = CheckHitKey(KEY_INPUT_DOWN);
+	bool enter = CheckHitKey(KEY_INPUT_RETURN);
+
+	bool enterPressed = enter && !prevBattleEnter;
 
 	int menuCount = gm->getBattleMenuCount();
 	if (menuCount <= 0) return;
@@ -360,6 +369,19 @@ void FieldMenu::updateBattleMenu()
 	gm->getBattleWindowRenderer()
 		.setSelectedMenuIndex(battleMenuIndex);
 
+	//　battleMenuIndexの指定がマジックナンバーだがとりあえずの実装
+	if (enterPressed && battleMenuIndex == 3)
+	{
+		isBattleItemListOpen = true;
+		itemRenderer.setTarget(itemBag);
+
+		// 位置はRendererに任せる
+		gm->getBattleWindowRenderer()
+			.prepareItemWindow(itemRenderer);
+	}
+
+
 	prevBattleUp = up;
 	prevBattleDown = down;
+	prevBattleEnter = enter;
 }
