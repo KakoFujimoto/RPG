@@ -87,17 +87,18 @@ void FieldMenu::update()
 		idleFrameCount = 0;
 		isIdleStatusVisible = false;
 
-		// 最前面：どうぐウィンドウ
+		// 最前面：戦闘中どうぐウィンドウ
 		if (isBattleItemListOpen)
 		{
 			itemRenderer.update();
 
-			// ESCで閉じる
+			// ESCでどうぐウィンドウだけ閉じる
 			if (itemRenderer.isCloseRequested())
 			{
 				isBattleItemListOpen = false;
 
 				// 押しっぱなし防止
+				prevBattleEsc = true;
 				prevBattleEnter = true;
 			}
 
@@ -106,22 +107,23 @@ void FieldMenu::update()
 
 		// 戦闘メニュー（どうぐ未表示時）
 		bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
+
 		if (esc && !prevBattleEsc)
 		{
 			gm->endBattle();
-
-			// 戦闘用入力状態をリセット
 			resetBattleUi();
-
 			return;
 		}
+
 		prevBattleEsc = esc;
 
 		updateBattleMenu();
 		return;
 	}
 
+
 	// ここから下はフィールド専用
+
 	prevBattleEsc = false;
 
 	bool idle = !CheckHitKeyAll();
@@ -206,7 +208,6 @@ void FieldMenu::update()
 	if (isSpellListOpen)
 	{
 		bool enterPressedSpell = enter && !prevEnterSpell;
-
 		spellRenderer.update();
 
 		if (enterPressedSpell)
@@ -215,7 +216,8 @@ void FieldMenu::update()
 			if (spell)
 			{
 				EffectResult r =
-					allyParameter.getSpellManager().castSpell(spell->getName(), gm->getAlly());
+					allyParameter.getSpellManager()
+					.castSpell(spell->getName(), gm->getAlly());
 				showEffect(r);
 			}
 		}
@@ -248,6 +250,7 @@ void FieldMenu::update()
 
 	prevEnterMain = enter;
 }
+
 
 
 void FieldMenu::draw(Display& display)
