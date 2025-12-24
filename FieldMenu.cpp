@@ -79,8 +79,11 @@ void FieldMenu::close()
 	isParameterOpen = 0;
 }
 
+// 繰り返し表現が多く、よくないと認識している
+// 詰め込みすぎとも。
 void FieldMenu::update()
-{
+{	
+	// 戦闘中のロジックがここにあるのもおかしい気はしている
 	// 戦闘中の入力（ここで完結）
 	if (gm && gm->isBattle())
 	{
@@ -88,11 +91,13 @@ void FieldMenu::update()
 		idleFrameCount = 0;
 		isIdleStatusVisible = false;
 
-		// 最前面：戦闘中どうぐウィンドウ
+
+
+		// 戦闘中どうぐウィンドウ
 		if (isBattleItemListOpen)
 		{
 			bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
-			bool enterPressed = enter && !prevBattleEnter;
+			bool enterPressed = enter && !prevBattleEnterItem;
 
 			itemRenderer.update();
 
@@ -114,9 +119,7 @@ void FieldMenu::update()
 					itemRenderer.clampSelectedIndex();
 
 					isBattleItemListOpen = false;
-
-					prevBattleEnter = true;
-
+					prevBattleEnterItem = true;
 					return;
 				}
 			}
@@ -125,15 +128,52 @@ void FieldMenu::update()
 			if (itemRenderer.isCloseRequested())
 			{
 				isBattleItemListOpen = false;
-				prevBattleEnter = true; // 押しっぱなし防止
+				prevBattleEnterItem = true; // 押しっぱなし防止
 			}
 
-			prevBattleEnter = enter;
+			prevBattleEnterItem = enter;
 			return;
 		}
 
+		// 戦闘中じゅもんウィンドウ
+		if (isBattleSpellListOpen)
+		{
+			bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
+			bool enterPressed = enter && !prevBattleEnterSpell;
 
-		// 戦闘メニュー（どうぐ未表示時）
+			spellRenderer.update();
+
+			if (enterPressed)
+			{
+				const Spell* spell = spellRenderer.getSelectedSpells();
+				if (spell)
+				{
+					EffectResult result =
+						allyParameter
+						.getSpellManager()
+						.castSpell(spell->getName(), gm->getAlly());
+
+					std::string msg = BattleMessageBuilder::build(result);
+					gm->getBattleWindowRenderer().setMessage(msg);
+
+					// 呪文使用後は閉じる
+					isBattleSpellListOpen = false;
+					prevBattleEnterSpell = true;
+					return;
+				}
+			}
+
+			// Esc で閉じる
+			if (spellRenderer.isCloseRequested())
+			{
+				isBattleSpellListOpen = false;
+				prevBattleEnterSpell = true;
+			}
+
+			prevBattleEnterSpell = enter;
+			return;
+		}
+		// 戦闘メニュー
 		bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
 
 		if (esc && !prevBattleEsc)
@@ -295,6 +335,10 @@ void FieldMenu::draw(Display& display)
 		{
 			itemRenderer.draw();
 		}
+		if (isBattleSpellListOpen)
+		{
+			spellRenderer.draw();
+		}
 		return;
 	}
 	if (isIdleStatusVisible) {
@@ -387,7 +431,7 @@ void FieldMenu::updateBattleMenu()
 	bool down = CheckHitKey(KEY_INPUT_DOWN);
 	bool enter = CheckHitKey(KEY_INPUT_RETURN);
 
-	bool enterPressed = enter && !prevBattleEnter;
+	bool enterPressed = enter && !prevBattleEnterItem;
 
 	int menuCount = gm->getBattleMenuCount();
 	if (menuCount <= 0) return;
@@ -414,6 +458,19 @@ void FieldMenu::updateBattleMenu()
 		.setSelectedMenuIndex(battleMenuIndex);
 
 	//　battleMenuIndexの指定がマジックナンバーだがとりあえずの実装
+	// のちほど定数などに差し替えたい
+	if (enterPressed && battleMenuIndex == 1)
+	{
+		isBattleSpellListOpen = true;
+		spellRenderer.setTarget(&allyParameter);
+		gm->getBattleWindowRenderer()
+			.prepareSpellWindow(spellRenderer);
+
+		prevBattleEnterSpell = true;
+		prevBattleEnterMenu = true;
+		return;
+	}
+
 	if (enterPressed && battleMenuIndex == 3)
 	{
 		isBattleItemListOpen = true;
@@ -422,12 +479,16 @@ void FieldMenu::updateBattleMenu()
 		// 位置はRendererに任せる
 		gm->getBattleWindowRenderer()
 			.prepareItemWindow(itemRenderer);
+
+		prevBattleEnterItem = true;
+		prevBattleEnterMenu = true;
+		return;
 	}
 
 
 	prevBattleUp = up;
 	prevBattleDown = down;
-	prevBattleEnter = enter;
+	prevBattleEnterItem = enter;
 }
 void FieldMenu::resetBattleUi()
 {
@@ -436,7 +497,7 @@ void FieldMenu::resetBattleUi()
 	// 入力状態リセット(押しっぱなし対策)
 	prevBattleUp = false;
 	prevBattleDown = false;
-	prevBattleEnter = false;
+	prevBattleEnterItem = false;
 	prevBattleEsc = false;
 
 	// 戦闘コマンドカーソル初期化

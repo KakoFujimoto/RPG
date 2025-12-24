@@ -2,6 +2,7 @@
 #include"DxLib.h"
 #include"BattleStartInfo.h"
 #include"ItemWindowRenderer.h"
+#include"SpellWindowRenderer.h"
 
 BattleWindowRenderer::BattleWindowRenderer(Display& d)
     : display(d), allyStatusRenderer(d)
@@ -261,4 +262,19 @@ void BattleWindowRenderer::setMessage(const std::string& msg)
 void BattleWindowRenderer::clearMessage()
 {
     currentMessage.clear();
+}
+void BattleWindowRenderer::prepareSpellWindow(SpellWindowRenderer& renderer)
+{
+    int msgH = 80;
+    int msgW = static_cast<int>(width * 0.70);
+
+    int msgX = x + width - msgW - 20;
+    int msgY = y + height - msgH - 20;
+
+    int winH = 100;
+
+    int winX = msgX - 30;
+    int winY = msgY - winH - 10;
+
+    renderer.setPosition(winX, winY);
 }

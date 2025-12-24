@@ -41,7 +41,10 @@ private:
 	int battleMenuIndex = 0;
 	bool prevBattleEsc = false;
 	bool isBattleItemListOpen = false;
-	bool prevBattleEnter = false;
+	bool isBattleSpellListOpen = false;
+	bool prevBattleEnterMenu = false;
+	bool prevBattleEnterItem = false;
+	bool prevBattleEnterSpell = false;
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;

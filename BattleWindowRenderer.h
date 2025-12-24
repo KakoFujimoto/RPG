@@ -4,6 +4,7 @@
 
 struct BattleStartInfo;
 class ItemWindowRenderer;
+class SpellWindowRenderer;
 class BattleWindowRenderer {
 private:
     Display& display;
@@ -39,6 +40,8 @@ public:
     void setSelectedMenuIndex(int index);
     int getMenuCount() const;
     void prepareItemWindow(ItemWindowRenderer& itemRenderer);
+    void prepareSpellWindow(SpellWindowRenderer& renderer);
+
     void setMessage(const std::string& msg);
     void clearMessage();
 };
