@@ -10,6 +10,10 @@ public:
 
 	// 基礎値を中心に、min～maxのランダム値を返す
 	int getRandomValue(int min, int max) {
+		if (min > max)
+		{
+			return min;
+		}
 		std::uniform_int_distribution<> dist(min, max);
 		return dist(gen);
 	}

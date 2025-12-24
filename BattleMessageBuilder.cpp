@@ -2,7 +2,7 @@
 #include"BattleMessageBuilder.h"
 #include <cstdlib>
 
-    static std::string build(const EffectResult& result)
+    std::string BattleMessageBuilder::build(const EffectResult& result)
     {
         if (!result.success)
         {
