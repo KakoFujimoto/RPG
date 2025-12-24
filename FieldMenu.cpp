@@ -112,6 +112,12 @@ void FieldMenu::update()
 
 					// 個数減少後に選択位置補正
 					itemRenderer.clampSelectedIndex();
+
+					isBattleItemListOpen = false;
+
+					prevBattleEnter = true;
+
+					return;
 				}
 			}
 
