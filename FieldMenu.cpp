@@ -446,13 +446,20 @@ void FieldMenu::updateBattleMenu()
 	bool enterPressed = enter && !prevBattleEnterMenu;
 
 	int menuCount = gm->getBattleMenuCount();
-	if (menuCount <= 0) return;
+	if (menuCount <= 0)
+	{
+		return;
+	}
 
 	if (up && !prevBattleUp)
+	{
 		battleMenuIndex = (battleMenuIndex + menuCount - 1) % menuCount;
+	}
 
 	if (down && !prevBattleDown)
+	{
 		battleMenuIndex = (battleMenuIndex + 1) % menuCount;
+	}
 
 	gm->getBattleWindowRenderer()
 		.setSelectedMenuIndex(battleMenuIndex);
