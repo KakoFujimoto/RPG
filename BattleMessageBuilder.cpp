@@ -2,31 +2,28 @@
 #include"BattleMessageBuilder.h"
 #include <cstdlib>
 
-    std::string BattleMessageBuilder::build(const EffectResult& result)
+std::string BattleMessageBuilder::build(const EffectResult& r)
+{
+    std::string msg;
+
+    if (r.actionType == ActionType::Spell)
     {
-        if (!result.success)
-        {
-            if (result.mpShortage)
-            {
-                return result.userName + "は MPが たりない！";
-            }
-            return result.userName + "の こうどうは しっぱいした！";
-        }
+        msg = r.userName + "は " + r.actionName + "を となえた！\n";
 
-        std::string message =
-            result.userName + "は " + result.actionName + "を つかった！";
-
-        if (result.hpDelta != 0)
-        {
-            message += " HPが " +
-                std::to_string(std::abs(result.hpDelta)) + " かいふくした！";
-        }
-
-        if (result.mpDelta != 0)
-        {
-            message += " MPが " +
-                std::to_string(std::abs(result.mpDelta)) + " かいふくした！";
-        }
-
-        return message;
+        if (r.hpDelta > 0)
+            msg += "HPが " + std::to_string(r.hpDelta) + " かいふくした！\n";
     }
+    else if (r.actionType == ActionType::Item)
+    {
+        msg = r.userName + "は " + r.actionName + "を つかった！\n";
+
+        if (r.hpDelta > 0)
+            msg += "HPが " + std::to_string(r.hpDelta) + " かいふくした！\n";
+
+        if (r.mpDelta > 0)
+            msg += "MPが " + std::to_string(r.mpDelta) + " かいふくした！\n";
+    }
+
+    return msg;
+}
+

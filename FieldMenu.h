@@ -69,4 +69,7 @@ public:
 	void showEffect(const EffectResult& result);
 	void updateBattleMenu();
 	void resetBattleUi();
+	void updateBattleItem();
+	void updateBattleSpell();
+
 };

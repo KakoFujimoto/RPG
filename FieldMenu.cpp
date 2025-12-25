@@ -91,101 +91,32 @@ void FieldMenu::update()
 		idleFrameCount = 0;
 		isIdleStatusVisible = false;
 
-
-
-		// 戦闘中どうぐウィンドウ
+		// ① 最前面：どうぐ
 		if (isBattleItemListOpen)
 		{
-			bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
-			bool enterPressed = enter && !prevBattleEnterItem;
-
-			itemRenderer.update();
-
-			// Enterでアイテム使用
-			if (enterPressed)
-			{
-				const Item* item = itemRenderer.getSelectedItem();
-				if (item)
-				{
-					EffectResult result =
-						itemBag->useItem(item->getName(), gm->getAlly());
-
-					std::string msg = BattleMessageBuilder::build(result);
-
-					gm->getBattleWindowRenderer()
-						.setMessage(msg);
-
-					// 個数減少後に選択位置補正
-					itemRenderer.clampSelectedIndex();
-
-					isBattleItemListOpen = false;
-					prevBattleEnterItem = true;
-					return;
-				}
-			}
-
-			// Escで「どうぐ」だけ閉じる
-			if (itemRenderer.isCloseRequested())
-			{
-				isBattleItemListOpen = false;
-				prevBattleEnterItem = true; // 押しっぱなし防止
-			}
-
-			prevBattleEnterItem = enter;
+			updateBattleItem();
 			return;
 		}
 
-		// 戦闘中じゅもんウィンドウ
+		// ② 最前面：じゅもん
 		if (isBattleSpellListOpen)
 		{
-			bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
-			bool enterPressed = enter && !prevBattleEnterSpell;
-
-			spellRenderer.update();
-
-			if (enterPressed)
-			{
-				const Spell* spell = spellRenderer.getSelectedSpells();
-				if (spell)
-				{
-					EffectResult result =
-						allyParameter
-						.getSpellManager()
-						.castSpell(spell->getName(), gm->getAlly());
-
-					std::string msg = BattleMessageBuilder::build(result);
-					gm->getBattleWindowRenderer().setMessage(msg);
-
-					// 呪文使用後は閉じる
-					isBattleSpellListOpen = false;
-					prevBattleEnterSpell = true;
-					return;
-				}
-			}
-
-			// Esc で閉じる
-			if (spellRenderer.isCloseRequested())
-			{
-				isBattleSpellListOpen = false;
-				prevBattleEnterSpell = true;
-			}
-
-			prevBattleEnterSpell = enter;
+			updateBattleSpell();
 			return;
 		}
-		// 戦闘メニュー
-		bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
 
+		// ③ 戦闘メニュー
+		updateBattleMenu();
+
+		// ④ Esc で戦闘終了
+		bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
 		if (esc && !prevBattleEsc)
 		{
 			gm->endBattle();
 			resetBattleUi();
-			return;
 		}
-
 		prevBattleEsc = esc;
 
-		updateBattleMenu();
 		return;
 	}
 
@@ -425,71 +356,7 @@ void FieldMenu::showEffect(const EffectResult& result)
 	effectRenderer.setPosition(50, 300);
 	effectRenderer.show();
 }
-void FieldMenu::updateBattleMenu()
-{
-	bool up = CheckHitKey(KEY_INPUT_UP);
-	bool down = CheckHitKey(KEY_INPUT_DOWN);
-	bool enter = CheckHitKey(KEY_INPUT_RETURN);
 
-	bool enterPressed = enter && !prevBattleEnterItem;
-
-	int menuCount = gm->getBattleMenuCount();
-	if (menuCount <= 0) return;
-
-	if (up && !prevBattleUp)
-	{
-		battleMenuIndex--;
-		if (battleMenuIndex < 0)
-		{
-			battleMenuIndex = menuCount - 1;
-		}
-	}
-
-	if (down && !prevBattleDown)
-	{
-		battleMenuIndex++;
-		if (battleMenuIndex >= menuCount)
-		{
-			battleMenuIndex = 0;
-		}
-	}
-
-	gm->getBattleWindowRenderer()
-		.setSelectedMenuIndex(battleMenuIndex);
-
-	//　battleMenuIndexの指定がマジックナンバーだがとりあえずの実装
-	// のちほど定数などに差し替えたい
-	if (enterPressed && battleMenuIndex == 1)
-	{
-		isBattleSpellListOpen = true;
-		spellRenderer.setTarget(&allyParameter);
-		gm->getBattleWindowRenderer()
-			.prepareSpellWindow(spellRenderer);
-
-		prevBattleEnterSpell = true;
-		prevBattleEnterMenu = true;
-		return;
-	}
-
-	if (enterPressed && battleMenuIndex == 3)
-	{
-		isBattleItemListOpen = true;
-		itemRenderer.setTarget(itemBag);
-
-		// 位置はRendererに任せる
-		gm->getBattleWindowRenderer()
-			.prepareItemWindow(itemRenderer);
-
-		prevBattleEnterItem = true;
-		prevBattleEnterMenu = true;
-		return;
-	}
-
-
-	prevBattleUp = up;
-	prevBattleDown = down;
-	prevBattleEnterItem = enter;
-}
 void FieldMenu::resetBattleUi()
 {
 	isBattleItemListOpen = false;
@@ -503,4 +370,114 @@ void FieldMenu::resetBattleUi()
 	// 戦闘コマンドカーソル初期化
 	battleMenuIndex = 0;
 }
+void FieldMenu::updateBattleItem()
+{
+	bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
+	bool enterPressed = enter && !prevBattleEnterItem;
 
+	itemRenderer.update();
+
+	if (enterPressed)
+	{
+		const Item* item = itemRenderer.getSelectedItem();
+		if (item)
+		{
+			EffectResult result =
+				itemBag->useItem(item->getName(), gm->getAlly());
+
+			std::string msg = BattleMessageBuilder::build(result);
+			gm->getBattleWindowRenderer().setMessage(msg);
+
+			itemRenderer.clampSelectedIndex();
+			isBattleItemListOpen = false;
+			prevBattleEnterItem = true;
+			return;
+		}
+	}
+
+	if (itemRenderer.isCloseRequested())
+	{
+		isBattleItemListOpen = false;
+		prevBattleEnterItem = true;
+	}
+
+	prevBattleEnterItem = enter;
+}
+void FieldMenu::updateBattleSpell()
+{
+	bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
+	bool enterPressed = enter && !prevBattleEnterSpell;
+
+	spellRenderer.update();
+
+	if (enterPressed)
+	{
+		const Spell* spell = spellRenderer.getSelectedSpells();
+		if (spell)
+		{
+			EffectResult result =
+				allyParameter
+				.getSpellManager()
+				.castSpell(spell->getName(), gm->getAlly());
+
+			std::string msg = BattleMessageBuilder::build(result);
+			gm->getBattleWindowRenderer().setMessage(msg);
+
+			isBattleSpellListOpen = false;
+			prevBattleEnterSpell = true;
+			return;
+		}
+	}
+
+	if (spellRenderer.isCloseRequested())
+	{
+		isBattleSpellListOpen = false;
+		prevBattleEnterSpell = true;
+	}
+
+	prevBattleEnterSpell = enter;
+}
+void FieldMenu::updateBattleMenu()
+{
+	bool up = CheckHitKey(KEY_INPUT_UP);
+	bool down = CheckHitKey(KEY_INPUT_DOWN);
+	bool enter = CheckHitKey(KEY_INPUT_RETURN);
+	bool enterPressed = enter && !prevBattleEnterMenu;
+
+	int menuCount = gm->getBattleMenuCount();
+	if (menuCount <= 0) return;
+
+	if (up && !prevBattleUp)
+		battleMenuIndex = (battleMenuIndex + menuCount - 1) % menuCount;
+
+	if (down && !prevBattleDown)
+		battleMenuIndex = (battleMenuIndex + 1) % menuCount;
+
+	gm->getBattleWindowRenderer()
+		.setSelectedMenuIndex(battleMenuIndex);
+
+	if (enterPressed)
+	{
+		// じゅもん
+		if (battleMenuIndex == 1)
+		{
+			isBattleSpellListOpen = true;
+			spellRenderer.setTarget(&allyParameter);
+			gm->getBattleWindowRenderer()
+				.prepareSpellWindow(spellRenderer);
+		}
+
+		// どうぐ
+		if (battleMenuIndex == 3)
+		{
+			isBattleItemListOpen = true;
+			itemRenderer.setTarget(itemBag);
+			gm->getBattleWindowRenderer()
+				.prepareItemWindow(itemRenderer);
+		}
+	}
+
+	prevBattleUp = up;
+	prevBattleDown = down;
+	prevBattleEnterMenu = enter;
+}
