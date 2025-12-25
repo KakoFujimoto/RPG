@@ -2,6 +2,7 @@
 #include"DxLib.h"
 #include"EffectResult.h"
 #include"BattleMessageBuilder.h"
+#include"BattleWindowRenderer.h"
 
 FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
 	: gm(gm)
