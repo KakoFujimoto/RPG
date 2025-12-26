@@ -373,6 +373,17 @@ void FieldMenu::resetBattleUi()
 }
 void FieldMenu::updateBattleItem()
 {
+	// まずEscを最優先で処理
+	if (itemRenderer.isCloseRequested())
+	{
+		isBattleItemListOpen = false;
+
+		// Escをここで消費する
+		prevBattleEsc = true;
+		prevBattleEnterItem = true;
+		return;
+	}
+
 	bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
 	bool enterPressed = enter && !prevBattleEnterItem;
 
@@ -391,19 +402,17 @@ void FieldMenu::updateBattleItem()
 
 			itemRenderer.clampSelectedIndex();
 			isBattleItemListOpen = false;
+
+			// 入力消費
 			prevBattleEnterItem = true;
+			prevBattleEsc = true;
 			return;
 		}
 	}
 
-	if (itemRenderer.isCloseRequested())
-	{
-		isBattleItemListOpen = false;
-		prevBattleEnterItem = true;
-	}
-
 	prevBattleEnterItem = enter;
 }
+
 void FieldMenu::updateBattleSpell()
 {
 	bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
