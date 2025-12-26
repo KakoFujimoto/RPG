@@ -22,5 +22,4 @@ public:
     const Item* getSelectedItem() const;
     int getVisibleCount() const;
     void clampSelectedIndex();
-    void resetBattleUi();
 };
