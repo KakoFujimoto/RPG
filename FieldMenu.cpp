@@ -482,6 +482,8 @@ void FieldMenu::updateBattleMenu()
 			spellRenderer.setTarget(&allyParameter);
 			gm->getBattleWindowRenderer()
 				.prepareSpellWindow(spellRenderer);
+
+			prevBattleEnterSpell = true;
 		}
 
 		// どうぐ
