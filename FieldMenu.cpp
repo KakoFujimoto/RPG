@@ -484,6 +484,7 @@ void FieldMenu::updateBattleMenu()
 				.prepareSpellWindow(spellRenderer);
 
 			prevBattleEnterSpell = true;
+			return;
 		}
 
 		// どうぐ
@@ -493,6 +494,9 @@ void FieldMenu::updateBattleMenu()
 			itemRenderer.setTarget(itemBag);
 			gm->getBattleWindowRenderer()
 				.prepareItemWindow(itemRenderer);
+
+			prevBattleEnterItem = true;
+			return;
 		}
 	}
 
