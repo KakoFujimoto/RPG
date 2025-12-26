@@ -136,4 +136,5 @@ void GameManager::startBattle(const BattleStartInfo& info)
 
     // 戦闘コマンドのカーソル位置の初期化
     battleWindowRenderer.setSelectedMenuIndex(0);
+    battleWindowRenderer.clearMessage();
 }
