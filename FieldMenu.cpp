@@ -518,6 +518,17 @@ void FieldMenu::updateBattleMenu()
 			return;
 		}
 
+		// ぼうぎょ
+		// とりあえずメッセージ表示だけ(ロジックは敵が攻撃できるようになってから)
+		if (battleMenuIndex == 2)
+		{
+			std::string msg =
+				gm->getAlly().getName() + "は みをまもっている!";
+			gm->getBattleWindowRenderer().setMessage(msg);
+
+			return;
+		}
+
 		// どうぐ
 		if (battleMenuIndex == 3)
 		{
