@@ -102,6 +102,17 @@ void FieldMenu::update()
 			justEnteredBattle = false;
 			return;
 		}
+
+		if (isBattleRunningAway)
+		{
+			if (GetNowCount() - battleRunStartTime > 1200)
+			{
+				gm->endBattle();
+				resetBattleUi();
+				isBattleRunningAway = false;
+			}
+			return;
+		}
 		// 戦闘中はアイドル表示を止める
 		idleFrameCount = 0;
 		isIdleStatusVisible = false;
@@ -516,6 +527,19 @@ void FieldMenu::updateBattleMenu()
 				.prepareItemWindow(itemRenderer);
 
 			prevBattleEnterItem = true;
+			return;
+		}
+
+		// にげる
+		if (battleMenuIndex == 4)
+		{
+			std::string msg =
+				gm->getAlly().getName() + "は にげだした!";
+			gm->getBattleWindowRenderer().setMessage(msg);
+
+			isBattleRunningAway = true;
+			battleRunStartTime = GetNowCount();
+
 			return;
 		}
 	}
