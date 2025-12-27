@@ -511,29 +511,12 @@ void FieldMenu::updateBattleMenu()
 		// とりあえずメッセージ表示だけ（ダメージ量計算は別途）
 		if (battleMenuIndex == 0)
 		{
-			// ここで本来使いたいのはFieldxxxではなく、Battlexxx
-			// 時間制約の関係上、その分化はのちほど？
-			auto& ally = gm->getAlly();
-			auto& enemy = gm->getEnemy();
-
-			int damege = BattleDamageCalculator::calcAllyNormalAttack(
-				ally.getParameter(),
-				enemy.getParameter()
-			);
-
-			// ここは良くないが敵名の表示を急いだ
-			const auto& battleInfo = gm->getBattleInfo();
-			std::string enemyName =
-				battleInfo.enemyName;
-
-			std::string msg =
-				ally.getName() + "の こうげき!\n" +
-				enemyName + "に " +
-				std::to_string(damege) + "の ダメージ!";
-
-			gm->getBattleWindowRenderer().setMessage(msg);
+			prevBattleEnterMenu = enter;
+			Command cmd(Command::Type::Attack);
+			gm->getBattleManager().executeRound(cmd);
 			return;
 		}
+
 
 		// じゅもん
 		if (battleMenuIndex == 1)
@@ -586,5 +569,5 @@ void FieldMenu::updateBattleMenu()
 
 	prevBattleUp = up;
 	prevBattleDown = down;
-	prevBattleEnterMenu = enter;
+	//prevBattleEnterMenu = enter;
 }

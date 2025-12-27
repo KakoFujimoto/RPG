@@ -40,6 +40,9 @@ public:
     void setGameOver();
     bool isGameOver() const;
     GameState getState() const;
+    BattleManager& getBattleManager();
+    // デバッグ用
+    int getDebugBattleEnemyHp();
 
 private:
     FieldAlly ally;
@@ -53,4 +56,7 @@ private:
     BattleWindowRenderer battleWindowRenderer;
     GameState state = GameState::Playing;
     BattleManager battleManager;
+    // デバッグ用
+    int debugBattleEnemyHp = -1;
+
 };

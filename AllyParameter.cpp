@@ -116,5 +116,5 @@ const int AllyParameter::getDefense() const
 }
 void AllyParameter::addExp(int exp)
 {
-    gainedExp += gainedExp;
+    gainedExp += exp;
 }

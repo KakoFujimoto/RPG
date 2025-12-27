@@ -75,5 +75,4 @@ public:
 	void resetBattleUi();
 	void updateBattleItem();
 	void updateBattleSpell();
-
 };

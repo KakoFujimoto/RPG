@@ -56,7 +56,7 @@ void BattleWindowRenderer::drawEnemyInfo()
     }
 
     std::string text =
-        battleInfo->enemyName + " - " +
+        battleInfo->enemyParam.name + " - " +
         std::to_string(battleInfo->count) + "‚Ð‚«";
 
     int infoX = x + width - 260;
@@ -106,7 +106,7 @@ void BattleWindowRenderer::drawMessage()
     }
     else if (battleInfo)
     {
-        message = battleInfo->enemyName + "‚ª‚ ‚ç‚í‚ê‚½I";
+        message = battleInfo->enemyParam.name + "‚ª‚ ‚ç‚í‚ê‚½I";
     }
     else
     {
@@ -154,7 +154,7 @@ void BattleWindowRenderer::drawMonster()
     int areaW = width - 200;
     int areaH = height - 250;
 
-    const std::string& name = battleInfo->enemyName;
+    const std::string& name = battleInfo->enemyParam.name;
 
     int textWidth = static_cast<int>(name.size()) * 16;
     int textHeight = 16;

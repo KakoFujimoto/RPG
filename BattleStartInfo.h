@@ -1,8 +1,9 @@
 #pragma once
-#include<string>
+#include <string>
+#include "EnemyParameter.h"
 
 struct BattleStartInfo
 {
-    std::string enemyName;
+    EnemyParameter enemyParam;
     int count = 1;
 };

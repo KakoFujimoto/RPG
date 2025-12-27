@@ -114,7 +114,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         // == 仮の処理ここまで ==
 
         fieldMenu.draw(display);
-        gm.updateItemBag();
+
+        DrawFormatString(
+            20, 20,
+            GetColor(255, 255, 255),
+            "[DEBUG]BattleenemyHP: %d",
+            gm.getDebugBattleEnemyHp()
+        );
+
+        //gm.updateItemBag();
 
         ////////// テストコードここから //////////
         // == 敵の描画 ==
@@ -124,8 +132,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             gm.getFieldItemManager().draw();
         }
         ////////// テストコードここまで //////////
-
-        gm.checkEncount();
+        //gm.checkEncount();
 
         ScreenFlip(); // 裏画面と表画面を入れ替え
     }

@@ -68,16 +68,16 @@ bool GameManager::checkEncount()
             e.setIsActive(false);
 
             BattleStartInfo info;
-            info.enemyName = e.getParameter().getName();
+            info.enemyParam = e.getParameter();
             info.count = 1;
 
             startBattle(info);
             return true;
         }
     }
-
     return false;
 }
+
 
 
 FieldEnemyManager& GameManager::getFieldEnemyManager()
@@ -91,14 +91,20 @@ bool GameManager::isBattle() const
 }
 void GameManager::update()
 {
-    if (!isInBattle)
+    if (state == GameState::GameOver)
     {
-        if (checkEncount())
-        {
-            isInBattle = true;
-        }
+        return;
+    }
+
+    if (state == GameState::Playing)
+    {
+        updateItemBag();
+        checkEncount();
     }
 }
+
+
+
 const BattleStartInfo& GameManager::getBattleInfo() const
 {
     return currentBattleInfo;
@@ -106,6 +112,8 @@ const BattleStartInfo& GameManager::getBattleInfo() const
 void GameManager::endBattle()
 {
     isInBattle = false;
+    state = GameState::Playing;
+    battleWindowRenderer.clearMessage();
 }
 int GameManager::getBattleMenuCount() const
 {
@@ -139,11 +147,18 @@ void GameManager::startBattle(const BattleStartInfo& info)
 {
     currentBattleInfo = info;
     isInBattle = true;
+    state = GameState::Battle;
 
-    // 戦闘コマンドのカーソル位置の初期化
+    enemy.getParameter() = info.enemyParam;
+
     battleWindowRenderer.setSelectedMenuIndex(0);
     battleWindowRenderer.clearMessage();
+
+    // デバッグ用
+    debugBattleEnemyHp = enemy.getParameter().getHp();
+
 }
+
 void GameManager::setGameOver()
 {
     state = GameState::GameOver;
@@ -157,4 +172,12 @@ bool GameManager::isGameOver() const
 GameManager::GameState GameManager::getState() const
 {
     return state;
+}
+BattleManager& GameManager::getBattleManager()
+{
+    return battleManager;
+}
+int GameManager::getDebugBattleEnemyHp()
+{
+    return debugBattleEnemyHp;
 }
