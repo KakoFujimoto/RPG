@@ -506,6 +506,16 @@ void FieldMenu::updateBattleMenu()
 
 	if (enterPressed)
 	{
+		// たたかう
+		// とりあえずメッセージ表示だけ（ダメージ量計算は別途）
+		if (battleMenuIndex == 0)
+		{
+			std::string msg =
+				gm->getAlly().getName() + "の こうげき!";
+			gm->getBattleWindowRenderer().setMessage(msg);
+			return;
+		}
+
 		// じゅもん
 		if (battleMenuIndex == 1)
 		{
