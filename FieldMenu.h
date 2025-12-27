@@ -45,6 +45,8 @@ private:
 	bool prevBattleEnterMenu = false;
 	bool prevBattleEnterItem = false;
 	bool prevBattleEnterSpell = false;
+	bool justEnteredBattle = false;
+	bool prevIsBattle = false;
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;

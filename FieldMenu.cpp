@@ -86,8 +86,22 @@ void FieldMenu::update()
 {	
 	// 戦闘中のロジックがここにあるのもおかしい気はしている
 	// 戦闘中の入力（ここで完結）
-	if (gm && gm->isBattle())
+	bool nowBattle = (gm && gm->isBattle());
+
+	if (nowBattle && !prevIsBattle)
 	{
+		resetBattleUi();
+		justEnteredBattle = true;
+	}
+	prevIsBattle = nowBattle;
+
+	if (nowBattle)
+	{
+		if (justEnteredBattle)
+		{
+			justEnteredBattle = false;
+			return;
+		}
 		// 戦闘中はアイドル表示を止める
 		idleFrameCount = 0;
 		isIdleStatusVisible = false;
@@ -361,15 +375,21 @@ void FieldMenu::showEffect(const EffectResult& result)
 void FieldMenu::resetBattleUi()
 {
 	isBattleItemListOpen = false;
-
-	// 入力状態リセット(押しっぱなし対策)
-	prevBattleUp = false;
-	prevBattleDown = false;
-	prevBattleEnterItem = false;
-	prevBattleEsc = false;
+	isBattleSpellListOpen = false;
 
 	// 戦闘コマンドカーソル初期化
 	battleMenuIndex = 0;
+
+	// 戦闘コマンドのカーソル位置が戻らない問題対策：押しっぱなしを「既に押されている」として処理する =====
+	prevBattleUp = (CheckHitKey(KEY_INPUT_UP) != 0);
+	prevBattleDown = (CheckHitKey(KEY_INPUT_DOWN) != 0);
+	prevBattleEnterMenu = (CheckHitKey(KEY_INPUT_RETURN) != 0);
+
+	// サブ側もついでにリセット
+	prevBattleEnterItem = (CheckHitKey(KEY_INPUT_RETURN) != 0);
+	prevBattleEnterSpell = (CheckHitKey(KEY_INPUT_RETURN) != 0);
+
+	prevBattleEsc = (CheckHitKey(KEY_INPUT_ESCAPE) != 0);
 }
 void FieldMenu::updateBattleItem()
 {
