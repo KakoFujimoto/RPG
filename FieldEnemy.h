@@ -20,6 +20,7 @@ public:
 	void setIsActive(bool state);
 	int getX();
 	int getY();
+	std::string getName();
 	const Position& getPosition() const;
-	const EnemyParameter& getParameter() const;
+	EnemyParameter& getParameter();
 };

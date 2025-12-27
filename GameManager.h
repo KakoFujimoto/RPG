@@ -9,34 +9,48 @@
 #include"FieldEnemyManager.h"
 #include"BattleStartInfo.h"
 #include"BattleWindowRenderer.h"
+#include"BattleManager.h"
 
 
 class Display;
-class GameManager {
-private:
-	FieldAlly ally;
-	FieldEnemy enemy;
-	ItemBag itemBag;
-	FieldItemManager fieldItemManager;
-	FieldEnemyManager fieldEnemyManager;
-	HitCheck hitCheck;
-	bool isInBattle = false;
-	BattleStartInfo currentBattleInfo;
-	BattleWindowRenderer battleWindowRenderer;
+class GameManager
+{
 public:
-	GameManager(Display& display);
-	void updateItemBag();
-	ItemBag& getItemBag();
-	FieldItemManager& getFieldItemManager();
-	FieldEnemyManager& getFieldEnemyManager();
-	FieldAlly& getAlly();
-	FieldEnemy& getEnemy();
-	bool checkEncount();
-	bool isBattle() const;
-	void startBattle(const BattleStartInfo& info);
-	void update();
-	const BattleStartInfo& getBattleInfo() const;
-	void endBattle();
-	int getBattleMenuCount() const;
-	BattleWindowRenderer& getBattleWindowRenderer();
+    enum class GameState
+    {
+        Playing,
+        Battle,
+        GameOver
+    };
+    GameManager(Display& display);
+    void update();
+    void updateItemBag();
+    ItemBag& getItemBag();
+    FieldItemManager& getFieldItemManager();
+    FieldEnemyManager& getFieldEnemyManager();
+    FieldAlly& getAlly();
+    FieldEnemy& getEnemy();
+    bool checkEncount();
+    bool isBattle() const;
+    void startBattle(const BattleStartInfo& info);
+    void endBattle();
+    const BattleStartInfo& getBattleInfo() const;
+    int getBattleMenuCount() const;
+    BattleWindowRenderer& getBattleWindowRenderer();
+    void setGameOver();
+    bool isGameOver() const;
+    GameState getState() const;
+
+private:
+    FieldAlly ally;
+    FieldEnemy enemy;
+    ItemBag itemBag;
+    FieldItemManager fieldItemManager;
+    FieldEnemyManager fieldEnemyManager;
+    HitCheck hitCheck;
+    bool isInBattle = false;
+    BattleStartInfo currentBattleInfo;
+    BattleWindowRenderer battleWindowRenderer;
+    GameState state = GameState::Playing;
+    BattleManager battleManager;
 };

@@ -2,6 +2,7 @@
 #include <string>
 #include"SpellManager.h"
 
+class EnemyParameter;
 class AllyParameter {
 public:
 	std::string name;
@@ -43,4 +44,5 @@ public:
 	int getMp();
 	const int getAttack()const;
 	const int getDefense()const;
+	void addExp(int exp);
 };

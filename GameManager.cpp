@@ -9,7 +9,8 @@ GameManager::GameManager(Display& display)
     ),
     fieldItemManager(),
     itemBag(),
-    battleWindowRenderer(display)
+    battleWindowRenderer(display),
+    battleManager(this)
 {}
 
 void GameManager::updateItemBag()
@@ -142,4 +143,18 @@ void GameManager::startBattle(const BattleStartInfo& info)
     // 戦闘コマンドのカーソル位置の初期化
     battleWindowRenderer.setSelectedMenuIndex(0);
     battleWindowRenderer.clearMessage();
+}
+void GameManager::setGameOver()
+{
+    state = GameState::GameOver;
+}
+
+bool GameManager::isGameOver() const
+{
+    return state == GameState::GameOver;
+}
+
+GameManager::GameState GameManager::getState() const
+{
+    return state;
 }

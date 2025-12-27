@@ -43,3 +43,19 @@ const int EnemyParameter::getDefense() const
 {
     return defensePower;
 }
+int EnemyParameter::getHp() const
+{
+    return hp;
+}
+void EnemyParameter::takeDamage(int amount)
+{
+    hp -= amount;
+    if (hp < 0)
+    {
+        hp = 0;
+    }
+}
+int EnemyParameter::getExp()
+{
+    return exp;
+}

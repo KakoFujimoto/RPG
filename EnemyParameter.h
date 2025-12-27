@@ -27,8 +27,9 @@ public:
 	void takeDamage(int amount);
 	int healHp(int amount);
 	int consumeMp(int amount);
-	int getHp();
+	int getHp() const;
 	int getMp();
 	const int getAttack() const;
 	const int getDefense()const;
+	int getExp();
 };

@@ -51,6 +51,10 @@ int FieldEnemy::getY() {
 const Position& FieldEnemy::getPosition() const {
     return pos;
 }
-const EnemyParameter& FieldEnemy::getParameter() const{
+ EnemyParameter& FieldEnemy::getParameter() {
     return parameter;
+}
+std::string FieldEnemy::getName()
+{
+    return parameter.name;
 }

@@ -1,4 +1,5 @@
 #include "AllyParameter.h"
+#include "EnemyParameter.h"
 
 AllyParameter::AllyParameter()
     : name(""),
@@ -112,4 +113,8 @@ const int AllyParameter::getAttack() const
 const int AllyParameter::getDefense() const
 {
     return defensePower;
+}
+void AllyParameter::addExp(int exp)
+{
+    gainedExp += gainedExp;
 }

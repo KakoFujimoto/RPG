@@ -143,9 +143,11 @@
   <ItemGroup>
     <ClInclude Include="AllyParameter.h" />
     <ClInclude Include="BattleDamageCalculator.h" />
+    <ClInclude Include="BattleManager.h" />
     <ClInclude Include="BattleMessageBuilder.h" />
     <ClInclude Include="BattleStartInfo.h" />
     <ClInclude Include="BattleWindowRenderer.h" />
+    <ClInclude Include="Command.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EffectType.h" />
@@ -175,6 +177,7 @@
   <ItemGroup>
     <ClCompile Include="AllyParameter.cpp" />
     <ClCompile Include="BattleDamageCalculator.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="BattleMessageBuilder.cpp" />
     <ClCompile Include="BattleWindowRenderer.cpp" />
     <ClCompile Include="Display.cpp" />

@@ -128,6 +128,12 @@
     <ClInclude Include="BattleDamageCalculator.h">
       <Filter>src\Core\Battle</Filter>
     </ClInclude>
+    <ClInclude Include="BattleManager.h">
+      <Filter>src\Core\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>src\Core\Battle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -209,6 +215,9 @@
       <Filter>src\Core\Battle</Filter>
     </ClCompile>
     <ClCompile Include="BattleDamageCalculator.cpp">
+      <Filter>src\Core\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleManager.cpp">
       <Filter>src\Core\Battle</Filter>
     </ClCompile>
   </ItemGroup>
