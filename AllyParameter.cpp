@@ -105,3 +105,11 @@ int AllyParameter::getMp()
 {
     return mp;
 }
+const int AllyParameter::getAttack() const
+{
+    return attackPower;
+}
+const int AllyParameter::getDefense() const
+{
+    return defensePower;
+}

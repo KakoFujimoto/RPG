@@ -35,3 +35,11 @@ const std::string EnemyParameter::getName() const
 {
     return name;
 }
+const int EnemyParameter::getAttack() const
+{
+    return attackPower;
+}
+const int EnemyParameter::getDefense() const
+{
+    return defensePower;
+}

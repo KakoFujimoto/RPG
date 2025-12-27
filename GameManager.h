@@ -3,6 +3,7 @@
 #include"FieldItem.h"
 #include"FieldItemManager.h"
 #include"FieldAlly.h"
+#include"FieldEnemy.h"
 #include"ItemBag.h"
 #include"HitCheck.h"
 #include"FieldEnemyManager.h"
@@ -14,6 +15,7 @@ class Display;
 class GameManager {
 private:
 	FieldAlly ally;
+	FieldEnemy enemy;
 	ItemBag itemBag;
 	FieldItemManager fieldItemManager;
 	FieldEnemyManager fieldEnemyManager;
@@ -28,6 +30,7 @@ public:
 	FieldItemManager& getFieldItemManager();
 	FieldEnemyManager& getFieldEnemyManager();
 	FieldAlly& getAlly();
+	FieldEnemy& getEnemy();
 	bool checkEncount();
 	bool isBattle() const;
 	void startBattle(const BattleStartInfo& info);

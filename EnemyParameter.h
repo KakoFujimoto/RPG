@@ -29,4 +29,6 @@ public:
 	int consumeMp(int amount);
 	int getHp();
 	int getMp();
+	const int getAttack() const;
+	const int getDefense()const;
 };

@@ -3,6 +3,7 @@
 #include"EffectResult.h"
 #include"BattleMessageBuilder.h"
 #include"BattleWindowRenderer.h"
+#include"BattleDamageCalculator.h"
 
 FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
 	: gm(gm)
@@ -510,8 +511,26 @@ void FieldMenu::updateBattleMenu()
 		// とりあえずメッセージ表示だけ（ダメージ量計算は別途）
 		if (battleMenuIndex == 0)
 		{
+			// ここで本来使いたいのはFieldxxxではなく、Battlexxx
+			// 時間制約の関係上、その分化はのちほど？
+			auto& ally = gm->getAlly();
+			auto& enemy = gm->getEnemy();
+
+			int damege = BattleDamageCalculator::calcAllyNormalAttack(
+				ally.getParameter(),
+				enemy.getParameter()
+			);
+
+			// ここは良くないが敵名の表示を急いだ
+			const auto& battleInfo = gm->getBattleInfo();
+			std::string enemyName =
+				battleInfo.enemyName;
+
 			std::string msg =
-				gm->getAlly().getName() + "の こうげき!";
+				ally.getName() + "の こうげき!\n" +
+				enemyName + "に " +
+				std::to_string(damege) + "の ダメージ!";
+
 			gm->getBattleWindowRenderer().setMessage(msg);
 			return;
 		}

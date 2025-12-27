@@ -46,6 +46,11 @@ FieldAlly& GameManager::getAlly()
     return ally;
 }
 
+FieldEnemy& GameManager::getEnemy()
+{
+    return enemy;
+}
+
 bool GameManager::checkEncount()
 {
     auto& enemies = fieldEnemyManager.getEnemies();
