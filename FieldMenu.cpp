@@ -132,6 +132,27 @@ void FieldMenu::update()
 			return;
 		}
 
+		// ここに追加
+		if (gm->getBattleManager().isEnemyTurn())
+		{
+			bool enter = CheckHitKey(KEY_INPUT_RETURN);
+			bool enterPressed = enter && !prevBattleEnterMenu;
+
+			if (enterPressed)
+			{
+				prevBattleEnterMenu = enter;
+
+				// EnemyTurnではCommandの中身は使われない
+				Command dummy(Command::Type::Attack);
+				gm->getBattleManager().executeRound(dummy);
+
+				return;
+			}
+
+			prevBattleEnterMenu = enter;
+			return;
+		}
+
 		// ③ 戦闘メニュー
 		updateBattleMenu();
 
@@ -276,8 +297,6 @@ void FieldMenu::update()
 
 	prevEnterMain = enter;
 }
-
-
 
 void FieldMenu::draw(Display& display)
 {	

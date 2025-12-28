@@ -122,3 +122,8 @@ void BattleManager::onLose()
     );
     gameManager->setGameOver();
 }
+
+bool BattleManager::isEnemyTurn() const
+{
+    return phase == BattlePhase::EnemyTurn;
+}
