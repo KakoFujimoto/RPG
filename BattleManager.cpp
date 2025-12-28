@@ -156,7 +156,8 @@ void BattleManager::onWin()
 
     gameManager->getBattleWindowRenderer().setMessage(
         enemy.getName() + "‚ğ ‚½‚¨‚µ‚½I\n" +
-        std::to_string(exp) + "‚Ì ‚¯‚¢‚¯‚ñ‚¿‚ğ ‚©‚­‚Æ‚­!"
+        std::to_string(exp) + "‚Ì ‚¯‚¢‚¯‚ñ‚¿‚ğ ‚©‚­‚Æ‚­!\n"
+        + "‰æ–Ê‚ğ•Â‚¶‚Ä‚­‚¾‚³‚¢\n"
     );
 
     phase = BattlePhase::WinMessage;
