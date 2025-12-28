@@ -1,6 +1,7 @@
-#include "BattleManager.h"
-#include "BattleDamageCalculator.h"
-#include "GameManager.h"
+#include"BattleManager.h"
+#include"BattleDamageCalculator.h"
+#include"GameManager.h"
+#include<WIndows.h>
 
 BattleManager::BattleManager(GameManager* gm)
     : gameManager(gm)
@@ -9,6 +10,18 @@ BattleManager::BattleManager(GameManager* gm)
 
 void BattleManager::executeRound(const Command& playerCommand)
 {
+    // デバッグ用
+    static int callCount = 0;
+    callCount++;
+
+    OutputDebugStringA(
+        ("[DEBUG] executeRound called. count="
+            + std::to_string(callCount)
+            + " phase="
+            + (phase == BattlePhase::AllyTurn ? "Ally" : "Enemy")
+            + "\n").c_str()
+    );
+
     // 味方の行動（現在は、味方→敵の行動順は固定）
     if (phase == BattlePhase::AllyTurn)
     {
@@ -96,6 +109,8 @@ void BattleManager::executeEnemyAction()
 
 void BattleManager::onWin()
 {
+    OutputDebugStringA("[DEBUG] onWin called\n");
+
     phase = BattlePhase::AllyTurn;
 
     auto& ally = gameManager->getAlly();
@@ -115,6 +130,8 @@ void BattleManager::onWin()
 
 void BattleManager::onLose()
 {
+    OutputDebugStringA("[DEBUG] onLose called\n");
+
     phase = BattlePhase::AllyTurn;
 
     gameManager->getBattleWindowRenderer().setMessage(

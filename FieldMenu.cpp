@@ -4,6 +4,7 @@
 #include"BattleMessageBuilder.h"
 #include"BattleWindowRenderer.h"
 #include"BattleDamageCalculator.h"
+#include<Windows.h>
 
 FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
 	: gm(gm)
@@ -97,7 +98,18 @@ void FieldMenu::update()
 	prevIsBattle = nowBattle;
 
 	if (nowBattle)
-	{
+	{	
+		// デバッグ用
+		{
+			std::string dbg =
+				"[DEBUG] BattleInputState\n"
+				"  isEnemyTurn=" + std::to_string(gm->getBattleManager().isEnemyTurn()) + "\n" +
+				"  prevBattleEnterMenu=" + std::to_string(prevBattleEnterMenu) + "\n" +
+				"  enter=" + std::to_string(CheckHitKey(KEY_INPUT_RETURN) != 0) + "\n";
+
+			OutputDebugStringA(dbg.c_str());
+		}
+
 		if (justEnteredBattle)
 		{
 			justEnteredBattle = false;
@@ -146,6 +158,7 @@ void FieldMenu::update()
 				Command dummy(Command::Type::Attack);
 				gm->getBattleManager().executeRound(dummy);
 
+				prevBattleEnterMenu = true;
 				return;
 			}
 
