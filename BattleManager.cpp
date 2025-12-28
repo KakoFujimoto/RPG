@@ -111,13 +111,10 @@ void BattleManager::onWin()
 {
     OutputDebugStringA("[DEBUG] onWin called\n");
 
-    phase = BattlePhase::AllyTurn;
-
     auto& ally = gameManager->getAlly();
     auto& enemy = gameManager->getEnemy();
 
     int exp = enemy.getParameter().getExp();
-
     ally.getParameter().addExp(exp);
 
     gameManager->getBattleWindowRenderer().setMessage(
@@ -125,8 +122,9 @@ void BattleManager::onWin()
         std::to_string(exp) + "‚Ì ‚¯‚¢‚¯‚ñ‚¿‚ð ‚©‚­‚Æ‚­!"
     );
 
-    gameManager->endBattle();
+    phase = BattlePhase::WinMessage;
 }
+
 
 void BattleManager::onLose()
 {

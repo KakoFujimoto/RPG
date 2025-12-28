@@ -82,12 +82,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // == 敵のインスタンス化 ==
     FieldEnemy slime(
         Position{ 400, 300 },
-        EnemyParameter("スライム", 50, 0, 13, 11, 8, 1, 0)
+        EnemyParameter("スライム", 24, 0, 13, 11, 8, 1, 8)
     );
 
     FieldEnemy druky(
         Position{ 200, 200 },
-        EnemyParameter("ドラキー", 44, 10, 13, 11, 8, 1, 0)
+        EnemyParameter("ドラキー", 24, 10, 13, 11, 8, 1, 10)
     );
     // == 敵をフィールド上に湧かせる ==
     gm.getFieldEnemyManager().spawn(slime, 200, 200, rng);

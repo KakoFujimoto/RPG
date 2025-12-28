@@ -15,7 +15,8 @@ private:
     enum class BattlePhase
     {
         AllyTurn,
-        EnemyTurn
+        EnemyTurn,
+        WinMessage
     };
     bool isEnemyDead() const;
     bool isAllyDead() const;
