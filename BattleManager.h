@@ -10,7 +10,6 @@ public:
     BattleManager(GameManager* gm);
     void executeRound(const Command& playerCommand);
     bool isEnemyTurn() const;
-
 private:
     enum class BattlePhase
     {

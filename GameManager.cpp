@@ -181,3 +181,7 @@ int GameManager::getDebugBattleEnemyHp()
 {
     return debugBattleEnemyHp;
 }
+void GameManager::onBattleAllyTurnStart()
+{
+    battleWindowRenderer.setSelectedMenuIndex(0);
+}

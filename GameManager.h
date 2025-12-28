@@ -43,6 +43,7 @@ public:
     BattleManager& getBattleManager();
     // デバッグ用
     int getDebugBattleEnemyHp();
+    void onBattleAllyTurnStart();
 
 private:
     FieldAlly ally;

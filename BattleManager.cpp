@@ -37,6 +37,7 @@ void BattleManager::executeRound(const Command& playerCommand)
 
         // ŽŸ‚Í–¡•ûƒ^[ƒ“
         phase = BattlePhase::AllyTurn;
+        gameManager->onBattleAllyTurnStart();
         return;
     }
 }

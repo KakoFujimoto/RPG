@@ -132,7 +132,6 @@ void FieldMenu::update()
 			return;
 		}
 
-		// ここに追加
 		if (gm->getBattleManager().isEnemyTurn())
 		{
 			bool enter = CheckHitKey(KEY_INPUT_RETURN);
