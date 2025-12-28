@@ -495,16 +495,16 @@ void FieldMenu::updateBattleSpell()
 		const Spell* spell = spellRenderer.getSelectedSpells();
 		if (spell)
 		{
-			EffectResult result =
-				allyParameter
-				.getSpellManager()
-				.castSpell(spell->getName(), gm->getAlly());
+			Command cmd;
+			cmd.type = Command::Type::Spell;
+			cmd.spellName = spell->getName();
 
-			std::string msg = BattleMessageBuilder::build(result);
-			gm->getBattleWindowRenderer().setMessage(msg);
+			gm->getBattleManager().executeRound(cmd);
 
 			isBattleSpellListOpen = false;
 			prevBattleEnterSpell = true;
+			prevBattleEnterMenu = true;
+
 			return;
 		}
 	}
@@ -513,10 +513,13 @@ void FieldMenu::updateBattleSpell()
 	{
 		isBattleSpellListOpen = false;
 		prevBattleEnterSpell = true;
+		prevBattleEnterMenu = true;
+		return;
 	}
 
 	prevBattleEnterSpell = enter;
 }
+
 
 // BattleMenuをUpdateする処理がこのクラスにあるのはおかしいと自覚しています
 void FieldMenu::updateBattleMenu()

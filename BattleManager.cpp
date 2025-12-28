@@ -1,6 +1,8 @@
 #include"BattleManager.h"
 #include"BattleDamageCalculator.h"
 #include"GameManager.h"
+#include"EffectResult.h"
+#include"BattleMessageBuilder.h"
 #include<WIndows.h>
 
 BattleManager::BattleManager(GameManager* gm)
@@ -69,7 +71,9 @@ void BattleManager::executeAllyAction(const Command& cmd)
     auto& ally = gameManager->getAlly();
     auto& enemy = gameManager->getEnemy();
 
-    if (cmd.type == Command::Type::Attack)
+    switch (cmd.type)
+    {
+    case Command::Type::Attack:
     {
         int damage = BattleDamageCalculator::calcAllyNormalAttack(
             ally.getParameter(),
@@ -81,12 +85,39 @@ void BattleManager::executeAllyAction(const Command& cmd)
         gameManager->getBattleWindowRenderer().setMessage(
             ally.getName() + "の こうげき！\n" +
             enemy.getName() + "に " +
-            std::to_string(damage) + "の ダメージ!"
+            std::to_string(damage) + "の ダメージ！"
         );
+        break;
     }
 
-    // じゅもん・ぼうぎょは後で
+    case Command::Type::Spell:
+    {
+        EffectResult result =
+            ally.getParameter()
+            .getSpellManager()
+            .castSpell(cmd.spellName, ally);
+
+        std::string msg = BattleMessageBuilder::build(result);
+        gameManager->getBattleWindowRenderer().setMessage(msg);
+        break;
+    }
+
+    case Command::Type::Guard:
+    {
+        gameManager->getBattleWindowRenderer().setMessage(
+            ally.getName() + "は みをまもっている！"
+        );
+        break;
+    }
+
+    case Command::Type::Item:
+    {
+        // あとで実装
+        break;
+    }
+    }
 }
+
 
 void BattleManager::executeEnemyAction()
 {
