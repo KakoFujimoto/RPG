@@ -1,7 +1,7 @@
 #pragma once
-#include "Command.h"
-#include "FieldEnemy.h"
-#include "FieldAlly.h"
+#include"Command.h"
+#include"FieldEnemy.h"
+#include"FieldAlly.h"
 
 class GameManager;
 class BattleManager
@@ -11,6 +11,11 @@ public:
     void executeRound(const Command& playerCommand);
 
 private:
+    enum class BattlePhase
+    {
+        AllyTurn,
+        EnemyTurn
+    };
     bool isEnemyDead() const;
     bool isAllyDead() const;
     void executeAllyAction(const Command& cmd);
@@ -18,4 +23,5 @@ private:
     void onWin();
     void onLose();
     GameManager* gameManager;
+    BattlePhase phase = BattlePhase::AllyTurn;
 };

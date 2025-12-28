@@ -10,20 +10,33 @@ BattleManager::BattleManager(GameManager* gm)
 void BattleManager::executeRound(const Command& playerCommand)
 {
     // 味方の行動（現在は、味方→敵の行動順は固定）
-    executeAllyAction(playerCommand);
-
-    if (isEnemyDead())
+    if (phase == BattlePhase::AllyTurn)
     {
-        onWin();
+        executeAllyAction(playerCommand);
+
+        if (isEnemyDead())
+        {
+            onWin();
+            return;
+        }
+
+        // 敵ターン
+        phase = BattlePhase::EnemyTurn;
         return;
     }
 
-    // 敵の行動
-    executeEnemyAction();
-
-    if (isAllyDead())
+    if (phase == BattlePhase::EnemyTurn)
     {
-        onLose();
+        executeEnemyAction();
+
+        if (isAllyDead())
+        {
+            onLose();
+            return;
+        }
+
+        // 次は味方ターン
+        phase = BattlePhase::AllyTurn;
         return;
     }
 }
@@ -83,6 +96,8 @@ void BattleManager::executeEnemyAction()
 
 void BattleManager::onWin()
 {
+    phase = BattlePhase::AllyTurn;
+
     auto& ally = gameManager->getAlly();
     auto& enemy = gameManager->getEnemy();
 
@@ -100,9 +115,10 @@ void BattleManager::onWin()
 
 void BattleManager::onLose()
 {
+    phase = BattlePhase::AllyTurn;
+
     gameManager->getBattleWindowRenderer().setMessage(
         "しんでしまった…画面を閉じてください"
     );
-
     gameManager->setGameOver();
 }

@@ -479,6 +479,8 @@ void FieldMenu::updateBattleSpell()
 
 	prevBattleEnterSpell = enter;
 }
+
+// BattleMenuをUpdateする処理がこのクラスにあるのはおかしいと自覚しています
 void FieldMenu::updateBattleMenu()
 {
 	bool up = CheckHitKey(KEY_INPUT_UP);
