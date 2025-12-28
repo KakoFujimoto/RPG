@@ -4,6 +4,7 @@
 #include"BattleMessageBuilder.h"
 #include"BattleWindowRenderer.h"
 #include"BattleDamageCalculator.h"
+#include"Command.h"
 #include<Windows.h>
 
 FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
@@ -469,6 +470,9 @@ void FieldMenu::updateBattleItem()
 
 			std::string msg = BattleMessageBuilder::build(result);
 			gm->getBattleWindowRenderer().setMessage(msg);
+
+			Command cmd(Command::Type::Item);
+			gm->getBattleManager().executeRound(cmd);
 
 			itemRenderer.clampSelectedIndex();
 			isBattleItemListOpen = false;

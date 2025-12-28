@@ -73,48 +73,47 @@ void BattleManager::executeAllyAction(const Command& cmd)
 
     switch (cmd.type)
     {
-    case Command::Type::Attack:
-    {
-        int damage = BattleDamageCalculator::calcAllyNormalAttack(
-            ally.getParameter(),
-            enemy.getParameter()
-        );
+        case Command::Type::Attack:
+        {
+            int damage = BattleDamageCalculator::calcAllyNormalAttack(
+                ally.getParameter(),
+                enemy.getParameter()
+            );
 
-        enemy.getParameter().takeDamage(damage);
+            enemy.getParameter().takeDamage(damage);
 
-        gameManager->getBattleWindowRenderer().setMessage(
-            ally.getName() + "の こうげき！\n" +
-            enemy.getName() + "に " +
-            std::to_string(damage) + "の ダメージ！"
-        );
-        break;
-    }
+            gameManager->getBattleWindowRenderer().setMessage(
+                ally.getName() + "の こうげき！\n" +
+                enemy.getName() + "に " +
+                std::to_string(damage) + "の ダメージ！"
+            );
+            break;
+        }
 
-    case Command::Type::Spell:
-    {
-        EffectResult result =
-            ally.getParameter()
-            .getSpellManager()
-            .castSpell(cmd.spellName, ally);
+        case Command::Type::Spell:
+        {
+            EffectResult result =
+                ally.getParameter()
+                .getSpellManager()
+                .castSpell(cmd.spellName, ally);
 
-        std::string msg = BattleMessageBuilder::build(result);
-        gameManager->getBattleWindowRenderer().setMessage(msg);
-        break;
-    }
+            std::string msg = BattleMessageBuilder::build(result);
+            gameManager->getBattleWindowRenderer().setMessage(msg);
+            break;
+        }
 
-    case Command::Type::Guard:
-    {
-        gameManager->getBattleWindowRenderer().setMessage(
-            ally.getName() + "は みをまもっている！"
-        );
-        break;
-    }
+        case Command::Type::Guard:
+        {
+            gameManager->getBattleWindowRenderer().setMessage(
+                ally.getName() + "は みをまもっている！"
+            );
+            break;
+        }
 
-    case Command::Type::Item:
-    {
-        // あとで実装
-        break;
-    }
+        case Command::Type::Item:
+        {
+            break;
+        }
     }
 }
 
