@@ -41,7 +41,8 @@ public:
     int getMenuCount() const;
     void prepareItemWindow(ItemWindowRenderer& itemRenderer);
     void prepareSpellWindow(SpellWindowRenderer& renderer);
-
     void setMessage(const std::string& msg);
     void clearMessage();
+    // ‚±‚±‚É‚ ‚é‚Ì‚ª—Ç‚­‚È‚³‚»‚¤
+    bool canShowBattleStartMessage = true;
 };

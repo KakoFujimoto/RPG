@@ -1,6 +1,7 @@
 #include "BattleManager.h"
 #include "BattleDamageCalculator.h"
 #include "GameManager.h"
+#include <Windows.h>
 
 BattleManager::BattleManager(GameManager* gm)
     : gameManager(gm)
@@ -12,6 +13,8 @@ void BattleManager::executeRound(const Command& playerCommand)
     // 味方の行動（現在は、味方→敵の行動順は固定）
     if (phase == BattlePhase::AllyTurn)
     {
+        // デバッグ用
+        OutputDebugStringA("[DEBUG] executeRound called\n");
         executeAllyAction(playerCommand);
 
         if (isEnemyDead())

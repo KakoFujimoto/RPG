@@ -153,7 +153,8 @@ void GameManager::startBattle(const BattleStartInfo& info)
 
     battleWindowRenderer.setSelectedMenuIndex(0);
     battleWindowRenderer.clearMessage();
-
+    // アクセサー経由じゃないから良くなさそう
+    battleWindowRenderer.canShowBattleStartMessage = true;
     // デバッグ用
     debugBattleEnemyHp = enemy.getParameter().getHp();
 

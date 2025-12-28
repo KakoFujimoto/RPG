@@ -551,9 +551,11 @@ void FieldMenu::updateBattleMenu()
 		// とりあえずメッセージ表示だけ（ダメージ量計算は別途）
 		if (battleMenuIndex == 0)
 		{
-			prevBattleEnterMenu = enter;
 			Command cmd(Command::Type::Attack);
 			gm->getBattleManager().executeRound(cmd);
+
+			prevBattleEnterMenu = enter;
+			isBattleWaitingMessageAck = true;
 			return;
 		}
 

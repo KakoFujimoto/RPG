@@ -104,9 +104,10 @@ void BattleWindowRenderer::drawMessage()
     {
         message = currentMessage;
     }
-    else if (battleInfo)
+    else if (battleInfo && canShowBattleStartMessage)
     {
         message = battleInfo->enemyParam.name + "‚ª‚ ‚ç‚í‚ê‚½I";
+        canShowBattleStartMessage = false;
     }
     else
     {
