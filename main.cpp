@@ -56,7 +56,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // == 回復効果の確認用に手動で味方キャラのパラメータを下げる ==
     AllyParameter& allyParameter = gm.getAlly().getParameter();
     allyParameter.consumeMp(5);
-    allyParameter.takeDamage(480);
+    allyParameter.takeDamage(20);
 
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
@@ -82,12 +82,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // == 敵のインスタンス化 ==
     FieldEnemy slime(
         Position{ 400, 300 },
-        EnemyParameter("スライム", 10, 0, 13, 11, 8, 1, 0)
+        EnemyParameter("スライム", 50, 0, 13, 11, 8, 1, 0)
     );
 
     FieldEnemy druky(
         Position{ 200, 200 },
-        EnemyParameter("ドラキー", 14, 10, 13, 11, 8, 1, 0)
+        EnemyParameter("ドラキー", 44, 10, 13, 11, 8, 1, 0)
     );
     // == 敵をフィールド上に湧かせる ==
     gm.getFieldEnemyManager().spawn(slime, 200, 200, rng);

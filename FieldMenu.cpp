@@ -110,6 +110,12 @@ void FieldMenu::update()
 			OutputDebugStringA(dbg.c_str());
 		}
 
+		bool enterNow = CheckHitKey(KEY_INPUT_RETURN) != 0;
+		if (!enterNow)
+		{
+			prevBattleEnterMenu = false;
+		}
+
 		if (justEnteredBattle)
 		{
 			justEnteredBattle = false;
