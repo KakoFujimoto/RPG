@@ -151,9 +151,18 @@ void FieldMenu::update()
 			return;
 		}
 
-		// ここに追加
 		if (gm->getBattleManager().isEnemyTurn())
 		{
+			if (justEnteredEnemyTurn)
+			{
+				bool enterNow = CheckHitKey(KEY_INPUT_RETURN) != 0;
+				if (!enterNow)
+				{
+					justEnteredEnemyTurn = false;
+				}
+				return;
+			}
+
 			bool enter = CheckHitKey(KEY_INPUT_RETURN);
 			bool enterPressed = enter && !prevBattleEnterMenu;
 
@@ -472,7 +481,10 @@ void FieldMenu::updateBattleItem()
 			gm->getBattleWindowRenderer().setMessage(msg);
 
 			Command cmd(Command::Type::Item);
-			gm->getBattleManager().executeRound(cmd);
+			//gm->getBattleManager().executeRound(cmd);
+
+			gm->getBattleManager().notifyAllyActionFinished();
+			justEnteredEnemyTurn = true;
 
 			itemRenderer.clampSelectedIndex();
 			isBattleItemListOpen = false;

@@ -14,6 +14,7 @@
 #include"ItemBag.h"
 #include"EffectResult.h"
 
+// 責務が多すぎる/責務外の処理もあると認識しています。
 class FieldMenu {
 private:
 	std::vector<MenuItem> menuItems{
@@ -22,7 +23,7 @@ private:
 		{ "SPELL", "じゅもん" },
 		{ "BACK", "もどる" }
 	};
-
+	// フラグ類はよくないと認識しています。
 	bool isOpen = false;
 	bool isItemListOpen = false;
 	bool isParameterOpen = false;
@@ -49,6 +50,7 @@ private:
 	bool justEnteredBattle = false;
 	bool isBattleRunningAway = false;
 	int battleRunStartTime = 0;
+	bool justEnteredEnemyTurn = false;
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;

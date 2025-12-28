@@ -172,3 +172,11 @@ bool BattleManager::isEnemyTurn() const
 {
     return phase == BattlePhase::EnemyTurn;
 }
+
+void BattleManager::notifyAllyActionFinished()
+{
+    if (phase == BattlePhase::AllyTurn)
+    {
+        phase = BattlePhase::EnemyTurn;
+    }
+}
