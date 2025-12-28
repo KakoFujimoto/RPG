@@ -590,13 +590,13 @@ void FieldMenu::updateBattleMenu()
 		}
 
 		// ぼうぎょ
-		// とりあえずメッセージ表示だけ(ロジックは敵が攻撃できるようになってから)
 		if (battleMenuIndex == 2)
 		{
-			std::string msg =
-				gm->getAlly().getName() + "は みをまもっている!";
-			gm->getBattleWindowRenderer().setMessage(msg);
+			Command cmd(Command::Type::Guard);
 
+			gm->getBattleManager().executeRound(cmd);
+
+			prevBattleEnterMenu = true;
 			return;
 		}
 
@@ -628,5 +628,4 @@ void FieldMenu::updateBattleMenu()
 
 	prevBattleUp = up;
 	prevBattleDown = down;
-	//prevBattleEnterMenu = enter;
 }

@@ -103,7 +103,8 @@ void BattleManager::executeAllyAction(const Command& cmd)
         }
 
         case Command::Type::Guard:
-        {
+        {   
+            isGuarding = true;
             gameManager->getBattleWindowRenderer().setMessage(
                 ally.getName() + "‚Í ‚İ‚ğ‚Ü‚à‚Á‚Ä‚¢‚éI"
             );
@@ -127,6 +128,12 @@ void BattleManager::executeEnemyAction()
         enemy.getParameter(),
         ally.getParameter()
     );
+
+    if (isGuarding)
+    {
+        damage /= 2;
+        isGuarding = false;
+    }
 
     ally.getParameter().takeDamage(damage);
 

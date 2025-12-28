@@ -27,4 +27,5 @@ private:
     void onLose();
     GameManager* gameManager;
     BattlePhase phase = BattlePhase::AllyTurn;
+    bool isGuarding = false;
 };
