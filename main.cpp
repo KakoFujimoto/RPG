@@ -16,6 +16,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // 画面サイズを設定
     SetGraphMode(800, 600, 32);
 
+    // 画面サイズを設定
     // DXライブラリの初期化
     if (DxLib_Init() == -1) {
         return -1;
@@ -23,10 +24,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     // 描画先を裏画面にする
     SetDrawScreen(DX_SCREEN_BACK);
-
-
-    SetDrawScreen(DX_SCREEN_BACK);
-
 
     Display display;
     GameManager gm(display);
