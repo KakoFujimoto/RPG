@@ -18,6 +18,7 @@ public:
     void setPosition(int x, int y);
     void draw();
     void update();
+    // ‚±‚±‚àSpellWindowRenderer‚Æ“¯‚¶‚­C³‰Â”\
     bool isCloseRequested() const;
     const Item* getSelectedItem() const;
     int getVisibleCount() const;

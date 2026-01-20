@@ -22,6 +22,7 @@ public:
     void setTarget(const AllyParameter* p);
     void setPosition(int x, int y);
     void draw();
+    // ‚±‚±‚àSpellWindowRenderer‚Æ“¯‚¶‚­C³‰Â”\
     bool isCloseRequested() const;
     void setMode(StatusViewMode m);
 };

@@ -65,7 +65,7 @@ void ItemWindowRenderer::draw()
     }
 }
 
-
+// ‚±‚±‚àSpellWindowRenderer‚Æ“¯‚¶‚­C³‰Â”\
 bool ItemWindowRenderer::isCloseRequested() const
 {
     return CheckHitKey(KEY_INPUT_ESCAPE);

@@ -52,6 +52,11 @@ FieldEnemy& GameManager::getEnemy()
     return enemy;
 }
 
+Input& GameManager::getInput()
+{
+    return input;
+}
+
 bool GameManager::checkEncount()
 {
     auto& enemies = fieldEnemyManager.getEnemies();

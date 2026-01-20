@@ -15,6 +15,9 @@
 #include"EffectResult.h"
 
 // Ó–±‚ª‘½‚·‚¬‚é/Ó–±ŠO‚Ìˆ—‚à‚ ‚é‚Æ”F¯‚µ‚Ä‚¢‚Ü‚·B
+
+class Input;
+
 class FieldMenu {
 private:
 	std::vector<MenuItem> menuItems{
@@ -68,7 +71,7 @@ public:
 	void select(bool enterPressed);
 	void open();
 	void close();
-	void update();
+	void update(const Input& input);
 	void draw(Display& display);
 	bool getIsOpen () const;
 	bool isSubWindowOpen();
@@ -76,5 +79,5 @@ public:
 	void updateBattleMenu();
 	void resetBattleUi();
 	void updateBattleItem();
-	void updateBattleSpell();
+	void updateBattleSpell(const Input& input);
 };

@@ -5,6 +5,7 @@
 #include"BattleWindowRenderer.h"
 #include"BattleDamageCalculator.h"
 #include"Command.h"
+#include"Input.h"
 #include<Windows.h>
 
 FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
@@ -85,7 +86,7 @@ void FieldMenu::close()
 
 // 繰り返し表現が多く、よくないと認識している
 // 詰め込みすぎとも。
-void FieldMenu::update()
+void FieldMenu::update(const Input& input)
 {	
 	// 戦闘中のロジックがここにあるのもおかしい気はしている
 	// 戦闘中の入力（ここで完結）
@@ -147,7 +148,7 @@ void FieldMenu::update()
 		// ② 最前面：じゅもん
 		if (isBattleSpellListOpen)
 		{
-			updateBattleSpell();
+			updateBattleSpell(input);
 			return;
 		}
 
@@ -256,6 +257,7 @@ void FieldMenu::update()
 			}
 		}
 
+		// ここもSpellWindowRendererと同じく修正可能
 		if (itemRenderer.isCloseRequested())
 		{
 			isItemListOpen = false;
@@ -272,6 +274,7 @@ void FieldMenu::update()
 	// ステータス
 	if (isParameterOpen)
 	{
+		// ここもSpellWindowRendererと同じく修正可能
 		if (statusRenderer.isCloseRequested())
 		{
 			isParameterOpen = false;
@@ -298,7 +301,7 @@ void FieldMenu::update()
 			}
 		}
 
-		if (spellRenderer.isCloseRequested())
+		if (input.isPressed(GameKey::Cancel))
 		{
 			isSpellListOpen = false;
 			escPushed = true;
@@ -454,6 +457,7 @@ void FieldMenu::resetBattleUi()
 void FieldMenu::updateBattleItem()
 {
 	// まずEscを最優先で処理
+	// ここもSpellWindowRendererと同じく修正可能
 	if (itemRenderer.isCloseRequested())
 	{
 		isBattleItemListOpen = false;
@@ -499,7 +503,7 @@ void FieldMenu::updateBattleItem()
 	prevBattleEnterItem = enter;
 }
 
-void FieldMenu::updateBattleSpell()
+void FieldMenu::updateBattleSpell(const Input& input)
 {
 	bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
 	bool enterPressed = enter && !prevBattleEnterSpell;
@@ -525,7 +529,7 @@ void FieldMenu::updateBattleSpell()
 		}
 	}
 
-	if (spellRenderer.isCloseRequested())
+	if(input.isPressed(GameKey::Cancel))
 	{
 		isBattleSpellListOpen = false;
 		prevBattleEnterSpell = true;
@@ -629,16 +633,3 @@ void FieldMenu::updateBattleMenu()
 	prevBattleUp = up;
 	prevBattleDown = down;
 }
-
-//
-//class FieldMenuDrawer
-//{
-//	void showMenu(const std::vector<std::string>& items, int startX, int startY) {
-//		const int itemHeight = 30; // 各メニュー項目の高さ
-//		const int textColor = GetColor(255, 255, 255); // 白色
-//		for (size_t i = 0; i < items.size(); ++i) {
-//			display.drawText(startX, startY + static_cast<int>(i) * itemHeight, items[i].c_str(), textColor);
-//		}
-//	}
-//
-//};

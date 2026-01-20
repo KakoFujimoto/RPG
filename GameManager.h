@@ -10,6 +10,7 @@
 #include"BattleStartInfo.h"
 #include"BattleWindowRenderer.h"
 #include"BattleManager.h"
+#include"Input.h"
 
 
 class Display;
@@ -30,6 +31,7 @@ public:
     FieldEnemyManager& getFieldEnemyManager();
     FieldAlly& getAlly();
     FieldEnemy& getEnemy();
+	Input& getInput();
     bool checkEncount();
     bool isBattle() const;
     void startBattle(const BattleStartInfo& info);
@@ -56,6 +58,7 @@ private:
     BattleWindowRenderer battleWindowRenderer;
     GameState state = GameState::Playing;
     BattleManager battleManager;
+    Input input;
     // デバッグ用
     int debugBattleEnemyHp = -1;
 

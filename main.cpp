@@ -100,7 +100,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
         gm.update();
-        fieldMenu.update();
+		auto input = gm.getInput();
+        fieldMenu.update(input);
         
         if (!gm.isBattle() && !fieldMenu.getIsOpen()) {
             gm.getAlly().move();
