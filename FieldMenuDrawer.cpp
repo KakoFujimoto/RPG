@@ -1,19 +1,33 @@
-#include"FieldMenuDrawer.h"
+ï»¿#include"FieldMenuDrawer.h"
 #include"Display.h"
 #include<DxLib.h>
 
 
 void FieldMenuDrawer::draw(
 	Display& display,
-	const std::vector<std::string>& items,
-	int startX,
-	int startY
+	const std::vector<std::string>& labels,
+	int selectedIndex,
+	int x,
+	int y
 ) const
 {
-	// –{—ˆ‚Íƒ}ƒWƒbƒNƒiƒ“ƒo[‚ğConfig‚ÉØ‚èo‚¹‚Ü‚·
-	const int itemHeight = 30; // Šeƒƒjƒ…[€–Ú‚Ì‚‚³
-	const int textColor = GetColor(255, 255, 255); // ”’F
-	for (size_t i = 0; i < items.size(); ++i) {
-		display.drawText(startX, startY + static_cast<int>(i) * itemHeight, items[i], textColor);
+	// æœ¬æ¥ã¯ãƒã‚¸ãƒƒã‚¯ãƒŠãƒ³ãƒãƒ¼ã‚’Configã«åˆ‡ã‚Šå‡ºã›ã¾ã™
+	const int lineHeight = 30; // å„ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã®é«˜ã•
+	const int textColor = GetColor(255, 255, 255); // ç™½è‰²
+	const int cursorcolor = GetColor(255, 255, 255);
+
+
+	for (size_t i = 0; i < labels.size(); ++i) {
+		int itemY = y + 20 + i * lineHeight;
+
+		if (i == selectedIndex)
+		{
+			display.drawCursor(x + 5, itemY, cursorcolor);
+		}
+		display.drawText(
+			x + 25,
+			itemY,
+			labels[i],
+			textColor);
 	}	
 }

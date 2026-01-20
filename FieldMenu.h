@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<string>
 #include<vector>
 #include"Display.h"
@@ -13,20 +13,21 @@
 #include"EffectWindowRenderer.h"
 #include"ItemBag.h"
 #include"EffectResult.h"
+#include "FieldMenuDrawer.h"
 
-// Ó–±‚ª‘½‚·‚¬‚é/Ó–±ŠO‚Ìˆ—‚à‚ ‚é‚Æ”F¯‚µ‚Ä‚¢‚Ü‚·B
+// è²¬å‹™ãŒå¤šã™ãã‚‹/è²¬å‹™å¤–ã®å‡¦ç†ã‚‚ã‚ã‚‹ã¨èªè­˜ã—ã¦ã„ã¾ã™ã€‚
 
 class Input;
 
 class FieldMenu {
 private:
 	std::vector<MenuItem> menuItems{
-		{ "ITEM", "‚Ç‚¤‚®" },
-		{ "STATUS", "‚Â‚æ‚³" },
-		{ "SPELL", "‚¶‚ã‚à‚ñ" },
-		{ "BACK", "‚à‚Ç‚é" }
+		{ "ITEM", "ã©ã†ã" },
+		{ "STATUS", "ã¤ã‚ˆã•" },
+		{ "SPELL", "ã˜ã‚…ã‚‚ã‚“" },
+		{ "BACK", "ã‚‚ã©ã‚‹" }
 	};
-	// ƒtƒ‰ƒO—Ş‚Í‚æ‚­‚È‚¢‚Æ”F¯‚µ‚Ä‚¢‚Ü‚·B
+	// ãƒ•ãƒ©ã‚°é¡ã¯ã‚ˆããªã„ã¨èªè­˜ã—ã¦ã„ã¾ã™ã€‚
 	bool isOpen = false;
 	bool isItemListOpen = false;
 	bool isParameterOpen = false;
@@ -64,6 +65,7 @@ private:
 	EffectWindowRenderer effectRenderer;
 	ItemBag* itemBag;
 	EffectResult lastEffect;
+	FieldMenuDrawer menuDrawer;
 
 public:
 	FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter);

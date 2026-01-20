@@ -367,19 +367,15 @@ void FieldMenu::draw(Display& display)
 
 	display.drawWindow(x, y, width, height, borderColor, fillColor);
 
-	int textColor = GetColor(255, 255, 255);
-	int cursorColor = GetColor(255, 255, 255);
-	int lineHeight = 30;
-
-	for (int i = 0; i < static_cast<int>(menuItems.size()); ++i) {
-		int itemY = y + 20 + i * lineHeight;
-
-		if (i == selectedIndex) {
-			display.drawCursor(x + 5, itemY, cursorColor);
-		}
-
-		display.drawText(x + 25, itemY, menuItems[i].label, textColor);
+	std::vector<std::string> labels;
+	labels.reserve(menuItems.size());
+	for (const auto& item : menuItems)
+	{
+		labels.push_back(item.label);
 	}
+
+	menuDrawer.draw(display, labels, selectedIndex, x, y);
+
 
 	if (isItemListOpen) {
 		itemRenderer.draw();
