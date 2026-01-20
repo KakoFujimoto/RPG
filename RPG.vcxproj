@@ -159,6 +159,7 @@
     <ClInclude Include="FieldItem.h" />
     <ClInclude Include="FieldItemManager.h" />
     <ClInclude Include="FieldMenu.h" />
+    <ClInclude Include="FieldMenuDrawer.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="HitCheck.h" />
     <ClInclude Include="IdleStatusRenderer.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="FieldItem.cpp" />
     <ClCompile Include="FieldItemManager.cpp" />
     <ClCompile Include="FieldMenu.cpp" />
+    <ClCompile Include="FieldMenuDrawer.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="HitCheck.cpp" />
     <ClCompile Include="IdleStatusRenderer.cpp" />
