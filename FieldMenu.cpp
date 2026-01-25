@@ -525,7 +525,8 @@ void FieldMenu::updateBattleSpell(const Input& input)
 		}
 	}
 
-	if(input.isPressed(GameKey::Cancel))
+	if (input.isPressed(GameKey::Cancel))
+	// if(input.isPressed(GameKey::Cancel) && spellRenderer.canClose())
 	{
 		isBattleSpellListOpen = false;
 		prevBattleEnterSpell = true;
