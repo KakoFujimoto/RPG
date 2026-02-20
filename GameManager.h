@@ -11,6 +11,7 @@
 #include"BattleWindowRenderer.h"
 #include"BattleManager.h"
 #include"Input.h"
+#include"GameMode.h"
 
 
 class Display;
@@ -62,4 +63,5 @@ private:
     // デバッグ用
     int debugBattleEnemyHp = -1;
 
+	GameMode mode_ = GameMode::Field;
 };
