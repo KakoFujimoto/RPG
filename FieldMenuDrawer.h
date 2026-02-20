@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include<string>
 #include<vector>
 
@@ -9,7 +9,8 @@ public:
 	void draw(
 		Display& display,
 		const std::vector<std::string>& items,
-		int startX,
-		int startY
+		int selectedIndex,
+		int x,
+		int y
 	) const;
 };
