@@ -161,7 +161,6 @@
     <ClInclude Include="FieldMenu.h" />
     <ClInclude Include="FieldMenuDrawer.h" />
     <ClInclude Include="GameManager.h" />
-    <ClInclude Include="GameMode.h" />
     <ClInclude Include="HitCheck.h" />
     <ClInclude Include="IdleStatusRenderer.h" />
     <ClInclude Include="Input.h" />

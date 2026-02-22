@@ -140,12 +140,6 @@
     <ClInclude Include="GameKey.h">
       <Filter>src\UI</Filter>
     </ClInclude>
-    <ClInclude Include="FieldMenuDrawer.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -234,9 +228,6 @@
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>src\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="FieldMenuDrawer.cpp">
-      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
