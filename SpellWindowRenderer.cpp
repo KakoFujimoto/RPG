@@ -60,11 +60,6 @@ void SpellWindowRenderer::draw()
 	}
 }
 
-bool SpellWindowRenderer::isCloseRequested() const
-{
-	return CheckHitKey(KEY_INPUT_ESCAPE);
-}
-
 void SpellWindowRenderer::update()
 {
 	if (!target)

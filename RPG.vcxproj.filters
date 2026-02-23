@@ -134,6 +134,12 @@
     <ClInclude Include="Command.h">
       <Filter>src\Core\Battle</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameKey.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -219,6 +225,9 @@
     </ClCompile>
     <ClCompile Include="BattleManager.cpp">
       <Filter>src\Core\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>src\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

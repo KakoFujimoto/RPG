@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include<string>
 #include<vector>
 #include"Display.h"
@@ -13,16 +13,21 @@
 #include"EffectWindowRenderer.h"
 #include"ItemBag.h"
 #include"EffectResult.h"
+#include "FieldMenuDrawer.h"
+
+// 責務が多すぎる/責務外の処理もあると認識しています。
+
+class Input;
 
 class FieldMenu {
 private:
 	std::vector<MenuItem> menuItems{
-		{ "ITEM", "�ǂ���" },
-		{ "STATUS", "�悳" },
-		{ "SPELL", "�������" },
-		{ "BACK", "���ǂ�" }
+		{ "ITEM", "どうぐ" },
+		{ "STATUS", "つよさ" },
+		{ "SPELL", "じゅもん" },
+		{ "BACK", "もどる" }
 	};
-
+	// フラグ類はよくないと認識しています。
 	bool isOpen = false;
 	bool isItemListOpen = false;
 	bool isParameterOpen = false;
@@ -49,8 +54,12 @@ private:
 	bool justEnteredBattle = false;
 	bool isBattleRunningAway = false;
 	int battleRunStartTime = 0;
+<<<<<<< HEAD
 	// ���O���킩��Â炢
 	bool isBattleWaitingMessageAck = false;
+=======
+	bool justEnteredEnemyTurn = false;
+>>>>>>> canBattleStartStateDisplay
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;
@@ -61,6 +70,7 @@ private:
 	EffectWindowRenderer effectRenderer;
 	ItemBag* itemBag;
 	EffectResult lastEffect;
+	FieldMenuDrawer menuDrawer;
 
 public:
 	FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter);
@@ -68,7 +78,7 @@ public:
 	void select(bool enterPressed);
 	void open();
 	void close();
-	void update();
+	void update(const Input& input);
 	void draw(Display& display);
 	bool getIsOpen () const;
 	bool isSubWindowOpen();
@@ -76,5 +86,5 @@ public:
 	void updateBattleMenu();
 	void resetBattleUi();
 	void updateBattleItem();
-	void updateBattleSpell();
+	void updateBattleSpell(const Input& input);
 };

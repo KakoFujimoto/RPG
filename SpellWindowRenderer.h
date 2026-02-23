@@ -20,6 +20,5 @@ public:
     void setPosition(int x, int y);
     void draw();
     void update();
-    bool isCloseRequested() const;
     const Spell* getSelectedSpells() const;
 };

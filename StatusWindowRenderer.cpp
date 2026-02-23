@@ -84,6 +84,8 @@ void StatusWindowRenderer::setPosition(int x, int y)
 	posX = x;
 	posY = y;
 }
+
+// ‚±‚±‚àSpellWindowRenderer‚Æ“¯‚¶‚­C³‰Â”\
 bool StatusWindowRenderer::isCloseRequested() const
 {
 	return CheckHitKey(KEY_INPUT_ESCAPE);

@@ -16,6 +16,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // 画面サイズを設定
     SetGraphMode(800, 600, 32);
 
+    // 画面サイズを設定
     // DXライブラリの初期化
     if (DxLib_Init() == -1) {
         return -1;
@@ -23,10 +24,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     // 描画先を裏画面にする
     SetDrawScreen(DX_SCREEN_BACK);
-
-
-    SetDrawScreen(DX_SCREEN_BACK);
-
 
     Display display;
     GameManager gm(display);
@@ -56,7 +53,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // == 回復効果の確認用に手動で味方キャラのパラメータを下げる ==
     AllyParameter& allyParameter = gm.getAlly().getParameter();
     allyParameter.consumeMp(5);
-    allyParameter.takeDamage(480);
+    allyParameter.takeDamage(20);
 
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
@@ -82,12 +79,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // == 敵のインスタンス化 ==
     FieldEnemy slime(
         Position{ 400, 300 },
-        EnemyParameter("スライム", 10, 0, 13, 11, 8, 1, 0)
+        EnemyParameter("スライム", 24, 0, 13, 11, 8, 1, 8)
     );
 
     FieldEnemy druky(
         Position{ 200, 200 },
-        EnemyParameter("ドラキー", 14, 10, 13, 11, 8, 1, 0)
+        EnemyParameter("ドラキー", 24, 10, 13, 11, 8, 1, 10)
     );
     // == 敵をフィールド上に湧かせる ==
     gm.getFieldEnemyManager().spawn(slime, 200, 200, rng);
@@ -103,7 +100,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
         gm.update();
-        fieldMenu.update();
+		auto input = gm.getInput();
+        fieldMenu.update(input);
         
         if (!gm.isBattle() && !fieldMenu.getIsOpen()) {
             gm.getAlly().move();

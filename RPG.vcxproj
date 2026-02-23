@@ -159,9 +159,11 @@
     <ClInclude Include="FieldItem.h" />
     <ClInclude Include="FieldItemManager.h" />
     <ClInclude Include="FieldMenu.h" />
+    <ClInclude Include="FieldMenuDrawer.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="HitCheck.h" />
     <ClInclude Include="IdleStatusRenderer.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBag.h" />
     <ClInclude Include="ItemWindowRenderer.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="SpellManager.h" />
     <ClInclude Include="SpellWindowRenderer.h" />
     <ClInclude Include="StatusWindowRenderer.h" />
+    <ClInclude Include="GameKey.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AllyParameter.cpp" />
@@ -191,9 +194,11 @@
     <ClCompile Include="FieldItem.cpp" />
     <ClCompile Include="FieldItemManager.cpp" />
     <ClCompile Include="FieldMenu.cpp" />
+    <ClCompile Include="FieldMenuDrawer.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="HitCheck.cpp" />
     <ClCompile Include="IdleStatusRenderer.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemBag.cpp" />
     <ClCompile Include="ItemWindowRenderer.cpp" />

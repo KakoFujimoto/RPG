@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 #include "BattleManager.h"
 #include "BattleDamageCalculator.h"
 #include "GameManager.h"
 #include <Windows.h>
+=======
+#include"BattleManager.h"
+#include"BattleDamageCalculator.h"
+#include"GameManager.h"
+#include"EffectResult.h"
+#include"BattleMessageBuilder.h"
+#include<WIndows.h>
+>>>>>>> canBattleStartStateDisplay
 
 BattleManager::BattleManager(GameManager* gm)
     : gameManager(gm)
@@ -10,6 +19,18 @@ BattleManager::BattleManager(GameManager* gm)
 
 void BattleManager::executeRound(const Command& playerCommand)
 {
+    // デバッグ用
+    static int callCount = 0;
+    callCount++;
+
+    OutputDebugStringA(
+        ("[DEBUG] executeRound called. count="
+            + std::to_string(callCount)
+            + " phase="
+            + (phase == BattlePhase::AllyTurn ? "Ally" : "Enemy")
+            + "\n").c_str()
+    );
+
     // 味方の行動（現在は、味方→敵の行動順は固定）
     if (phase == BattlePhase::AllyTurn)
     {
@@ -60,24 +81,53 @@ void BattleManager::executeAllyAction(const Command& cmd)
     auto& ally = gameManager->getAlly();
     auto& enemy = gameManager->getEnemy();
 
-    if (cmd.type == Command::Type::Attack)
+    switch (cmd.type)
     {
-        int damage = BattleDamageCalculator::calcAllyNormalAttack(
-            ally.getParameter(),
-            enemy.getParameter()
-        );
+        case Command::Type::Attack:
+        {
+            int damage = BattleDamageCalculator::calcAllyNormalAttack(
+                ally.getParameter(),
+                enemy.getParameter()
+            );
 
-        enemy.getParameter().takeDamage(damage);
+            enemy.getParameter().takeDamage(damage);
 
-        gameManager->getBattleWindowRenderer().setMessage(
-            ally.getName() + "の こうげき！\n" +
-            enemy.getName() + "に " +
-            std::to_string(damage) + "の ダメージ!"
-        );
+            gameManager->getBattleWindowRenderer().setMessage(
+                ally.getName() + "の こうげき！\n" +
+                enemy.getName() + "に " +
+                std::to_string(damage) + "の ダメージ！"
+            );
+            break;
+        }
+
+        case Command::Type::Spell:
+        {
+            EffectResult result =
+                ally.getParameter()
+                .getSpellManager()
+                .castSpell(cmd.spellName, ally);
+
+            std::string msg = BattleMessageBuilder::build(result);
+            gameManager->getBattleWindowRenderer().setMessage(msg);
+            break;
+        }
+
+        case Command::Type::Guard:
+        {   
+            isGuarding = true;
+            gameManager->getBattleWindowRenderer().setMessage(
+                ally.getName() + "は みをまもっている！"
+            );
+            break;
+        }
+
+        case Command::Type::Item:
+        {
+            break;
+        }
     }
-
-    // じゅもん・ぼうぎょは後で
 }
+
 
 void BattleManager::executeEnemyAction()
 {
@@ -88,6 +138,12 @@ void BattleManager::executeEnemyAction()
         enemy.getParameter(),
         ally.getParameter()
     );
+
+    if (isGuarding)
+    {
+        damage /= 2;
+        isGuarding = false;
+    }
 
     ally.getParameter().takeDamage(damage);
 
@@ -100,25 +156,28 @@ void BattleManager::executeEnemyAction()
 
 void BattleManager::onWin()
 {
-    phase = BattlePhase::AllyTurn;
+    OutputDebugStringA("[DEBUG] onWin called\n");
 
     auto& ally = gameManager->getAlly();
     auto& enemy = gameManager->getEnemy();
 
     int exp = enemy.getParameter().getExp();
-
     ally.getParameter().addExp(exp);
 
     gameManager->getBattleWindowRenderer().setMessage(
         enemy.getName() + "を たおした！\n" +
-        std::to_string(exp) + "の けいけんちを かくとく!"
+        std::to_string(exp) + "の けいけんちを かくとく!\n"
+        + "画面を閉じてください\n"
     );
 
-    gameManager->endBattle();
+    phase = BattlePhase::WinMessage;
 }
+
 
 void BattleManager::onLose()
 {
+    OutputDebugStringA("[DEBUG] onLose called\n");
+
     phase = BattlePhase::AllyTurn;
 
     gameManager->getBattleWindowRenderer().setMessage(
@@ -130,4 +189,12 @@ void BattleManager::onLose()
 bool BattleManager::isEnemyTurn() const
 {
     return phase == BattlePhase::EnemyTurn;
+}
+
+void BattleManager::notifyAllyActionFinished()
+{
+    if (phase == BattlePhase::AllyTurn)
+    {
+        phase = BattlePhase::EnemyTurn;
+    }
 }

@@ -10,11 +10,17 @@ public:
     BattleManager(GameManager* gm);
     void executeRound(const Command& playerCommand);
     bool isEnemyTurn() const;
+<<<<<<< HEAD
+=======
+    void notifyAllyActionFinished();
+
+>>>>>>> canBattleStartStateDisplay
 private:
     enum class BattlePhase
     {
         AllyTurn,
-        EnemyTurn
+        EnemyTurn,
+        WinMessage
     };
     bool isEnemyDead() const;
     bool isAllyDead() const;
@@ -24,4 +30,5 @@ private:
     void onLose();
     GameManager* gameManager;
     BattlePhase phase = BattlePhase::AllyTurn;
+    bool isGuarding = false;
 };

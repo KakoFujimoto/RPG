@@ -4,6 +4,9 @@
 #include"BattleMessageBuilder.h"
 #include"BattleWindowRenderer.h"
 #include"BattleDamageCalculator.h"
+#include"Command.h"
+#include"Input.h"
+#include<Windows.h>
 
 FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
 	: gm(gm)
@@ -83,7 +86,7 @@ void FieldMenu::close()
 
 // 繰り返し表現が多く、よくないと認識している
 // 詰め込みすぎとも。
-void FieldMenu::update()
+void FieldMenu::update(const Input& input)
 {	
 	// 戦闘中のロジックがここにあるのもおかしい気はしている
 	// 戦闘中の入力（ここで完結）
@@ -97,7 +100,24 @@ void FieldMenu::update()
 	prevIsBattle = nowBattle;
 
 	if (nowBattle)
-	{
+	{	
+		// デバッグ用
+		{
+			std::string dbg =
+				"[DEBUG] BattleInputState\n"
+				"  isEnemyTurn=" + std::to_string(gm->getBattleManager().isEnemyTurn()) + "\n" +
+				"  prevBattleEnterMenu=" + std::to_string(prevBattleEnterMenu) + "\n" +
+				"  enter=" + std::to_string(CheckHitKey(KEY_INPUT_RETURN) != 0) + "\n";
+
+			OutputDebugStringA(dbg.c_str());
+		}
+
+		bool enterNow = CheckHitKey(KEY_INPUT_RETURN) != 0;
+		if (!enterNow)
+		{
+			prevBattleEnterMenu = false;
+		}
+
 		if (justEnteredBattle)
 		{
 			justEnteredBattle = false;
@@ -128,10 +148,11 @@ void FieldMenu::update()
 		// ② 最前面：じゅもん
 		if (isBattleSpellListOpen)
 		{
-			updateBattleSpell();
+			updateBattleSpell(input);
 			return;
 		}
 
+<<<<<<< HEAD
 		// 敵メッセージを消してメニューに戻す
 		if (isBattleWaitingMessageAck)
 		{
@@ -152,8 +173,20 @@ void FieldMenu::update()
 			return;
 		}
 
+=======
+>>>>>>> canBattleStartStateDisplay
 		if (gm->getBattleManager().isEnemyTurn())
 		{
+			if (justEnteredEnemyTurn)
+			{
+				bool enterNow = CheckHitKey(KEY_INPUT_RETURN) != 0;
+				if (!enterNow)
+				{
+					justEnteredEnemyTurn = false;
+				}
+				return;
+			}
+
 			bool enter = CheckHitKey(KEY_INPUT_RETURN);
 			bool enterPressed = enter && !prevBattleEnterMenu;
 
@@ -164,7 +197,12 @@ void FieldMenu::update()
 				// EnemyTurnではCommandの中身は使われない
 				Command dummy(Command::Type::Attack);
 				gm->getBattleManager().executeRound(dummy);
+<<<<<<< HEAD
 				isBattleWaitingMessageAck = true;
+=======
+
+				prevBattleEnterMenu = true;
+>>>>>>> canBattleStartStateDisplay
 				return;
 			}
 
@@ -246,6 +284,7 @@ void FieldMenu::update()
 			}
 		}
 
+		// ここもSpellWindowRendererと同じく修正可能
 		if (itemRenderer.isCloseRequested())
 		{
 			isItemListOpen = false;
@@ -262,6 +301,7 @@ void FieldMenu::update()
 	// ステータス
 	if (isParameterOpen)
 	{
+		// ここもSpellWindowRendererと同じく修正可能
 		if (statusRenderer.isCloseRequested())
 		{
 			isParameterOpen = false;
@@ -288,7 +328,7 @@ void FieldMenu::update()
 			}
 		}
 
-		if (spellRenderer.isCloseRequested())
+		if (input.isPressed(GameKey::Cancel))
 		{
 			isSpellListOpen = false;
 			escPushed = true;
@@ -354,19 +394,15 @@ void FieldMenu::draw(Display& display)
 
 	display.drawWindow(x, y, width, height, borderColor, fillColor);
 
-	int textColor = GetColor(255, 255, 255);
-	int cursorColor = GetColor(255, 255, 255);
-	int lineHeight = 30;
-
-	for (int i = 0; i < static_cast<int>(menuItems.size()); ++i) {
-		int itemY = y + 20 + i * lineHeight;
-
-		if (i == selectedIndex) {
-			display.drawCursor(x + 5, itemY, cursorColor);
-		}
-
-		display.drawText(x + 25, itemY, menuItems[i].label, textColor);
+	std::vector<std::string> labels;
+	labels.reserve(menuItems.size());
+	for (const auto& item : menuItems)
+	{
+		labels.push_back(item.label);
 	}
+
+	menuDrawer.draw(display, labels, selectedIndex, x, y);
+
 
 	if (isItemListOpen) {
 		itemRenderer.draw();
@@ -444,6 +480,7 @@ void FieldMenu::resetBattleUi()
 void FieldMenu::updateBattleItem()
 {
 	// まずEscを最優先で処理
+	// ここもSpellWindowRendererと同じく修正可能
 	if (itemRenderer.isCloseRequested())
 	{
 		isBattleItemListOpen = false;
@@ -470,6 +507,12 @@ void FieldMenu::updateBattleItem()
 			std::string msg = BattleMessageBuilder::build(result);
 			gm->getBattleWindowRenderer().setMessage(msg);
 
+			Command cmd(Command::Type::Item);
+			//gm->getBattleManager().executeRound(cmd);
+
+			gm->getBattleManager().notifyAllyActionFinished();
+			justEnteredEnemyTurn = true;
+
 			itemRenderer.clampSelectedIndex();
 			isBattleItemListOpen = false;
 
@@ -483,7 +526,7 @@ void FieldMenu::updateBattleItem()
 	prevBattleEnterItem = enter;
 }
 
-void FieldMenu::updateBattleSpell()
+void FieldMenu::updateBattleSpell(const Input& input)
 {
 	bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
 	bool enterPressed = enter && !prevBattleEnterSpell;
@@ -495,28 +538,32 @@ void FieldMenu::updateBattleSpell()
 		const Spell* spell = spellRenderer.getSelectedSpells();
 		if (spell)
 		{
-			EffectResult result =
-				allyParameter
-				.getSpellManager()
-				.castSpell(spell->getName(), gm->getAlly());
+			Command cmd;
+			cmd.type = Command::Type::Spell;
+			cmd.spellName = spell->getName();
 
-			std::string msg = BattleMessageBuilder::build(result);
-			gm->getBattleWindowRenderer().setMessage(msg);
+			gm->getBattleManager().executeRound(cmd);
 
 			isBattleSpellListOpen = false;
 			prevBattleEnterSpell = true;
+			prevBattleEnterMenu = true;
+
 			return;
 		}
 	}
 
-	if (spellRenderer.isCloseRequested())
+	if (input.isPressed(GameKey::Cancel))
+	// if(input.isPressed(GameKey::Cancel) && spellRenderer.canClose())
 	{
 		isBattleSpellListOpen = false;
 		prevBattleEnterSpell = true;
+		prevBattleEnterMenu = true;
+		return;
 	}
 
 	prevBattleEnterSpell = enter;
 }
+
 
 // BattleMenuをUpdateする処理がこのクラスにあるのはおかしいと自覚しています
 void FieldMenu::updateBattleMenu()
@@ -573,13 +620,13 @@ void FieldMenu::updateBattleMenu()
 		}
 
 		// ぼうぎょ
-		// とりあえずメッセージ表示だけ(ロジックは敵が攻撃できるようになってから)
 		if (battleMenuIndex == 2)
 		{
-			std::string msg =
-				gm->getAlly().getName() + "は みをまもっている!";
-			gm->getBattleWindowRenderer().setMessage(msg);
+			Command cmd(Command::Type::Guard);
 
+			gm->getBattleManager().executeRound(cmd);
+
+			prevBattleEnterMenu = true;
 			return;
 		}
 
@@ -611,5 +658,4 @@ void FieldMenu::updateBattleMenu()
 
 	prevBattleUp = up;
 	prevBattleDown = down;
-	//prevBattleEnterMenu = enter;
 }
