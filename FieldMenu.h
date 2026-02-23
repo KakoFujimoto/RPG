@@ -54,12 +54,7 @@ private:
 	bool justEnteredBattle = false;
 	bool isBattleRunningAway = false;
 	int battleRunStartTime = 0;
-<<<<<<< HEAD
-	// –¼‘O‚ª‚í‚©‚è‚Ã‚ç‚¢
-	bool isBattleWaitingMessageAck = false;
-=======
 	bool justEnteredEnemyTurn = false;
->>>>>>> canBattleStartStateDisplay
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;

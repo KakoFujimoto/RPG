@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"Command.h"
 #include"FieldEnemy.h"
 #include"FieldAlly.h"
@@ -10,11 +10,8 @@ public:
     BattleManager(GameManager* gm);
     void executeRound(const Command& playerCommand);
     bool isEnemyTurn() const;
-<<<<<<< HEAD
-=======
     void notifyAllyActionFinished();
 
->>>>>>> canBattleStartStateDisplay
 private:
     enum class BattlePhase
     {

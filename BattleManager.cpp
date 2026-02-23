@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-#include "BattleManager.h"
-#include "BattleDamageCalculator.h"
-#include "GameManager.h"
-#include <Windows.h>
-=======
-#include"BattleManager.h"
+ï»¿#include"BattleManager.h"
 #include"BattleDamageCalculator.h"
 #include"GameManager.h"
 #include"EffectResult.h"
 #include"BattleMessageBuilder.h"
 #include<WIndows.h>
->>>>>>> canBattleStartStateDisplay
 
 BattleManager::BattleManager(GameManager* gm)
     : gameManager(gm)
@@ -19,7 +12,7 @@ BattleManager::BattleManager(GameManager* gm)
 
 void BattleManager::executeRound(const Command& playerCommand)
 {
-    // ƒfƒoƒbƒO—p
+    // ãƒ‡ãƒãƒƒã‚°ç”¨
     static int callCount = 0;
     callCount++;
 
@@ -31,10 +24,10 @@ void BattleManager::executeRound(const Command& playerCommand)
             + "\n").c_str()
     );
 
-    // –¡•û‚Ìs“®iŒ»Ý‚ÍA–¡•û¨“G‚Ìs“®‡‚ÍŒÅ’èj
+    // å‘³æ–¹ã®è¡Œå‹•ï¼ˆç¾åœ¨ã¯ã€å‘³æ–¹â†’æ•µã®è¡Œå‹•é †ã¯å›ºå®šï¼‰
     if (phase == BattlePhase::AllyTurn)
     {
-        // ƒfƒoƒbƒO—p
+        // ãƒ‡ãƒãƒƒã‚°ç”¨
         OutputDebugStringA("[DEBUG] executeRound called\n");
         executeAllyAction(playerCommand);
 
@@ -44,7 +37,7 @@ void BattleManager::executeRound(const Command& playerCommand)
             return;
         }
 
-        // “Gƒ^[ƒ“
+        // æ•µã‚¿ãƒ¼ãƒ³
         phase = BattlePhase::EnemyTurn;
         return;
     }
@@ -59,7 +52,7 @@ void BattleManager::executeRound(const Command& playerCommand)
             return;
         }
 
-        // ŽŸ‚Í–¡•ûƒ^[ƒ“
+        // æ¬¡ã¯å‘³æ–¹ã‚¿ãƒ¼ãƒ³
         phase = BattlePhase::AllyTurn;
         gameManager->onBattleAllyTurnStart();
         return;
@@ -93,9 +86,9 @@ void BattleManager::executeAllyAction(const Command& cmd)
             enemy.getParameter().takeDamage(damage);
 
             gameManager->getBattleWindowRenderer().setMessage(
-                ally.getName() + "‚Ì ‚±‚¤‚°‚«I\n" +
-                enemy.getName() + "‚É " +
-                std::to_string(damage) + "‚Ì ƒ_ƒ[ƒWI"
+                ally.getName() + "ã® ã“ã†ã’ãï¼\n" +
+                enemy.getName() + "ã« " +
+                std::to_string(damage) + "ã® ãƒ€ãƒ¡ãƒ¼ã‚¸ï¼"
             );
             break;
         }
@@ -116,7 +109,7 @@ void BattleManager::executeAllyAction(const Command& cmd)
         {   
             isGuarding = true;
             gameManager->getBattleWindowRenderer().setMessage(
-                ally.getName() + "‚Í ‚Ý‚ð‚Ü‚à‚Á‚Ä‚¢‚éI"
+                ally.getName() + "ã¯ ã¿ã‚’ã¾ã‚‚ã£ã¦ã„ã‚‹ï¼"
             );
             break;
         }
@@ -148,9 +141,9 @@ void BattleManager::executeEnemyAction()
     ally.getParameter().takeDamage(damage);
 
     gameManager->getBattleWindowRenderer().setMessage(
-        enemy.getName() + "‚Ì ‚±‚¤‚°‚«!\n" +
-        ally.getName() + "‚É " +
-        std::to_string(damage) + "‚Ì ƒ_ƒ[ƒWI"
+        enemy.getName() + "ã® ã“ã†ã’ã!\n" +
+        ally.getName() + "ã« " +
+        std::to_string(damage) + "ã® ãƒ€ãƒ¡ãƒ¼ã‚¸ï¼"
     );
 }
 
@@ -165,9 +158,9 @@ void BattleManager::onWin()
     ally.getParameter().addExp(exp);
 
     gameManager->getBattleWindowRenderer().setMessage(
-        enemy.getName() + "‚ð ‚½‚¨‚µ‚½I\n" +
-        std::to_string(exp) + "‚Ì ‚¯‚¢‚¯‚ñ‚¿‚ð ‚©‚­‚Æ‚­!\n"
-        + "‰æ–Ê‚ð•Â‚¶‚Ä‚­‚¾‚³‚¢\n"
+        enemy.getName() + "ã‚’ ãŸãŠã—ãŸï¼\n" +
+        std::to_string(exp) + "ã® ã‘ã„ã‘ã‚“ã¡ã‚’ ã‹ãã¨ã!\n"
+        + "ç”»é¢ã‚’é–‰ã˜ã¦ãã ã•ã„\n"
     );
 
     phase = BattlePhase::WinMessage;
@@ -181,7 +174,7 @@ void BattleManager::onLose()
     phase = BattlePhase::AllyTurn;
 
     gameManager->getBattleWindowRenderer().setMessage(
-        "‚µ‚ñ‚Å‚µ‚Ü‚Á‚½c‰æ–Ê‚ð•Â‚¶‚Ä‚­‚¾‚³‚¢"
+        "ã—ã‚“ã§ã—ã¾ã£ãŸâ€¦ç”»é¢ã‚’é–‰ã˜ã¦ãã ã•ã„"
     );
     gameManager->setGameOver();
 }
