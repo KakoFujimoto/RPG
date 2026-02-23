@@ -151,30 +151,6 @@ void FieldMenu::update(const Input& input)
 			updateBattleSpell(input);
 			return;
 		}
-
-<<<<<<< HEAD
-		// 敵メッセージを消してメニューに戻す
-		if (isBattleWaitingMessageAck)
-		{
-			bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
-			bool enterPressed = enter && !prevBattleEnterMenu;
-
-			if (enterPressed)
-			{
-				prevBattleEnterMenu = enter;
-				gm->getBattleWindowRenderer().clearMessage();
-				battleMenuIndex = 0;
-				gm->getBattleWindowRenderer().setSelectedMenuIndex(0);
-				isBattleWaitingMessageAck = false; 
-				return;
-			}
-
-			prevBattleEnterMenu = enter;
-			return;
-		}
-
-=======
->>>>>>> canBattleStartStateDisplay
 		if (gm->getBattleManager().isEnemyTurn())
 		{
 			if (justEnteredEnemyTurn)
@@ -197,12 +173,8 @@ void FieldMenu::update(const Input& input)
 				// EnemyTurnではCommandの中身は使われない
 				Command dummy(Command::Type::Attack);
 				gm->getBattleManager().executeRound(dummy);
-<<<<<<< HEAD
-				isBattleWaitingMessageAck = true;
-=======
 
 				prevBattleEnterMenu = true;
->>>>>>> canBattleStartStateDisplay
 				return;
 			}
 
@@ -602,7 +574,6 @@ void FieldMenu::updateBattleMenu()
 			gm->getBattleManager().executeRound(cmd);
 
 			prevBattleEnterMenu = enter;
-			isBattleWaitingMessageAck = true;
 			return;
 		}
 
