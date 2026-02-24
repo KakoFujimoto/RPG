@@ -144,6 +144,7 @@
     <ClInclude Include="AllyParameter.h" />
     <ClInclude Include="BattleDamageCalculator.h" />
     <ClInclude Include="BattleManager.h" />
+    <ClInclude Include="BattleMenu.h" />
     <ClInclude Include="BattleMessageBuilder.h" />
     <ClInclude Include="BattleStartInfo.h" />
     <ClInclude Include="BattleWindowRenderer.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="AllyParameter.cpp" />
     <ClCompile Include="BattleDamageCalculator.cpp" />
     <ClCompile Include="BattleManager.cpp" />
+    <ClCompile Include="BattleMenu.cpp" />
     <ClCompile Include="BattleMessageBuilder.cpp" />
     <ClCompile Include="BattleWindowRenderer.cpp" />
     <ClCompile Include="Display.cpp" />

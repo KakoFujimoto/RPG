@@ -13,7 +13,7 @@
 #include"EffectWindowRenderer.h"
 #include"ItemBag.h"
 #include"EffectResult.h"
-#include "FieldMenuDrawer.h"
+#include"FieldMenuDrawer.h"
 
 // 責務が多すぎる/責務外の処理もあると認識しています。
 
