@@ -35,10 +35,12 @@ private:
     ItemWindowRenderer itemRenderer;
     EffectResult lastEffect;
 
-
-
 public:
-    BattleMenu(GameManager* gm);
+    BattleMenu(
+        GameManager* gm,
+        Display& display,
+        AllyParameter& allyParameter,
+        ItemBag* itemBag);
     void update(const Input& input);
     void draw(Display& display);
 

@@ -3,6 +3,124 @@
 #include <DxLib.h>
 #include"BattleMessageBuilder.h"
 
+BattleMenu::BattleMenu(
+	GameManager* gm,
+	Display& display,
+	AllyParameter& allyParameter,
+	ItemBag* itemBag)
+	: gm(gm)
+	, spellRenderer(display)
+	, allyParameter(allyParameter)
+	, itemBag(itemBag)
+	, itemRenderer(display)
+{
+}
+
+void BattleMenu::update(const Input& input)
+{
+	bool nowBattle = gm->isBattle();
+
+	// 戦闘突入検知
+	if (nowBattle && !prevIsBattle)
+	{
+		justEnteredBattle = true;
+	}
+	prevIsBattle = nowBattle;
+
+	if (!nowBattle)
+		return;
+
+	// デバッグ用
+	{
+		std::string dbg =
+			"[DEBUG] BattleInputState\n"
+			"  isEnemyTurn=" + std::to_string(gm->getBattleManager().isEnemyTurn()) + "\n" +
+			"  prevBattleEnterMenu=" + std::to_string(prevBattleEnterMenu) + "\n" +
+			"  enter=" + std::to_string(CheckHitKey(KEY_INPUT_RETURN) != 0) + "\n";
+
+		OutputDebugStringA(dbg.c_str());
+	}
+
+	bool enterNow = CheckHitKey(KEY_INPUT_RETURN) != 0;
+	if (!enterNow)
+	{
+		prevBattleEnterMenu = false;
+	}
+
+	// 戦闘開始直後1フレーム待ち
+	if (justEnteredBattle)
+	{
+		justEnteredBattle = false;
+		return;
+	}
+
+	// 逃走タイマー
+	if (isBattleRunningAway)
+	{
+		if (GetNowCount() - battleRunStartTime > 1200)
+		{
+			gm->endBattle();
+			isBattleRunningAway = false;
+		}
+		return;
+	}
+
+	// どうぐ最優先
+	if (isBattleItemListOpen)
+	{
+		updateBattleItem(input);
+		return;
+	}
+
+	// じゅもん最優先
+	if (isBattleSpellListOpen)
+	{
+		updateBattleSpell(input);
+		return;
+	}
+
+	// 敵ターン処理
+	if (gm->getBattleManager().isEnemyTurn())
+	{
+		if (justEnteredEnemyTurn)
+		{
+			bool enterNow = CheckHitKey(KEY_INPUT_RETURN) != 0;
+			if (!enterNow)
+			{
+				justEnteredEnemyTurn = false;
+			}
+			return;
+		}
+
+		bool enter = CheckHitKey(KEY_INPUT_RETURN);
+		bool enterPressed = enter && !prevBattleEnterMenu;
+
+		if (enterPressed)
+		{
+			prevBattleEnterMenu = enter;
+
+			Command dummy(Command::Type::Attack);
+			gm->getBattleManager().executeRound(dummy);
+
+			prevBattleEnterMenu = true;
+			return;
+		}
+
+		prevBattleEnterMenu = enter;
+		return;
+	}
+
+	// 通常戦闘メニュー
+	updateBattleMenu(input);
+
+	// Esc終了
+	bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
+	if (esc && !prevBattleEsc)
+	{
+		gm->endBattle();
+	}
+	prevBattleEsc = esc;
+}
 
 void BattleMenu::updateBattleMenu(const Input& input)
 {
@@ -144,4 +262,61 @@ void BattleMenu::updateBattleItem(const Input& input)
 	}
 
 	prevBattleEnterItem = enter;
+}
+
+void BattleMenu::updateBattleSpell(const Input& input)
+{
+	bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
+	bool enterPressed = enter && !prevBattleEnterSpell;
+
+	spellRenderer.update();
+
+	if (enterPressed)
+	{
+		const Spell* spell = spellRenderer.getSelectedSpells();
+		if (spell)
+		{
+			Command cmd;
+			cmd.type = Command::Type::Spell;
+			cmd.spellName = spell->getName();
+
+			gm->getBattleManager().executeRound(cmd);
+
+			isBattleSpellListOpen = false;
+			prevBattleEnterSpell = true;
+			prevBattleEnterMenu = true;
+
+			return;
+		}
+	}
+
+	if (input.isPressed(GameKey::Cancel))
+	{
+		isBattleSpellListOpen = false;
+		prevBattleEnterSpell = true;
+		prevBattleEnterMenu = true;
+		return;
+	}
+
+	prevBattleEnterSpell = enter;
+}
+
+void BattleMenu::resetBattleUi()
+{
+	isBattleItemListOpen = false;
+	isBattleSpellListOpen = false;
+
+	// 戦闘コマンドカーソル初期化
+	battleMenuIndex = 0;
+
+	// 戦闘コマンドのカーソル位置が戻らない問題対策：押しっぱなしを「既に押されている」として処理する =====
+	prevBattleUp = (CheckHitKey(KEY_INPUT_UP) != 0);
+	prevBattleDown = (CheckHitKey(KEY_INPUT_DOWN) != 0);
+	prevBattleEnterMenu = (CheckHitKey(KEY_INPUT_RETURN) != 0);
+
+	// サブ側もついでにリセット
+	prevBattleEnterItem = (CheckHitKey(KEY_INPUT_RETURN) != 0);
+	prevBattleEnterSpell = (CheckHitKey(KEY_INPUT_RETURN) != 0);
+
+	prevBattleEsc = (CheckHitKey(KEY_INPUT_ESCAPE) != 0);
 }

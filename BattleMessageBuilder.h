@@ -1,7 +1,7 @@
-#pragma once
+﻿#pragma once
 #include<string>
 
-class EffectResult;
+struct EffectResult;
 class BattleMessageBuilder {
 private:
 

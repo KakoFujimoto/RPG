@@ -14,6 +14,7 @@
 #include"ItemBag.h"
 #include"EffectResult.h"
 #include"FieldMenuDrawer.h"
+#include"BattleMenu.h"
 
 // 責務が多すぎる/責務外の処理もあると認識しています。
 
@@ -66,6 +67,7 @@ private:
 	ItemBag* itemBag;
 	EffectResult lastEffect;
 	FieldMenuDrawer menuDrawer;
+	BattleMenu battleMenu;
 
 public:
 	FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter);
@@ -78,8 +80,4 @@ public:
 	bool getIsOpen () const;
 	bool isSubWindowOpen();
 	void showEffect(const EffectResult& result);
-	void updateBattleMenu();
-	void resetBattleUi();
-	void updateBattleItem();
-	void updateBattleSpell(const Input& input);
 };
