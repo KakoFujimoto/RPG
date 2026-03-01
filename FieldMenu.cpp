@@ -231,19 +231,7 @@ void FieldMenu::draw(Display& display)
 	// 設計上問題があるように思うが、完成させることを重視
 	if (gm && gm->isBattle())
 	{
-		auto& battleRenderer = gm->getBattleWindowRenderer();
-		battleRenderer.setBattleInfo(&gm->getBattleInfo());
-		battleRenderer.setAllyParameter(&gm->getAlly().getParameter());
-		battleRenderer.draw();
-
-		if (isBattleItemListOpen)
-		{
-			itemRenderer.draw();
-		}
-		if (isBattleSpellListOpen)
-		{
-			spellRenderer.draw();
-		}
+		battleMenu.draw();
 		return;
 	}
 	if (isIdleStatusVisible) {

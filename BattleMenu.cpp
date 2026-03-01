@@ -213,6 +213,7 @@ void BattleMenu::updateBattleMenu(const Input& input)
 
 	prevBattleUp = up;
 	prevBattleDown = down;
+	prevBattleEnterMenu = enter;
 }
 
 void BattleMenu::updateBattleItem(const Input& input)
@@ -319,4 +320,23 @@ void BattleMenu::resetBattleUi()
 	prevBattleEnterSpell = (CheckHitKey(KEY_INPUT_RETURN) != 0);
 
 	prevBattleEsc = (CheckHitKey(KEY_INPUT_ESCAPE) != 0);
+}
+
+void BattleMenu::draw()
+{
+	auto& battleRenderer = gm->getBattleWindowRenderer();
+
+	battleRenderer.setBattleInfo(&gm->getBattleInfo());
+	battleRenderer.setAllyParameter(&allyParameter);
+	battleRenderer.draw();
+
+	if (isBattleItemListOpen)
+	{
+		itemRenderer.draw();
+	}
+
+	if (isBattleSpellListOpen)
+	{
+		spellRenderer.draw();
+	}
 }

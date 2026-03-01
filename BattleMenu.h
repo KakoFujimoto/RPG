@@ -42,7 +42,7 @@ public:
         AllyParameter& allyParameter,
         ItemBag* itemBag);
     void update(const Input& input);
-    void draw(Display& display);
+    void draw();
 
 private:
     void updateBattleMenu(const Input& input);
