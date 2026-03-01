@@ -293,6 +293,7 @@ void BattleMenu::updateBattleSpell(const Input& input)
 
 	if (input.isPressed(GameKey::Cancel))
 	{
+		prevBattleEsc = true;
 		isBattleSpellListOpen = false;
 		prevBattleEnterSpell = true;
 		prevBattleEnterMenu = true;
