@@ -93,12 +93,7 @@ void FieldMenu::update(const Input& input)
 		return;
 	}
 
-
-
 	// ここから下はフィールド専用
-
-	prevBattleEsc = false;
-
 	bool idle = !CheckHitKeyAll();
 	if (idle)
 	{

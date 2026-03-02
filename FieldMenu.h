@@ -16,7 +16,6 @@
 #include"FieldMenuDrawer.h"
 #include"BattleMenu.h"
 
-// 責務が多すぎる/責務外の処理もあると認識しています。
 
 class Input;
 
@@ -40,22 +39,8 @@ private:
 	bool prevEnterMain = false;
 	bool prevEnterItem = false;
 	bool prevEnterSpell = false;
-	bool prevBattleUp = false;
-	bool prevBattleDown = false;
 	bool prevUp = false;
 	bool prevDown = false;
-	int battleMenuIndex = 0;
-	bool prevBattleEsc = false;
-	bool isBattleItemListOpen = false;
-	bool isBattleSpellListOpen = false;
-	bool prevBattleEnterMenu = false;
-	bool prevBattleEnterItem = false;
-	bool prevBattleEnterSpell = false;
-	bool prevIsBattle = false;
-	bool justEnteredBattle = false;
-	bool isBattleRunningAway = false;
-	int battleRunStartTime = 0;
-	bool justEnteredEnemyTurn = false;
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;
