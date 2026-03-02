@@ -4,7 +4,7 @@
 #include"ItemBag.h"
 #include"ItemWindowRenderer.h"
 #include"EffectResult.h"
-
+#include"BattleMenuState.h"
 
 class GameManager;
 class Display;

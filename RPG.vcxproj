@@ -145,6 +145,7 @@
     <ClInclude Include="BattleDamageCalculator.h" />
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="BattleMenu.h" />
+    <ClInclude Include="BattleMenuState.h" />
     <ClInclude Include="BattleMessageBuilder.h" />
     <ClInclude Include="BattleStartInfo.h" />
     <ClInclude Include="BattleWindowRenderer.h" />
