@@ -12,28 +12,37 @@ class Display;
 class BattleMenu
 {
 private:
-	GameManager* gm;
-
     bool prevBattleUp = false;
     bool prevBattleDown = false;
     int battleMenuIndex = 0;
     bool prevBattleEsc = false;
-    bool isBattleItemListOpen = false;
-    bool isBattleSpellListOpen = false;
     bool prevBattleEnterMenu = false;
     bool prevBattleEnterItem = false;
     bool prevBattleEnterSpell = false;
     bool prevIsBattle = false;
+    int battleRunStartTime = 0;
+
+
+    // == リファクタ対象 ==
+    // BattleMenuStateに置き換える対象
+    bool isBattleItemListOpen = false;
+    bool isBattleSpellListOpen = false;
     bool justEnteredBattle = false;
     bool isBattleRunningAway = false;
-    int battleRunStartTime = 0;
+    // if (state != prevState && state == BattleMenuState::EnemyTurnWait)
+    // と表現すれば不要になる
     bool justEnteredEnemyTurn = false;
+    // == リファクタ対象ここまで ==
 
+
+	GameManager* gm;
     SpellWindowRenderer spellRenderer;
     AllyParameter& allyParameter;
     ItemBag* itemBag;
     ItemWindowRenderer itemRenderer;
     EffectResult lastEffect;
+    BattleMenuState state = BattleMenuState::CommandSelect;
+    BattleMenuState prevState; // 前フレームの状態を表す
 
 public:
     BattleMenu(
