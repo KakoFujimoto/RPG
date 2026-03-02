@@ -87,9 +87,10 @@ void FieldMenu::close()
 
 void FieldMenu::update(const Input& input)
 {	
+	battleMenu.update(input);
+
 	if (gm && gm->isBattle())
 	{
-		battleMenu.update(input);
 		return;
 	}
 

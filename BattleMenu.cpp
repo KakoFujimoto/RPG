@@ -23,12 +23,15 @@ void BattleMenu::update(const Input& input)
 	// 戦闘突入検知
 	if (nowBattle && !prevIsBattle)
 	{
+		resetBattleUi();
 		justEnteredBattle = true;
 	}
 	prevIsBattle = nowBattle;
 
 	if (!nowBattle)
+	{
 		return;
+	}
 
 	// デバッグ用
 	{
