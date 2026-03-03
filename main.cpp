@@ -1,4 +1,4 @@
-#include"DxLib.h"
+ï»¿#include"DxLib.h"
 #include"FieldAlly.h"
 #include"FieldMenu.h"
 #include"Display.h"
@@ -11,54 +11,54 @@
 #include"EnemyParameter.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
-    // ƒEƒBƒ“ƒhƒEƒ‚[ƒh‚Å‹N“®
+    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã§èµ·å‹•
     ChangeWindowMode(TRUE);
-    // ‰æ–ÊƒTƒCƒY‚ğİ’è
+    // ç”»é¢ã‚µã‚¤ã‚ºã‚’è¨­å®š
     SetGraphMode(800, 600, 32);
 
-    // ‰æ–ÊƒTƒCƒY‚ğİ’è
-    // DXƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»
+    // ç”»é¢ã‚µã‚¤ã‚ºã‚’è¨­å®š
+    // DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–
     if (DxLib_Init() == -1) {
         return -1;
     }
 
-    // •`‰ææ‚ğ— ‰æ–Ê‚É‚·‚é
+    // æç”»å…ˆã‚’è£ç”»é¢ã«ã™ã‚‹
     SetDrawScreen(DX_SCREEN_BACK);
 
     Display display;
     GameManager gm(display);
 
-    ////////// ƒeƒXƒgƒR[ƒh‚±‚±‚©‚ç //////////
-    // == ‚ ‚ß‚Æ‚í‚½‚ª‚µ‚ÌŒø‰Ê‚ğİ’è ==
-    // ‚ ‚ß(MP‰ñ•œ)
+    ////////// ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã“ã“ã‹ã‚‰ //////////
+    // == ã‚ã‚ã¨ã‚ãŸãŒã—ã®åŠ¹æœã‚’è¨­å®š ==
+    // ã‚ã‚(MPå›å¾©)
     Effect healMpEffect{
          EffectType::HealMp,
          21
     };
-    // ‚í‚½‚ª‚µ(HP‰ñ•œ)
+    // ã‚ãŸãŒã—(HPå›å¾©)
     Effect healHpEffect{
          EffectType::HealHp,
          30,
          50
     };
-    Item candy("‚ ‚ß", healMpEffect, 1);
-    Item cottonCandy("‚í‚½‚ª‚µ", healHpEffect, 1);
+    Item candy("ã‚ã‚", healMpEffect, 1);
+    Item cottonCandy("ã‚ãŸãŒã—", healHpEffect, 1);
 
-    // == ‚ ‚ß‚Æ‚í‚½‚ª‚µ‚ğƒtƒB[ƒ‹ƒhã‚É—N‚©‚¹‚é ==
+    // == ã‚ã‚ã¨ã‚ãŸãŒã—ã‚’ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ä¸Šã«æ¹§ã‹ã›ã‚‹ ==
     RandomGenerator rng;
     gm.getFieldItemManager().spawn(candy, 800, 600, rng);
     gm.getFieldItemManager().spawn(cottonCandy, 500, 100, rng);
 
 
-    // == ‰ñ•œŒø‰Ê‚ÌŠm”F—p‚Éè“®‚Å–¡•ûƒLƒƒƒ‰‚Ìƒpƒ‰ƒ[ƒ^‚ğ‰º‚°‚é ==
+    // == å›å¾©åŠ¹æœã®ç¢ºèªç”¨ã«æ‰‹å‹•ã§å‘³æ–¹ã‚­ãƒ£ãƒ©ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ä¸‹ã’ã‚‹ ==
     AllyParameter& allyParameter = gm.getAlly().getParameter();
     allyParameter.consumeMp(5);
     allyParameter.takeDamage(20);
 
 	FieldMenu fieldMenu(&gm, display, allyParameter);
 
-    // == è“®‚Å–¡•ûƒLƒƒƒ‰‚ÉƒzƒCƒ~‚ÆƒxƒzƒCƒ~‚ğK“¾‚³‚¹‚é ==
-    // == ƒzƒCƒ~‚ÆƒxƒzƒCƒ~‚ÌŒø‰Ê‚ğİ’è ==
+    // == æ‰‹å‹•ã§å‘³æ–¹ã‚­ãƒ£ãƒ©ã«ãƒ›ã‚¤ãƒŸã¨ãƒ™ãƒ›ã‚¤ãƒŸã‚’ç¿’å¾—ã•ã›ã‚‹ ==
+    // == ãƒ›ã‚¤ãƒŸã¨ãƒ™ãƒ›ã‚¤ãƒŸã®åŠ¹æœã‚’è¨­å®š ==
     Effect hoimiEffect{
          EffectType::HealHp,
          30,
@@ -69,32 +69,32 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         80,
         120
     };
-    // == ƒzƒCƒ~‚ÆƒxƒzƒCƒ~‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»/–¡•ûƒLƒƒƒ‰‚ÉK“¾‚³‚¹‚é ==
-    Spell hoimi(rng, "ƒzƒCƒ~", 3, hoimiEffect);
+    // == ãƒ›ã‚¤ãƒŸã¨ãƒ™ãƒ›ã‚¤ãƒŸã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–/å‘³æ–¹ã‚­ãƒ£ãƒ©ã«ç¿’å¾—ã•ã›ã‚‹ ==
+    Spell hoimi(rng, "ãƒ›ã‚¤ãƒŸ", 3, hoimiEffect);
     allyParameter.getSpellManager().learnSpell(hoimi);
 
-    Spell behoimi(rng, "ƒxƒzƒCƒ~", 6, behoimiEffect);
+    Spell behoimi(rng, "ãƒ™ãƒ›ã‚¤ãƒŸ", 6, behoimiEffect);
     allyParameter.getSpellManager().learnSpell(behoimi);
    
-    // == “G‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰» ==
+    // == æ•µã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ– ==
     FieldEnemy slime(
         Position{ 400, 300 },
-        EnemyParameter("ƒXƒ‰ƒCƒ€", 24, 0, 13, 11, 8, 1, 8)
+        EnemyParameter("ã‚¹ãƒ©ã‚¤ãƒ ", 24, 0, 13, 11, 8, 1, 8)
     );
 
     FieldEnemy druky(
         Position{ 200, 200 },
-        EnemyParameter("ƒhƒ‰ƒL[", 24, 10, 13, 11, 8, 1, 10)
+        EnemyParameter("ãƒ‰ãƒ©ã‚­ãƒ¼", 24, 10, 13, 11, 8, 1, 10)
     );
-    // == “G‚ğƒtƒB[ƒ‹ƒhã‚É—N‚©‚¹‚é ==
+    // == æ•µã‚’ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ä¸Šã«æ¹§ã‹ã›ã‚‹ ==
     gm.getFieldEnemyManager().spawn(slime, 200, 200, rng);
     gm.getFieldEnemyManager().spawn(druky, 100, 300, rng);
 
-    ////////// ƒeƒXƒgƒR[ƒh‚±‚±‚Ü‚Å //////////
+    ////////// ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã“ã“ã¾ã§ //////////
 
     while (ProcessMessage() == 0)
 	{
-		ClearDrawScreen(); // ‰æ–Ê‚ğƒNƒŠƒA
+		ClearDrawScreen(); // ç”»é¢ã‚’ã‚¯ãƒªã‚¢
 
         int bgColor = GetColor(0, 140, 0);
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
@@ -107,32 +107,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             gm.getAlly().move();
         }
 
-        // == ‰¼‚Ìˆ—(–¡•ûƒLƒƒƒ‰‚Ì•¶š—ñ•`‰æ) ==
+        // == ä»®ã®å‡¦ç†(å‘³æ–¹ã‚­ãƒ£ãƒ©ã®æ–‡å­—åˆ—æç”») ==
         DrawString(gm.getAlly().getX(), gm.getAlly().getY(), gm.getAlly().getName().c_str(), GetColor(255, 255, 255));
-        // == ‰¼‚Ìˆ—‚±‚±‚Ü‚Å ==
+        // == ä»®ã®å‡¦ç†ã“ã“ã¾ã§ ==
 
         fieldMenu.draw(display);
 
-        DrawFormatString(
+     /*   DrawFormatString(
             20, 20,
             GetColor(255, 255, 255),
             "[DEBUG]BattleenemyHP: %d",
             gm.getDebugBattleEnemyHp()
-        );
+        );*/
 
+        DrawFormatString(
+            20, 20,
+            GetColor(255, 255, 255),
+            "[DEBUG]canShowFlg: %d",
+            gm.getCanShow()
+        );
         //gm.updateItemBag();
 
-        ////////// ƒeƒXƒgƒR[ƒh‚±‚±‚©‚ç //////////
-        // == “G‚Ì•`‰æ ==
+        ////////// ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã“ã“ã‹ã‚‰ //////////
+        // == æ•µã®æç”» ==
         if (!gm.isBattle())
         {
             gm.getFieldEnemyManager().draw();
             gm.getFieldItemManager().draw();
         }
-        ////////// ƒeƒXƒgƒR[ƒh‚±‚±‚Ü‚Å //////////
+        ////////// ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã“ã“ã¾ã§ //////////
         //gm.checkEncount();
 
-        ScreenFlip(); // — ‰æ–Ê‚Æ•\‰æ–Ê‚ğ“ü‚ê‘Ö‚¦
+        ScreenFlip(); // è£ç”»é¢ã¨è¡¨ç”»é¢ã‚’å…¥ã‚Œæ›¿ãˆ
     }
 
     DxLib_End();

@@ -1,4 +1,4 @@
-#include"BattleWindowRenderer.h"
+﻿#include"BattleWindowRenderer.h"
 #include"DxLib.h"
 #include"BattleStartInfo.h"
 #include"ItemWindowRenderer.h"
@@ -57,7 +57,7 @@ void BattleWindowRenderer::drawEnemyInfo()
 
     std::string text =
         battleInfo->enemyParam.name + " - " +
-        std::to_string(battleInfo->count) + "�Ђ�";
+        std::to_string(battleInfo->count) + "ひき";
 
     int infoX = x + width - 260;
     int infoY = y + 20;
@@ -90,6 +90,11 @@ void BattleWindowRenderer::setBattleInfo(const BattleStartInfo* info)
 {
     battleInfo = info;
 
+    // 正しい挙動を実現するため、ひとまず戦闘開始時に初期化をここでやる
+    // のちのリファクタ対象
+    // ここを消すとメッセージが表示されなくなる
+    //canShowBattleStartMessage = true;
+
     if (battleStartFrame < 0)
     {
         battleStartFrame = GetNowCount();
@@ -106,7 +111,7 @@ void BattleWindowRenderer::drawMessage()
     }
     else if (battleInfo && canShowBattleStartMessage)
     {
-        message = battleInfo->enemyParam.name + "�������ꂽ�I";
+        message = battleInfo->enemyParam.name + "があらわれた！";
         canShowBattleStartMessage = false;
     }
     else
@@ -247,7 +252,7 @@ void BattleWindowRenderer::prepareItemWindow(ItemWindowRenderer& itemRenderer)
     int msgX = x + width - msgW - 20;
     int msgY = y + height - msgH - 20;
 
-    // �����������炷(�d�Ȃ��Ă���ƕ�������x)
+    // 少しだけずらす(重なっていると分かる程度)
     int offsetX = -10;
     int offsetY = -10;
 

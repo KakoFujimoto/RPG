@@ -1,11 +1,11 @@
-#include"GameManager.h"
+ï»¿#include"GameManager.h"
 #include"FieldEnemy.h"
 #include"DxLib.h"
 
 GameManager::GameManager(Display& display)
     : ally(
         Position{400, 300},
-        AllyParameter("‚Ë‚±", 500, 20, 13, 11, 8, 1, 0)
+        AllyParameter("ã­ã“", 500, 20, 13, 11, 8, 1, 0)
     ),
     fieldItemManager(),
     itemBag(),
@@ -131,14 +131,14 @@ BattleWindowRenderer& GameManager::getBattleWindowRenderer()
 }
 void BattleWindowRenderer::setSelectedMenuIndex(int index)
 {
-    // ƒƒjƒ…[‚ª–³‚¢‚È‚ç‰½‚à‚µ‚È‚¢
+    // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒç„¡ã„ãªã‚‰ä½•ã‚‚ã—ãªã„
     int count = static_cast<int>(battleMenuItems.size());
     if (count <= 0) {
         selectedMenuIndex = 0;
         return;
     }
 
-    // ”ÍˆÍŠO‚È‚çŠÛ‚ß‚éiclampj
+    // ç¯„å›²å¤–ãªã‚‰ä¸¸ã‚ã‚‹ï¼ˆclampï¼‰
     if (index < 0) {
         index = 0;
     }
@@ -158,11 +158,11 @@ void GameManager::startBattle(const BattleStartInfo& info)
 
     battleWindowRenderer.setSelectedMenuIndex(0);
     battleWindowRenderer.clearMessage();
-    // ƒAƒNƒZƒT[Œo—R‚¶‚á‚È‚¢‚©‚ç—Ç‚­‚È‚³‚»‚¤
+    // ã‚¢ã‚¯ã‚»ã‚µãƒ¼çµŒç”±ã˜ã‚ƒãªã„ã‹ã‚‰è‰¯ããªã•ãã†
     battleWindowRenderer.canShowBattleStartMessage = true;
-    // ƒfƒoƒbƒO—p
+    // ãƒ‡ãƒãƒƒã‚°ç”¨
     debugBattleEnemyHp = enemy.getParameter().getHp();
-
+    canShow = battleWindowRenderer.canShowBattleStartMessage;
 }
 
 void GameManager::setGameOver()
@@ -183,9 +183,15 @@ BattleManager& GameManager::getBattleManager()
 {
     return battleManager;
 }
+//ãƒ‡ãƒãƒƒã‚°ç”¨
 int GameManager::getDebugBattleEnemyHp()
 {
     return debugBattleEnemyHp;
+}
+//ãƒ‡ãƒãƒƒã‚°ç”¨
+bool GameManager::getCanShow()
+{
+    return canShow;
 }
 void GameManager::onBattleAllyTurnStart()
 {

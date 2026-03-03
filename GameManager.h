@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Position.h"
 #include"FieldItem.h"
 #include"FieldItemManager.h"
@@ -43,9 +43,10 @@ public:
     bool isGameOver() const;
     GameState getState() const;
     BattleManager& getBattleManager();
-    // ƒfƒoƒbƒO—p
+    // ãƒ‡ãƒãƒƒã‚°ç”¨
     int getDebugBattleEnemyHp();
     void onBattleAllyTurnStart();
+    bool getCanShow();
 
 private:
     FieldAlly ally;
@@ -60,7 +61,7 @@ private:
     GameState state = GameState::Playing;
     BattleManager battleManager;
     Input input;
-    // ƒfƒoƒbƒO—p
+    // ãƒ‡ãƒãƒƒã‚°ç”¨
     int debugBattleEnemyHp = -1;
-
+    bool canShow = false;
 };
