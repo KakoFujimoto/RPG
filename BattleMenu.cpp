@@ -69,14 +69,14 @@ void BattleMenu::update(const Input& input)
 	}
 
 	// どうぐ最優先
-	if (isBattleItemListOpen)
+	if (state == BattleMenuState::ItemSelect)
 	{
 		updateBattleItem(input);
 		return;
 	}
 
 	// じゅもん最優先
-	if (isBattleSpellListOpen)
+	if (state == BattleMenuState::SpellSelect)
 	{
 		updateBattleSpell(input);
 		return;
@@ -168,7 +168,7 @@ void BattleMenu::updateBattleMenu(const Input& input)
 		// じゅもん
 		if (battleMenuIndex == 1)
 		{
-			isBattleSpellListOpen = true;
+			state = BattleMenuState::SpellSelect;
 			spellRenderer.setTarget(&allyParameter);
 			gm->getBattleWindowRenderer()
 				.prepareSpellWindow(spellRenderer);
@@ -191,7 +191,7 @@ void BattleMenu::updateBattleMenu(const Input& input)
 		// どうぐ
 		if (battleMenuIndex == 3)
 		{
-			isBattleItemListOpen = true;
+			state = BattleMenuState::ItemSelect;
 			itemRenderer.setTarget(itemBag);
 			gm->getBattleWindowRenderer()
 				.prepareItemWindow(itemRenderer);
@@ -222,10 +222,9 @@ void BattleMenu::updateBattleMenu(const Input& input)
 void BattleMenu::updateBattleItem(const Input& input)
 {
 	// まずEscを最優先で処理
-	// ここもSpellWindowRendererと同じく修正可能
 	if (itemRenderer.isCloseRequested())
 	{
-		isBattleItemListOpen = false;
+		state = BattleMenuState::CommandSelect;
 
 		// Escをここで消費する
 		prevBattleEsc = true;
@@ -256,7 +255,7 @@ void BattleMenu::updateBattleItem(const Input& input)
 			justEnteredEnemyTurn = true;
 
 			itemRenderer.clampSelectedIndex();
-			isBattleItemListOpen = false;
+			state = BattleMenuState::CommandSelect;
 
 			// 入力消費
 			prevBattleEnterItem = true;
@@ -286,7 +285,7 @@ void BattleMenu::updateBattleSpell(const Input& input)
 
 			gm->getBattleManager().executeRound(cmd);
 
-			isBattleSpellListOpen = false;
+			state = BattleMenuState::CommandSelect;
 			prevBattleEnterSpell = true;
 			prevBattleEnterMenu = true;
 
@@ -297,7 +296,7 @@ void BattleMenu::updateBattleSpell(const Input& input)
 	if (input.isPressed(GameKey::Cancel))
 	{
 		prevBattleEsc = true;
-		isBattleSpellListOpen = false;
+		state = BattleMenuState::CommandSelect;
 		prevBattleEnterSpell = true;
 		prevBattleEnterMenu = true;
 		return;
@@ -308,8 +307,7 @@ void BattleMenu::updateBattleSpell(const Input& input)
 
 void BattleMenu::resetBattleUi()
 {
-	isBattleItemListOpen = false;
-	isBattleSpellListOpen = false;
+	state = BattleMenuState::CommandSelect;
 
 	// 戦闘コマンドカーソル初期化
 	battleMenuIndex = 0;
@@ -334,12 +332,12 @@ void BattleMenu::draw()
 	battleRenderer.setAllyParameter(&allyParameter);
 	battleRenderer.draw();
 
-	if (isBattleItemListOpen)
+	if (state == BattleMenuState::ItemSelect)
 	{
 		itemRenderer.draw();
 	}
 
-	if (isBattleSpellListOpen)
+	if (state == BattleMenuState::SpellSelect)
 	{
 		spellRenderer.draw();
 	}
