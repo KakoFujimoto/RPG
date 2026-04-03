@@ -106,6 +106,11 @@ void GameManager::update()
         updateItemBag();
         checkEncount();
     }
+
+    if (state == GameState::Battle)
+    {
+        battleManager.update();
+    }
 }
 
 

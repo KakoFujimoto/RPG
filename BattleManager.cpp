@@ -4,6 +4,7 @@
 #include"EffectResult.h"
 #include"BattleMessageBuilder.h"
 #include<WIndows.h>
+#include <DxLib.h>
 
 BattleManager::BattleManager(GameManager* gm)
     : gameManager(gm)
@@ -190,4 +191,27 @@ void BattleManager::notifyAllyActionFinished()
     {
         phase = BattlePhase::EnemyTurn;
     }
+}
+
+void BattleManager::startRunAway()
+{
+    runningAway = true;
+    battleRunStartTime = GetNowCount();
+}
+
+void BattleManager::update()
+{
+    if (runningAway)
+    {
+        if (GetNowCount() - battleRunStartTime > 1200)
+        {
+            gameManager->endBattle();
+            runningAway = false;
+        }
+    }
+}
+
+bool BattleManager::isRunningAway() const
+{
+    return runningAway;
 }

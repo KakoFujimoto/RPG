@@ -140,6 +140,11 @@
     <ClInclude Include="GameKey.h">
       <Filter>src\UI</Filter>
     </ClInclude>
+    <ClInclude Include="BattleMenuState.h" />
+    <ClInclude Include="FieldMenuDrawer.h" />
+    <ClInclude Include="BattleMenu.h">
+      <Filter>src\Core\Battle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -228,6 +233,12 @@
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldMenuDrawer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleMenu.cpp">
+      <Filter>src\Core\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,15 +20,10 @@ private:
     bool prevBattleEnterItem = false;
     bool prevBattleEnterSpell = false;
     bool prevIsBattle = false;
-    int battleRunStartTime = 0;
     bool justEnteredBattle = false;
 
 
     // == リファクタ対象 ==
-    // BattleMenuStateに置き換える対象
-    bool isBattleRunningAway = false;
-    // if (state != prevState && state == BattleMenuState::EnemyTurnWait)
-    // と表現すれば不要になる
     bool justEnteredEnemyTurn = false;
     // == リファクタ対象ここまで ==
 

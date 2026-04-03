@@ -21,6 +21,7 @@ void BattleMenu::update(const Input& input)
 	bool nowBattle = gm->isBattle();
 
 	// 戦闘突入検知
+	// TODO:GameManagerに移す
 	if (nowBattle && !prevIsBattle)
 	{
 		resetBattleUi();
@@ -57,25 +58,13 @@ void BattleMenu::update(const Input& input)
 		return;
 	}
 
-	// 逃走タイマー
-	if (isBattleRunningAway)
-	{
-		if (GetNowCount() - battleRunStartTime > 1200)
-		{
-			gm->endBattle();
-			isBattleRunningAway = false;
-		}
-		return;
-	}
 
-	// どうぐ最優先
 	if (state == BattleMenuState::ItemSelect)
 	{
 		updateBattleItem(input);
 		return;
 	}
 
-	// じゅもん最優先
 	if (state == BattleMenuState::SpellSelect)
 	{
 		updateBattleSpell(input);
@@ -83,6 +72,7 @@ void BattleMenu::update(const Input& input)
 	}
 
 	// 敵ターン処理
+	// TODO:GameManagerに移す
 	if (gm->getBattleManager().isEnemyTurn())
 	{
 		if (justEnteredEnemyTurn)
@@ -207,8 +197,7 @@ void BattleMenu::updateBattleMenu(const Input& input)
 				gm->getAlly().getName() + "は にげだした!";
 			gm->getBattleWindowRenderer().setMessage(msg);
 
-			isBattleRunningAway = true;
-			battleRunStartTime = GetNowCount();
+			gm->getBattleManager().startRunAway();
 
 			return;
 		}
