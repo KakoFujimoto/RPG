@@ -9,6 +9,7 @@
 #include"EffectResult.h"
 #include"FieldEnemy.h"
 #include"EnemyParameter.h"
+#include"Input.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -100,7 +101,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         DrawBox(0, 0, 800, 600, bgColor, TRUE);
 
         gm.update();
-		auto input = gm.getInput();
+		const Input& input = gm.getInput();
         fieldMenu.update(input);
         
         if (!gm.isBattle() && !fieldMenu.getIsOpen()) {

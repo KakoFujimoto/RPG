@@ -13,19 +13,7 @@ class BattleManager;
 class BattleMenu
 {
 private:
-    bool prevBattleUp = false;
-    bool prevBattleDown = false;
     int battleMenuIndex = 0;
-    bool prevBattleEsc = false;
-    bool prevBattleEnterMenu = false;
-    bool prevBattleEnterItem = false;
-    bool prevBattleEnterSpell = false;
-
-
-    // == リファクタ対象 ==
-    bool justEnteredEnemyTurn = false;
-    // == リファクタ対象ここまで ==
-
 
 	GameManager* gm;
     BattleManager* bm;

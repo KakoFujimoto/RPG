@@ -8,29 +8,32 @@ class BattleManager
 {
 public:
     BattleManager(GameManager* gm);
-    void executeRound(const Command& playerCommand);
+    void submitPlayerCommand(const Command& playerCommand);
+    void requestEnemyTurnAction();
     bool isEnemyTurn() const;
     void notifyAllyActionFinished();
     void startRunAway();
     void update();
     bool isRunningAway() const;
+    bool consumeSkipInput();
     bool isBattleStarted() const;
-    bool consumeSkipInputFlag();
 
 private:
     enum class BattlePhase
     {
+        StartDelay,
         AllyTurn,
         EnemyTurn,
+        Escape,
         WinMessage
     };
 
     int battleRunStartTime = 0;
     bool isGuarding = false;
-    bool runningAway = false;
-    bool isBattleStartedThisFrame = false;
     bool prevIsBattle = false;
-    bool shouldSkipInputThisFrame = false;
+    bool skipInputPending = false;
+    bool enemyTurnActionRequested = false;
+    bool battleStartedThisFrame = false;
 
     bool isEnemyDead() const;
     bool isAllyDead() const;

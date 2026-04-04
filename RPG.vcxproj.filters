@@ -140,9 +140,11 @@
     <ClInclude Include="GameKey.h">
       <Filter>src\UI</Filter>
     </ClInclude>
-    <ClInclude Include="BattleMenuState.h" />
     <ClInclude Include="FieldMenuDrawer.h" />
     <ClInclude Include="BattleMenu.h">
+      <Filter>src\Core\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleMenuState.h">
       <Filter>src\Core\Battle</Filter>
     </ClInclude>
   </ItemGroup>

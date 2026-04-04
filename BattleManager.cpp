@@ -4,59 +4,36 @@
 #include"EffectResult.h"
 #include"BattleMessageBuilder.h"
 #include<WIndows.h>
-#include <DxLib.h>
+#include<DxLib.h>
 
 BattleManager::BattleManager(GameManager* gm)
     : gameManager(gm)
 {
 }
 
-void BattleManager::executeRound(const Command& playerCommand)
+void BattleManager::submitPlayerCommand(const Command& playerCommand)
 {
-    // デバッグ用
-    static int callCount = 0;
-    callCount++;
-
-    OutputDebugStringA(
-        ("[DEBUG] executeRound called. count="
-            + std::to_string(callCount)
-            + " phase="
-            + (phase == BattlePhase::AllyTurn ? "Ally" : "Enemy")
-            + "\n").c_str()
-    );
-
-    // 味方の行動（現在は、味方→敵の行動順は固定）
-    if (phase == BattlePhase::AllyTurn)
+    if (phase != BattlePhase::AllyTurn)
     {
-        // デバッグ用
-        OutputDebugStringA("[DEBUG] executeRound called\n");
-        executeAllyAction(playerCommand);
-
-        if (isEnemyDead())
-        {
-            onWin();
-            return;
-        }
-
-        // 敵ターン
-        phase = BattlePhase::EnemyTurn;
         return;
     }
 
+    executeAllyAction(playerCommand);
+
+    if (isEnemyDead())
+    {
+        onWin();
+        return;
+    }
+
+    phase = BattlePhase::EnemyTurn;
+}
+
+void BattleManager::requestEnemyTurnAction()
+{
     if (phase == BattlePhase::EnemyTurn)
     {
-        executeEnemyAction();
-
-        if (isAllyDead())
-        {
-            onLose();
-            return;
-        }
-
-        // 次は味方ターン
-        phase = BattlePhase::AllyTurn;
-        gameManager->onBattleAllyTurnStart();
-        return;
+        enemyTurnActionRequested = true;
     }
 }
 
@@ -107,7 +84,7 @@ void BattleManager::executeAllyAction(const Command& cmd)
         }
 
         case Command::Type::Guard:
-        {   
+        {
             isGuarding = true;
             gameManager->getBattleWindowRenderer().setMessage(
                 ally.getName() + "は みをまもっている！"
@@ -121,52 +98,6 @@ void BattleManager::executeAllyAction(const Command& cmd)
         }
     }
 }
-
-
-void BattleManager::executeEnemyAction()
-{
-    auto& ally = gameManager->getAlly();
-    auto& enemy = gameManager->getEnemy();
-
-    int damage = BattleDamageCalculator::calcEnemyNormalAttack(
-        enemy.getParameter(),
-        ally.getParameter()
-    );
-
-    if (isGuarding)
-    {
-        damage /= 2;
-        isGuarding = false;
-    }
-
-    ally.getParameter().takeDamage(damage);
-
-    gameManager->getBattleWindowRenderer().setMessage(
-        enemy.getName() + "の こうげき!\n" +
-        ally.getName() + "に " +
-        std::to_string(damage) + "の ダメージ！"
-    );
-}
-
-void BattleManager::onWin()
-{
-    OutputDebugStringA("[DEBUG] onWin called\n");
-
-    auto& ally = gameManager->getAlly();
-    auto& enemy = gameManager->getEnemy();
-
-    int exp = enemy.getParameter().getExp();
-    ally.getParameter().addExp(exp);
-
-    gameManager->getBattleWindowRenderer().setMessage(
-        enemy.getName() + "を たおした！\n" +
-        std::to_string(exp) + "の けいけんちを かくとく!\n"
-        + "画面を閉じてください\n"
-    );
-
-    phase = BattlePhase::WinMessage;
-}
-
 
 void BattleManager::onLose()
 {
@@ -195,47 +126,113 @@ void BattleManager::notifyAllyActionFinished()
 
 void BattleManager::startRunAway()
 {
-    runningAway = true;
+    phase = BattlePhase::Escape;
     battleRunStartTime = GetNowCount();
 }
 
 void BattleManager::update()
 {
     bool nowBattle = gameManager->isBattle();
-    isBattleStartedThisFrame = (nowBattle && !prevIsBattle);
-    
-    if (isBattleStartedThisFrame)
+    if (nowBattle && !prevIsBattle)
     {
-        shouldSkipInputThisFrame = true;
+        phase = BattlePhase::StartDelay;
+        skipInputPending = true;
+        enemyTurnActionRequested = false;
+        isGuarding = false;
     }
     prevIsBattle = nowBattle;
 
-    if (runningAway)
+    if (phase == BattlePhase::StartDelay)
+    {
+        phase = BattlePhase::AllyTurn;
+    }
+
+    if (phase == BattlePhase::EnemyTurn && enemyTurnActionRequested)
+    {
+        enemyTurnActionRequested = false;
+        executeEnemyAction();
+
+        if (isAllyDead())
+        {
+            onLose();
+            return;
+        }
+
+        phase = BattlePhase::AllyTurn;
+        gameManager->onBattleAllyTurnStart();
+        return;
+    }
+
+    if (phase == BattlePhase::Escape)
     {
         if (GetNowCount() - battleRunStartTime > 1200)
         {
             gameManager->endBattle();
-            runningAway = false;
+            phase = BattlePhase::AllyTurn;
         }
     }
 }
 
 bool BattleManager::isRunningAway() const
 {
-    return runningAway;
+    return phase == BattlePhase::Escape;
+}
+
+bool BattleManager::consumeSkipInput()
+{
+    if (skipInputPending)
+    {
+        skipInputPending = false;
+        return true;
+    }
+    return false;
 }
 
 bool BattleManager::isBattleStarted() const
 {
-    return isBattleStartedThisFrame;
+    return battleStartedThisFrame;
 }
 
-bool BattleManager::consumeSkipInputFlag()
+void BattleManager::onWin()
 {
-    if (isBattleStartedThisFrame)
+    OutputDebugStringA("[DEBUG] onWin called\n");
+
+    auto& ally = gameManager->getAlly();
+    auto& enemy = gameManager->getEnemy();
+
+    int exp = enemy.getParameter().getExp();
+    ally.getParameter().addExp(exp);
+
+    gameManager->getBattleWindowRenderer().setMessage(
+        enemy.getName() + "を たおした！\n" +
+        std::to_string(exp) + "の けいけんちを かくとく!\n"
+        + "画面を閉じてください\n"
+    );
+
+    phase = BattlePhase::WinMessage;
+}
+
+void BattleManager::executeEnemyAction()
+{
+    auto& ally = gameManager->getAlly();
+    auto& enemy = gameManager->getEnemy();
+
+    int damage = BattleDamageCalculator::calcEnemyNormalAttack(
+        enemy.getParameter(),
+        ally.getParameter()
+    );
+
+    if (isGuarding)
     {
-        shouldSkipInputThisFrame = false;
-        return true;
+        damage /= 2;
+        isGuarding = false;
     }
-    return false;
+
+    ally.getParameter().takeDamage(damage);
+
+    gameManager->getBattleWindowRenderer().setMessage(
+        enemy.getName() + "の こうげき!\n" +
+        ally.getName() + "に " +
+        std::to_string(damage) + "の ダメージ！"
+    );
 }

@@ -3,10 +3,30 @@
 
 void Input::update()
 {
-
+	previousStates = currentStates;
+	for (int i = 0; i < KeyCount; ++i)
+	{
+		currentStates[i] = readRaw(static_cast<GameKey>(i));
+	}
 }
 
 bool Input::isPressed(GameKey key) const
+{
+	return currentStates[toIndex(key)];
+}
+
+bool Input::isTriggered(GameKey key) const
+{
+	int index = toIndex(key);
+	return currentStates[index] && !previousStates[index];
+}
+
+int Input::toIndex(GameKey key)
+{
+	return static_cast<int>(key);
+}
+
+bool Input::readRaw(GameKey key) const
 {
 	switch (key)
 	{

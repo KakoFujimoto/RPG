@@ -1,5 +1,6 @@
 ﻿#include "BattleMenu.h"
 #include "GameManager.h"
+#include "BattleManager.h"
 #include <DxLib.h>
 #include"BattleMessageBuilder.h"
 
@@ -20,246 +21,163 @@ BattleMenu::BattleMenu(
 
 void BattleMenu::update(const Input& input)
 {
-	bool nowBattle = gm->isBattle();
-
-	if (!nowBattle)
+	// 戦闘中でなければ何もしない
+	if (!gm->isBattle())
 	{
 		return;
 	}
+
+	// 戦闘開始フレーム検知（UI初期化）
 	if (bm->isBattleStarted())
 	{
 		resetBattleUi();
 	}
 
-	// デバッグ用
-	{
-		std::string dbg =
-			"[DEBUG] BattleInputState\n"
-			"  isEnemyTurn=" + std::to_string(gm->getBattleManager().isEnemyTurn()) + "\n" +
-			"  prevBattleEnterMenu=" + std::to_string(prevBattleEnterMenu) + "\n" +
-			"  enter=" + std::to_string(CheckHitKey(KEY_INPUT_RETURN) != 0) + "\n";
-
-		OutputDebugStringA(dbg.c_str());
-	}
-
-	bool enterNow = CheckHitKey(KEY_INPUT_RETURN) != 0;
-	if (!enterNow)
-	{
-		prevBattleEnterMenu = false;
-	}
-
-	// 戦闘開始直後1フレーム待ち
-	if (bm->consumeSkipInputFlag())
+	// 戦闘開始直後1フレームは入力を無視
+	if (bm->consumeSkipInput())
 	{
 		return;
 	}
 
-
+	// サブUI（どうぐ）
 	if (state == BattleMenuState::ItemSelect)
 	{
 		updateBattleItem(input);
 		return;
 	}
 
+	// サブUI（じゅもん）
 	if (state == BattleMenuState::SpellSelect)
 	{
 		updateBattleSpell(input);
 		return;
 	}
 
-	// 敵ターン処理
-	// TODO:GameManagerに移す
-	if (gm->getBattleManager().isEnemyTurn())
+	// 逃走中は操作不可
+	if (bm->isRunningAway())
 	{
-		if (justEnteredEnemyTurn)
+		return;
+	}
+
+	// 敵ターン
+	if (bm->isEnemyTurn())
+	{
+		if (input.isTriggered(GameKey::Decide))
 		{
-			bool enterNow = CheckHitKey(KEY_INPUT_RETURN) != 0;
-			if (!enterNow)
-			{
-				justEnteredEnemyTurn = false;
-			}
-			return;
+			bm->requestEnemyTurnAction();
 		}
-
-		bool enter = CheckHitKey(KEY_INPUT_RETURN);
-		bool enterPressed = enter && !prevBattleEnterMenu;
-
-		if (enterPressed)
-		{
-			prevBattleEnterMenu = enter;
-
-			Command dummy(Command::Type::Attack);
-			gm->getBattleManager().executeRound(dummy);
-
-			prevBattleEnterMenu = true;
-			return;
-		}
-
-		prevBattleEnterMenu = enter;
 		return;
 	}
 
 	// 通常戦闘メニュー
 	updateBattleMenu(input);
 
-	// Esc終了
-	bool esc = CheckHitKey(KEY_INPUT_ESCAPE) != 0;
-	if (esc && !prevBattleEsc)
+	// Escで戦闘終了
+	if (input.isTriggered(GameKey::Cancel))
 	{
 		gm->endBattle();
 	}
-	prevBattleEsc = esc;
 }
 
 void BattleMenu::updateBattleMenu(const Input& input)
 {
-	bool up = CheckHitKey(KEY_INPUT_UP);
-	bool down = CheckHitKey(KEY_INPUT_DOWN);
-	bool enter = CheckHitKey(KEY_INPUT_RETURN);
-	bool enterPressed = enter && !prevBattleEnterMenu;
-
 	int menuCount = gm->getBattleMenuCount();
 	if (menuCount <= 0)
 	{
 		return;
 	}
 
-	if (up && !prevBattleUp)
+	if (input.isTriggered(GameKey::Up))
 	{
 		battleMenuIndex = (battleMenuIndex + menuCount - 1) % menuCount;
 	}
 
-	if (down && !prevBattleDown)
+	if (input.isTriggered(GameKey::Down))
 	{
 		battleMenuIndex = (battleMenuIndex + 1) % menuCount;
 	}
 
-	gm->getBattleWindowRenderer()
-		.setSelectedMenuIndex(battleMenuIndex);
+	gm->getBattleWindowRenderer().setSelectedMenuIndex(battleMenuIndex);
 
-	if (enterPressed)
+	if (!input.isTriggered(GameKey::Decide))
 	{
-		// たたかう
-		// とりあえずメッセージ表示だけ（ダメージ量計算は別途）
-		if (battleMenuIndex == 0)
-		{
-			Command cmd(Command::Type::Attack);
-			gm->getBattleManager().executeRound(cmd);
-
-			prevBattleEnterMenu = enter;
-			return;
-		}
-
-
-		// じゅもん
-		if (battleMenuIndex == 1)
-		{
-			state = BattleMenuState::SpellSelect;
-			spellRenderer.setTarget(&allyParameter);
-			gm->getBattleWindowRenderer()
-				.prepareSpellWindow(spellRenderer);
-
-			prevBattleEnterSpell = true;
-			return;
-		}
-
-		// ぼうぎょ
-		if (battleMenuIndex == 2)
-		{
-			Command cmd(Command::Type::Guard);
-
-			gm->getBattleManager().executeRound(cmd);
-
-			prevBattleEnterMenu = true;
-			return;
-		}
-
-		// どうぐ
-		if (battleMenuIndex == 3)
-		{
-			state = BattleMenuState::ItemSelect;
-			itemRenderer.setTarget(itemBag);
-			gm->getBattleWindowRenderer()
-				.prepareItemWindow(itemRenderer);
-
-			prevBattleEnterItem = true;
-			return;
-		}
-
-		// にげる
-		if (battleMenuIndex == 4)
-		{
-			std::string msg =
-				gm->getAlly().getName() + "は にげだした!";
-			gm->getBattleWindowRenderer().setMessage(msg);
-
-			gm->getBattleManager().startRunAway();
-
-			return;
-		}
+		return;
 	}
 
-	prevBattleUp = up;
-	prevBattleDown = down;
-	prevBattleEnterMenu = enter;
+	if (battleMenuIndex == 0)
+	{
+		bm->submitPlayerCommand(Command(Command::Type::Attack));
+		return;
+	}
+
+	if (battleMenuIndex == 1)
+	{
+		state = BattleMenuState::SpellSelect;
+		spellRenderer.setTarget(&allyParameter);
+		gm->getBattleWindowRenderer().prepareSpellWindow(spellRenderer);
+		return;
+	}
+
+	if (battleMenuIndex == 2)
+	{
+		bm->submitPlayerCommand(Command(Command::Type::Guard));
+		return;
+	}
+
+	if (battleMenuIndex == 3)
+	{
+		state = BattleMenuState::ItemSelect;
+		itemRenderer.setTarget(itemBag);
+		gm->getBattleWindowRenderer().prepareItemWindow(itemRenderer);
+		return;
+	}
+
+	if (battleMenuIndex == 4)
+	{
+		std::string msg =
+			gm->getAlly().getName() + "は にげだした!";
+		gm->getBattleWindowRenderer().setMessage(msg);
+		bm->startRunAway();
+	}
 }
 
 void BattleMenu::updateBattleItem(const Input& input)
 {
-	// まずEscを最優先で処理
 	if (itemRenderer.isCloseRequested())
 	{
 		state = BattleMenuState::CommandSelect;
-
-		// Escをここで消費する
-		prevBattleEsc = true;
-		prevBattleEnterItem = true;
 		return;
 	}
 
-	bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
-	bool enterPressed = enter && !prevBattleEnterItem;
-
 	itemRenderer.update();
 
-	if (enterPressed)
+	if (!input.isTriggered(GameKey::Decide))
 	{
-		const Item* item = itemRenderer.getSelectedItem();
-		if (item)
-		{
-			EffectResult result =
-				itemBag->useItem(item->getName(), gm->getAlly());
-
-			std::string msg = BattleMessageBuilder::build(result);
-			gm->getBattleWindowRenderer().setMessage(msg);
-
-			Command cmd(Command::Type::Item);
-			//gm->getBattleManager().executeRound(cmd);
-
-			gm->getBattleManager().notifyAllyActionFinished();
-			justEnteredEnemyTurn = true;
-
-			itemRenderer.clampSelectedIndex();
-			state = BattleMenuState::CommandSelect;
-
-			// 入力消費
-			prevBattleEnterItem = true;
-			prevBattleEsc = true;
-			return;
-		}
+		return;
 	}
 
-	prevBattleEnterItem = enter;
+	const Item* item = itemRenderer.getSelectedItem();
+	if (!item)
+	{
+		return;
+	}
+
+	EffectResult result =
+		itemBag->useItem(item->getName(), gm->getAlly());
+
+	std::string msg = BattleMessageBuilder::build(result);
+	gm->getBattleWindowRenderer().setMessage(msg);
+
+	bm->notifyAllyActionFinished();
+	itemRenderer.clampSelectedIndex();
+	state = BattleMenuState::CommandSelect;
 }
 
 void BattleMenu::updateBattleSpell(const Input& input)
 {
-	bool enter = CheckHitKey(KEY_INPUT_RETURN) != 0;
-	bool enterPressed = enter && !prevBattleEnterSpell;
-
 	spellRenderer.update();
 
-	if (enterPressed)
+	if (input.isTriggered(GameKey::Decide))
 	{
 		const Spell* spell = spellRenderer.getSelectedSpells();
 		if (spell)
@@ -268,45 +186,22 @@ void BattleMenu::updateBattleSpell(const Input& input)
 			cmd.type = Command::Type::Spell;
 			cmd.spellName = spell->getName();
 
-			gm->getBattleManager().executeRound(cmd);
-
+			bm->submitPlayerCommand(cmd);
 			state = BattleMenuState::CommandSelect;
-			prevBattleEnterSpell = true;
-			prevBattleEnterMenu = true;
-
 			return;
 		}
 	}
 
-	if (input.isPressed(GameKey::Cancel))
+	if (input.isTriggered(GameKey::Cancel))
 	{
-		prevBattleEsc = true;
 		state = BattleMenuState::CommandSelect;
-		prevBattleEnterSpell = true;
-		prevBattleEnterMenu = true;
-		return;
 	}
-
-	prevBattleEnterSpell = enter;
 }
 
 void BattleMenu::resetBattleUi()
 {
 	state = BattleMenuState::CommandSelect;
-
-	// 戦闘コマンドカーソル初期化
 	battleMenuIndex = 0;
-
-	// 戦闘コマンドのカーソル位置が戻らない問題対策：押しっぱなしを「既に押されている」として処理する =====
-	prevBattleUp = (CheckHitKey(KEY_INPUT_UP) != 0);
-	prevBattleDown = (CheckHitKey(KEY_INPUT_DOWN) != 0);
-	prevBattleEnterMenu = (CheckHitKey(KEY_INPUT_RETURN) != 0);
-
-	// サブ側もついでにリセット
-	prevBattleEnterItem = (CheckHitKey(KEY_INPUT_RETURN) != 0);
-	prevBattleEnterSpell = (CheckHitKey(KEY_INPUT_RETURN) != 0);
-
-	prevBattleEsc = (CheckHitKey(KEY_INPUT_ESCAPE) != 0);
 }
 
 void BattleMenu::draw()

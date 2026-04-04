@@ -96,6 +96,8 @@ bool GameManager::isBattle() const
 }
 void GameManager::update()
 {
+    input.update();
+
     if (state == GameState::GameOver)
     {
         return;

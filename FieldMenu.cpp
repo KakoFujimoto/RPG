@@ -18,7 +18,7 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	, idleRenderer(display)
 	, effectRenderer(display)
 	, itemBag(&gm->getItemBag())
-	, battleMenu(gm, display, allyParameter, &gm->getItemBag())
+	, battleMenu(gm, &gm->getBattleManager(), display, allyParameter, &gm->getItemBag())
 {
 	idleRenderer.setTarget(&allyParameter);
 	idleRenderer.setPosition(520, 420);
@@ -310,7 +310,6 @@ void FieldMenu::showEffect(const EffectResult& result)
 	effectRenderer.setPosition(50, 300);
 	effectRenderer.show();
 }
-
 
 
 
