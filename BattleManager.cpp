@@ -203,6 +203,11 @@ void BattleManager::update()
 {
     bool nowBattle = gameManager->isBattle();
     isBattleStartedThisFrame = (nowBattle && !prevIsBattle);
+    
+    if (isBattleStartedThisFrame)
+    {
+        shouldSkipInputThisFrame = true;
+    }
     prevIsBattle = nowBattle;
 
     if (runningAway)
@@ -223,4 +228,14 @@ bool BattleManager::isRunningAway() const
 bool BattleManager::isBattleStarted() const
 {
     return isBattleStartedThisFrame;
+}
+
+bool BattleManager::consumeSkipInputFlag()
+{
+    if (isBattleStartedThisFrame)
+    {
+        shouldSkipInputThisFrame = false;
+        return true;
+    }
+    return false;
 }

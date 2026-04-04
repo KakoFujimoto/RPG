@@ -20,7 +20,6 @@ private:
     bool prevBattleEnterMenu = false;
     bool prevBattleEnterItem = false;
     bool prevBattleEnterSpell = false;
-    bool justEnteredBattle = false;
 
 
     // == リファクタ対象 ==

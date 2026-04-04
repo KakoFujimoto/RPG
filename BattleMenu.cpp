@@ -49,9 +49,8 @@ void BattleMenu::update(const Input& input)
 	}
 
 	// 戦闘開始直後1フレーム待ち
-	if (justEnteredBattle)
+	if (bm->consumeSkipInputFlag())
 	{
-		justEnteredBattle = false;
 		return;
 	}
 

@@ -15,6 +15,7 @@ public:
     void update();
     bool isRunningAway() const;
     bool isBattleStarted() const;
+    bool consumeSkipInputFlag();
 
 private:
     enum class BattlePhase
@@ -29,6 +30,7 @@ private:
     bool runningAway = false;
     bool isBattleStartedThisFrame = false;
     bool prevIsBattle = false;
+    bool shouldSkipInputThisFrame = false;
 
     bool isEnemyDead() const;
     bool isAllyDead() const;
