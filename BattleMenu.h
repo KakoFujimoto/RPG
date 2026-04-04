@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Input.h"
+#include"Input.h"
 #include"SpellWindowRenderer.h"
 #include"ItemBag.h"
 #include"ItemWindowRenderer.h"
@@ -8,6 +8,7 @@
 
 class GameManager;
 class Display;
+class BattleManager;
 
 class BattleMenu
 {
@@ -19,7 +20,6 @@ private:
     bool prevBattleEnterMenu = false;
     bool prevBattleEnterItem = false;
     bool prevBattleEnterSpell = false;
-    bool prevIsBattle = false;
     bool justEnteredBattle = false;
 
 
@@ -29,6 +29,7 @@ private:
 
 
 	GameManager* gm;
+    BattleManager* bm;
     SpellWindowRenderer spellRenderer;
     AllyParameter& allyParameter;
     ItemBag* itemBag;
@@ -40,6 +41,7 @@ private:
 public:
     BattleMenu(
         GameManager* gm,
+        BattleManager* bm,
         Display& display,
         AllyParameter& allyParameter,
         ItemBag* itemBag);

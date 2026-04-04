@@ -14,6 +14,7 @@ public:
     void startRunAway();
     void update();
     bool isRunningAway() const;
+    bool isBattleStarted() const;
 
 private:
     enum class BattlePhase
@@ -26,6 +27,8 @@ private:
     int battleRunStartTime = 0;
     bool isGuarding = false;
     bool runningAway = false;
+    bool isBattleStartedThisFrame = false;
+    bool prevIsBattle = false;
 
     bool isEnemyDead() const;
     bool isAllyDead() const;

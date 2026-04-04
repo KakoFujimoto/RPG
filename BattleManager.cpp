@@ -201,6 +201,10 @@ void BattleManager::startRunAway()
 
 void BattleManager::update()
 {
+    bool nowBattle = gameManager->isBattle();
+    isBattleStartedThisFrame = (nowBattle && !prevIsBattle);
+    prevIsBattle = nowBattle;
+
     if (runningAway)
     {
         if (GetNowCount() - battleRunStartTime > 1200)
@@ -214,4 +218,9 @@ void BattleManager::update()
 bool BattleManager::isRunningAway() const
 {
     return runningAway;
+}
+
+bool BattleManager::isBattleStarted() const
+{
+    return isBattleStartedThisFrame;
 }

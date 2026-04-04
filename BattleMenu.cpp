@@ -5,10 +5,12 @@
 
 BattleMenu::BattleMenu(
 	GameManager* gm,
+	BattleManager* bm,
 	Display& display,
 	AllyParameter& allyParameter,
 	ItemBag* itemBag)
 	: gm(gm)
+	, bm(bm)
 	, spellRenderer(display)
 	, allyParameter(allyParameter)
 	, itemBag(itemBag)
@@ -20,18 +22,13 @@ void BattleMenu::update(const Input& input)
 {
 	bool nowBattle = gm->isBattle();
 
-	// 戦闘突入検知
-	// TODO:GameManagerに移す
-	if (nowBattle && !prevIsBattle)
-	{
-		resetBattleUi();
-		justEnteredBattle = true;
-	}
-	prevIsBattle = nowBattle;
-
 	if (!nowBattle)
 	{
 		return;
+	}
+	if (bm->isBattleStarted())
+	{
+		resetBattleUi();
 	}
 
 	// デバッグ用
