@@ -1,6 +1,5 @@
 ﻿#include"DxLib.h"
 #include"FieldAlly.h"
-#include"FieldMenu.h"
 #include"Display.h"
 #include"FieldItem.h"
 #include"GameManager.h"
@@ -9,7 +8,6 @@
 #include"EffectResult.h"
 #include"FieldEnemy.h"
 #include"EnemyParameter.h"
-#include"Input.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // ウィンドウモードで起動
@@ -56,8 +54,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     allyParameter.consumeMp(5);
     allyParameter.takeDamage(20);
 
-	FieldMenu fieldMenu(&gm, display, allyParameter);
-
     // == 手動で味方キャラにホイミとベホイミを習得させる ==
     // == ホイミとベホイミの効果を設定 ==
     Effect hoimiEffect{
@@ -76,7 +72,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     Spell behoimi(rng, "ベホイミ", 6, behoimiEffect);
     allyParameter.getSpellManager().learnSpell(behoimi);
-   
+
     // == 敵のインスタンス化 ==
     FieldEnemy slime(
         Position{ 400, 300 },
@@ -94,50 +90,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     ////////// テストコードここまで //////////
 
     while (ProcessMessage() == 0)
-	{
-		ClearDrawScreen(); // 画面をクリア
-
-        int bgColor = GetColor(0, 140, 0);
-        DrawBox(0, 0, 800, 600, bgColor, TRUE);
+    {
+        ClearDrawScreen(); // 画面をクリア
 
         gm.update();
-		const Input& input = gm.getInput();
-        fieldMenu.update(input);
-        
-        if (!gm.isBattle() && !fieldMenu.getIsOpen()) {
-            gm.getAlly().move();
-        }
-
-        // == 仮の処理(味方キャラの文字列描画) ==
-        DrawString(gm.getAlly().getX(), gm.getAlly().getY(), gm.getAlly().getName().c_str(), GetColor(255, 255, 255));
-        // == 仮の処理ここまで ==
-
-        fieldMenu.draw(display);
-
-     /*   DrawFormatString(
-            20, 20,
-            GetColor(255, 255, 255),
-            "[DEBUG]BattleenemyHP: %d",
-            gm.getDebugBattleEnemyHp()
-        );*/
-
-        DrawFormatString(
-            20, 20,
-            GetColor(255, 255, 255),
-            "[DEBUG]canShowFlg: %d",
-            gm.getCanShow()
-        );
-        //gm.updateItemBag();
-
-        ////////// テストコードここから //////////
-        // == 敵の描画 ==
-        if (!gm.isBattle())
-        {
-            gm.getFieldEnemyManager().draw();
-            gm.getFieldItemManager().draw();
-        }
-        ////////// テストコードここまで //////////
-        //gm.checkEncount();
+        gm.draw();
 
         ScreenFlip(); // 裏画面と表画面を入れ替え
     }

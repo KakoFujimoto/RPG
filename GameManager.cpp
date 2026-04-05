@@ -1,20 +1,26 @@
 ﻿#include"GameManager.h"
 #include"FieldEnemy.h"
+#include"FieldMenu.h"
 #include"DxLib.h"
 
 GameManager::GameManager(Display& display)
-    : ally(
-        Position{400, 300},
+    : display(display)
+    , ally(
+        Position{ 400, 300 },
         AllyParameter("ねこ", 500, 20, 13, 11, 8, 1, 0)
     ),
     fieldItemManager(),
     itemBag(),
     battleWindowRenderer(display),
     battleManager(this)
-{}
+{
+    fieldMenu = std::make_unique<FieldMenu>(this, display, ally.getParameter());
+}
+
+GameManager::~GameManager() = default;
 
 void GameManager::updateItemBag()
-{   
+{
     auto& items = fieldItemManager.getItems();
 
     for (auto& fieldItem : items)
@@ -43,7 +49,7 @@ FieldItemManager& GameManager::getFieldItemManager()
 }
 
 FieldAlly& GameManager::getAlly()
-{ 
+{
     return ally;
 }
 
@@ -91,7 +97,7 @@ FieldEnemyManager& GameManager::getFieldEnemyManager()
 }
 
 bool GameManager::isBattle() const
-{ 
+{
     return isInBattle;
 }
 void GameManager::update()
@@ -112,6 +118,41 @@ void GameManager::update()
     if (state == GameState::Battle)
     {
         battleManager.update();
+    }
+
+    fieldMenu->update(input);
+
+    if (!isBattle() && !fieldMenu->getIsOpen())
+    {
+        ally.move();
+    }
+}
+
+void GameManager::draw()
+{
+    int bgColor = GetColor(0, 140, 0);
+    DrawBox(0, 0, 800, 600, bgColor, TRUE);
+
+    DrawString(
+        ally.getX(),
+        ally.getY(),
+        ally.getName().c_str(),
+        GetColor(255, 255, 255)
+    );
+
+    fieldMenu->draw(display);
+
+    DrawFormatString(
+        20, 20,
+        GetColor(255, 255, 255),
+        "[DEBUG]canShowFlg: %d",
+        getCanShow()
+    );
+
+    if (!isBattle())
+    {
+        fieldEnemyManager.draw();
+        fieldItemManager.draw();
     }
 }
 

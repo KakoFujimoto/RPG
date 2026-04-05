@@ -11,9 +11,14 @@
 #include"BattleWindowRenderer.h"
 #include"BattleManager.h"
 #include"Input.h"
+#include <memory>
 
 
 class Display;
+class FieldMenu;
+
+// 肥大化し始めているが、段階的にリファクタする
+// 現在の責務：Input管理、UI管理、キャラ制御、描画、戦闘管理
 class GameManager
 {
 public:
@@ -24,14 +29,16 @@ public:
         GameOver
     };
     GameManager(Display& display);
+    ~GameManager();
     void update();
+    void draw();
     void updateItemBag();
     ItemBag& getItemBag();
     FieldItemManager& getFieldItemManager();
     FieldEnemyManager& getFieldEnemyManager();
     FieldAlly& getAlly();
     FieldEnemy& getEnemy();
-	Input& getInput();
+    Input& getInput();
     bool checkEncount();
     bool isBattle() const;
     void startBattle(const BattleStartInfo& info);
@@ -49,6 +56,7 @@ public:
     bool getCanShow();
 
 private:
+    Display& display;
     FieldAlly ally;
     FieldEnemy enemy;
     ItemBag itemBag;
@@ -60,6 +68,7 @@ private:
     BattleWindowRenderer battleWindowRenderer;
     GameState state = GameState::Playing;
     BattleManager battleManager;
+    std::unique_ptr<FieldMenu> fieldMenu;
     Input input;
     // デバッグ用
     int debugBattleEnemyHp = -1;
