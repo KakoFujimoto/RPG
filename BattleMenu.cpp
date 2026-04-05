@@ -21,45 +21,47 @@ BattleMenu::BattleMenu(
 
 void BattleMenu::update(const Input& input)
 {
-	// 戦闘中でなければ何もしない
 	if (!gm->isBattle())
 	{
+		hasResetForCurrentBattle = false;
 		return;
 	}
 
-	// 戦闘開始フレーム検知（UI初期化）
-	if (bm->isBattleStarted())
+	if (bm->isBattleStarted() && !hasResetForCurrentBattle)
 	{
 		resetBattleUi();
+		hasResetForCurrentBattle = true;
 	}
 
-	// 戦闘開始直後1フレームは入力を無視
 	if (bm->consumeSkipInput())
 	{
 		return;
 	}
 
-	// サブUI（どうぐ）
+	// isBattleStartedイベントを取りこぼした場合の保険
+	if (!hasResetForCurrentBattle)
+	{
+		resetBattleUi();
+		hasResetForCurrentBattle = true;
+	}
+
 	if (state == BattleMenuState::ItemSelect)
 	{
 		updateBattleItem(input);
 		return;
 	}
 
-	// サブUI（じゅもん）
 	if (state == BattleMenuState::SpellSelect)
 	{
 		updateBattleSpell(input);
 		return;
 	}
 
-	// 逃走中は操作不可
 	if (bm->isRunningAway())
 	{
 		return;
 	}
 
-	// 敵ターン
 	if (bm->isEnemyTurn())
 	{
 		if (input.isTriggered(GameKey::Decide))
@@ -69,10 +71,8 @@ void BattleMenu::update(const Input& input)
 		return;
 	}
 
-	// 通常戦闘メニュー
 	updateBattleMenu(input);
 
-	// Escで戦闘終了
 	if (input.isTriggered(GameKey::Cancel))
 	{
 		gm->endBattle();

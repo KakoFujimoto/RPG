@@ -14,8 +14,9 @@ class BattleMenu
 {
 private:
     int battleMenuIndex = 0;
+    bool hasResetForCurrentBattle = false;
 
-	GameManager* gm;
+    GameManager* gm;
     BattleManager* bm;
     SpellWindowRenderer spellRenderer;
     AllyParameter& allyParameter;
