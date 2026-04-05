@@ -104,21 +104,24 @@ void GameManager::update()
 {
     input.update();
 
-    if (state == GameState::GameOver)
+    switch (state)
     {
-        return;
+    case GameState::Playing:
+        updatePlaying();
+        break;
+    case GameState::Battle:
+        updateBattle();
+        break;
+    case GameState::GameOver:
+        updateGameOver();
+        break;
     }
+}
 
-    if (state == GameState::Playing)
-    {
-        updateItemBag();
-        checkEncount();
-    }
-
-    if (state == GameState::Battle)
-    {
-        battleManager.update();
-    }
+void GameManager::updatePlaying()
+{
+    updateItemBag();
+    checkEncount();
 
     fieldMenu->update(input);
 
@@ -128,7 +131,35 @@ void GameManager::update()
     }
 }
 
+void GameManager::updateBattle()
+{
+    battleManager.update();
+    // Battle系処理にFieldの処理が入っているのは今後見直す
+    fieldMenu->update(input);
+}
+
+void GameManager::updateGameOver()
+{
+    // 現時点では更新処理なし
+}
+
 void GameManager::draw()
+{
+    switch (state)
+    {
+    case GameState::Playing:
+        drawPlaying();
+        break;
+    case GameState::Battle:
+        drawBattle();
+        break;
+    case GameState::GameOver:
+        drawGameOver();
+        break;
+    }
+}
+
+void GameManager::drawPlaying()
 {
     int bgColor = GetColor(0, 140, 0);
     DrawBox(0, 0, 800, 600, bgColor, TRUE);
@@ -149,11 +180,40 @@ void GameManager::draw()
         getCanShow()
     );
 
-    if (!isBattle())
+    fieldEnemyManager.draw();
+    fieldItemManager.draw();
+}
+
+void GameManager::drawBattle()
+{
+    int bgColor = GetColor(0, 140, 0);
+    DrawBox(0, 0, 800, 600, bgColor, TRUE);
+
+    DrawString(
+        ally.getX(),
+        ally.getY(),
+        ally.getName().c_str(),
+        GetColor(255, 255, 255)
+    );
+
+    fieldMenu->draw(display);
+
+    DrawFormatString(
+        20, 20,
+        GetColor(255, 255, 255),
+        "[DEBUG]canShowFlg: %d",
+        getCanShow()
+    );
+}
+
+void GameManager::drawGameOver()
+{
+    if (isBattle())
     {
-        fieldEnemyManager.draw();
-        fieldItemManager.draw();
+        drawBattle();
+        return;
     }
+    drawPlaying();
 }
 
 

@@ -16,9 +16,6 @@
 
 class Display;
 class FieldMenu;
-
-// 肥大化し始めているが、段階的にリファクタする
-// 現在の責務：Input管理、UI管理、キャラ制御、描画、戦闘管理
 class GameManager
 {
 public:
@@ -56,6 +53,13 @@ public:
     bool getCanShow();
 
 private:
+    void updatePlaying();
+    void updateBattle();
+    void updateGameOver();
+    void drawPlaying();
+    void drawBattle();
+    void drawGameOver();
+
     Display& display;
     FieldAlly ally;
     FieldEnemy enemy;
