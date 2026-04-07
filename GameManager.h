@@ -16,6 +16,7 @@
 
 class Display;
 class FieldMenu;
+class IGameState;
 class GameManager
 {
 public:
@@ -29,6 +30,7 @@ public:
     ~GameManager();
     void update();
     void draw();
+    void changeState(GameState newState);
     void updateItemBag();
     ItemBag& getItemBag();
     FieldItemManager& getFieldItemManager();
@@ -47,19 +49,14 @@ public:
     bool isGameOver() const;
     GameState getState() const;
     BattleManager& getBattleManager();
+    FieldMenu& getFieldMenu();
+    Display& getDisplay();
     // デバッグ用
     int getDebugBattleEnemyHp();
     void onBattleAllyTurnStart();
     bool getCanShow();
 
 private:
-    void updatePlaying();
-    void updateBattle();
-    void updateGameOver();
-    void drawPlaying();
-    void drawBattle();
-    void drawGameOver();
-
     Display& display;
     FieldAlly ally;
     FieldEnemy enemy;
@@ -71,6 +68,7 @@ private:
     BattleStartInfo currentBattleInfo;
     BattleWindowRenderer battleWindowRenderer;
     GameState state = GameState::Playing;
+    std::unique_ptr<IGameState> currentState;
     BattleManager battleManager;
     std::unique_ptr<FieldMenu> fieldMenu;
     Input input;

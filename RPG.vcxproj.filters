@@ -35,6 +35,9 @@
     <Filter Include="src\Core\Battle">
       <UniqueIdentifier>{e51b2dfe-0e2c-4e2b-98d9-1311f38e7247}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Core\States">
+      <UniqueIdentifier>{079ab440-76fa-49c5-99c5-365809a27d54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -140,12 +143,26 @@
     <ClInclude Include="GameKey.h">
       <Filter>src\UI</Filter>
     </ClInclude>
-    <ClInclude Include="FieldMenuDrawer.h" />
     <ClInclude Include="BattleMenu.h">
       <Filter>src\Core\Battle</Filter>
     </ClInclude>
     <ClInclude Include="BattleMenuState.h">
       <Filter>src\Core\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldMenuDrawer.h">
+      <Filter>src\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameState.h">
+      <Filter>src\Core\States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayingState.h">
+      <Filter>src\Core\States</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleState.h">
+      <Filter>src\Core\States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverState.h">
+      <Filter>src\Core\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -236,11 +253,20 @@
     <ClCompile Include="Input.cpp">
       <Filter>src\UI</Filter>
     </ClCompile>
-    <ClCompile Include="FieldMenuDrawer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="BattleMenu.cpp">
       <Filter>src\Core\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldMenuDrawer.cpp">
+      <Filter>src\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayingState.cpp">
+      <Filter>src\Core\States</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleState.cpp">
+      <Filter>src\Core\States</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverState.cpp">
+      <Filter>src\Core\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

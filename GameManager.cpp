@@ -1,6 +1,10 @@
 ﻿#include"GameManager.h"
 #include"FieldEnemy.h"
 #include"FieldMenu.h"
+#include"IGameState.h"
+#include"PlayingState.h"
+#include"BattleState.h"
+#include"GameOverState.h"
 #include"DxLib.h"
 
 GameManager::GameManager(Display& display)
@@ -15,6 +19,7 @@ GameManager::GameManager(Display& display)
     battleManager(this)
 {
     fieldMenu = std::make_unique<FieldMenu>(this, display, ally.getParameter());
+    changeState(GameState::Playing);
 }
 
 GameManager::~GameManager() = default;
@@ -100,134 +105,48 @@ bool GameManager::isBattle() const
 {
     return isInBattle;
 }
+
 void GameManager::update()
 {
     input.update();
-
-    switch (state)
-    {
-    case GameState::Playing:
-        updatePlaying();
-        break;
-    case GameState::Battle:
-        updateBattle();
-        break;
-    case GameState::GameOver:
-        updateGameOver();
-        break;
-    }
-}
-
-void GameManager::updatePlaying()
-{
-    updateItemBag();
-    checkEncount();
-
-    fieldMenu->update(input);
-
-    if (!isBattle() && !fieldMenu->getIsOpen())
-    {
-        ally.move();
-    }
-}
-
-void GameManager::updateBattle()
-{
-    battleManager.update();
-    // Battle系処理にFieldの処理が入っているのは今後見直す
-    fieldMenu->update(input);
-}
-
-void GameManager::updateGameOver()
-{
-    // 現時点では更新処理なし
+    currentState->update(*this);
 }
 
 void GameManager::draw()
 {
-    switch (state)
+    currentState->draw(*this);
+}
+
+void GameManager::changeState(GameState newState)
+{
+    state = newState;
+
+    switch (newState)
     {
     case GameState::Playing:
-        drawPlaying();
+        currentState = std::make_unique<PlayingState>();
         break;
     case GameState::Battle:
-        drawBattle();
+        currentState = std::make_unique<BattleState>();
         break;
     case GameState::GameOver:
-        drawGameOver();
+        currentState = std::make_unique<GameOverState>();
         break;
     }
 }
-
-void GameManager::drawPlaying()
-{
-    int bgColor = GetColor(0, 140, 0);
-    DrawBox(0, 0, 800, 600, bgColor, TRUE);
-
-    DrawString(
-        ally.getX(),
-        ally.getY(),
-        ally.getName().c_str(),
-        GetColor(255, 255, 255)
-    );
-
-    fieldMenu->draw(display);
-
-    DrawFormatString(
-        20, 20,
-        GetColor(255, 255, 255),
-        "[DEBUG]canShowFlg: %d",
-        getCanShow()
-    );
-
-    fieldEnemyManager.draw();
-    fieldItemManager.draw();
-}
-
-void GameManager::drawBattle()
-{
-    int bgColor = GetColor(0, 140, 0);
-    DrawBox(0, 0, 800, 600, bgColor, TRUE);
-
-    DrawString(
-        ally.getX(),
-        ally.getY(),
-        ally.getName().c_str(),
-        GetColor(255, 255, 255)
-    );
-
-    fieldMenu->draw(display);
-
-    DrawFormatString(
-        20, 20,
-        GetColor(255, 255, 255),
-        "[DEBUG]canShowFlg: %d",
-        getCanShow()
-    );
-}
-
-void GameManager::drawGameOver()
-{
-    if (isBattle())
-    {
-        drawBattle();
-        return;
-    }
-    drawPlaying();
-}
-
-
 
 const BattleStartInfo& GameManager::getBattleInfo() const
 {
     return currentBattleInfo;
 }
+
 void GameManager::endBattle()
 {
     isInBattle = false;
-    state = GameState::Playing;
+    changeState(GameState::Playing);
     battleWindowRenderer.clearMessage();
 }
+
 int GameManager::getBattleMenuCount() const
 {
     return battleWindowRenderer.getMenuCount();
@@ -237,6 +156,7 @@ BattleWindowRenderer& GameManager::getBattleWindowRenderer()
 {
     return battleWindowRenderer;
 }
+
 void BattleWindowRenderer::setSelectedMenuIndex(int index)
 {
     // メニューが無いなら何もしない
@@ -256,11 +176,12 @@ void BattleWindowRenderer::setSelectedMenuIndex(int index)
 
     selectedMenuIndex = index;
 }
+
 void GameManager::startBattle(const BattleStartInfo& info)
 {
     currentBattleInfo = info;
     isInBattle = true;
-    state = GameState::Battle;
+    changeState(GameState::Battle);
 
     enemy.getParameter() = info.enemyParam;
 
@@ -275,7 +196,7 @@ void GameManager::startBattle(const BattleStartInfo& info)
 
 void GameManager::setGameOver()
 {
-    state = GameState::GameOver;
+    changeState(GameState::GameOver);
 }
 
 bool GameManager::isGameOver() const
@@ -287,20 +208,34 @@ GameManager::GameState GameManager::getState() const
 {
     return state;
 }
+
 BattleManager& GameManager::getBattleManager()
 {
     return battleManager;
 }
+
+FieldMenu& GameManager::getFieldMenu()
+{
+    return *fieldMenu;
+}
+
+Display& GameManager::getDisplay()
+{
+    return display;
+}
+
 //デバッグ用
 int GameManager::getDebugBattleEnemyHp()
 {
     return debugBattleEnemyHp;
 }
+
 //デバッグ用
 bool GameManager::getCanShow()
 {
     return canShow;
 }
+
 void GameManager::onBattleAllyTurnStart()
 {
     battleWindowRenderer.setSelectedMenuIndex(0);
