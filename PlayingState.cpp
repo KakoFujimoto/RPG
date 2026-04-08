@@ -3,14 +3,25 @@
 #include "FieldMenu.h"
 #include <DxLib.h>
 
+PlayingState::PlayingState(GameManager& gm)
+{
+    fieldMenu = std::make_unique<FieldMenu>(
+        &gm,
+        gm.getDisplay(),
+        gm.getAlly().getParameter()
+    );
+}
+
+PlayingState::~PlayingState() = default;
+
 void PlayingState::update(GameManager& gm)
 {
     gm.updateItemBag();
     gm.checkEncount();
 
-    gm.getFieldMenu().update(gm.getInput());
+    fieldMenu->update(gm.getInput());
 
-    if (!gm.isBattle() && !gm.getFieldMenu().getIsOpen())
+    if (!gm.isBattle() && !fieldMenu->getIsOpen())
     {
         gm.getAlly().move();
     }
@@ -28,7 +39,7 @@ void PlayingState::draw(GameManager& gm)
         GetColor(255, 255, 255)
     );
 
-    gm.getFieldMenu().draw(gm.getDisplay());
+    fieldMenu->draw(gm.getDisplay());
 
     DrawFormatString(
         20, 20,

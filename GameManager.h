@@ -15,7 +15,6 @@
 
 
 class Display;
-class FieldMenu;
 class IGameState;
 class GameManager
 {
@@ -49,7 +48,6 @@ public:
     bool isGameOver() const;
     GameState getState() const;
     BattleManager& getBattleManager();
-    FieldMenu& getFieldMenu();
     Display& getDisplay();
     // デバッグ用
     int getDebugBattleEnemyHp();
@@ -70,7 +68,6 @@ private:
     GameState state = GameState::Playing;
     std::unique_ptr<IGameState> currentState;
     BattleManager battleManager;
-    std::unique_ptr<FieldMenu> fieldMenu;
     Input input;
     // デバッグ用
     int debugBattleEnemyHp = -1;

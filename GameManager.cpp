@@ -1,6 +1,5 @@
 ﻿#include"GameManager.h"
 #include"FieldEnemy.h"
-#include"FieldMenu.h"
 #include"IGameState.h"
 #include"PlayingState.h"
 #include"BattleState.h"
@@ -18,7 +17,6 @@ GameManager::GameManager(Display& display)
     battleWindowRenderer(display),
     battleManager(this)
 {
-    fieldMenu = std::make_unique<FieldMenu>(this, display, ally.getParameter());
     changeState(GameState::Playing);
 }
 
@@ -124,7 +122,7 @@ void GameManager::changeState(GameState newState)
     switch (newState)
     {
     case GameState::Playing:
-        currentState = std::make_unique<PlayingState>();
+        currentState = std::make_unique<PlayingState>(*this);
         break;
     case GameState::Battle:
         currentState = std::make_unique<BattleState>();
@@ -212,11 +210,6 @@ GameManager::GameState GameManager::getState() const
 BattleManager& GameManager::getBattleManager()
 {
     return battleManager;
-}
-
-FieldMenu& GameManager::getFieldMenu()
-{
-    return *fieldMenu;
 }
 
 Display& GameManager::getDisplay()
