@@ -19,6 +19,11 @@ void PlayingState::update(GameManager& gm)
     gm.updateItemBag();
     gm.checkEncount();
 
+    if (gm.isBattle())
+    {
+        return;
+    }
+
     fieldMenu->update(gm.getInput());
 
     if (!gm.isBattle() && !fieldMenu->getIsOpen())

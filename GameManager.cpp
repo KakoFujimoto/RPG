@@ -125,7 +125,7 @@ void GameManager::changeState(GameState newState)
         currentState = std::make_unique<PlayingState>(*this);
         break;
     case GameState::Battle:
-        currentState = std::make_unique<BattleState>();
+        currentState = std::make_unique<BattleState>(*this);
         break;
     case GameState::GameOver:
         currentState = std::make_unique<GameOverState>();

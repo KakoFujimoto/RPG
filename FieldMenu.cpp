@@ -18,7 +18,6 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	, idleRenderer(display)
 	, effectRenderer(display)
 	, itemBag(&gm->getItemBag())
-	, battleMenu(gm, &gm->getBattleManager(), display, allyParameter, &gm->getItemBag())
 {
 	idleRenderer.setTarget(&allyParameter);
 	idleRenderer.setPosition(520, 420);
@@ -86,14 +85,7 @@ void FieldMenu::close()
 }
 
 void FieldMenu::update(const Input& input)
-{	
-	battleMenu.update(input);
-
-	if (gm && gm->isBattle())
-	{
-		return;
-	}
-
+{
 	// ここから下はフィールド専用
 	bool idle = !CheckHitKeyAll();
 	if (idle)
@@ -223,13 +215,7 @@ void FieldMenu::update(const Input& input)
 }
 
 void FieldMenu::draw(Display& display)
-{	
-	// 設計上問題があるように思うが、完成させることを重視
-	if (gm && gm->isBattle())
-	{
-		battleMenu.draw();
-		return;
-	}
+{
 	if (isIdleStatusVisible) {
 		idleRenderer.draw();
 	}
@@ -310,10 +296,3 @@ void FieldMenu::showEffect(const EffectResult& result)
 	effectRenderer.setPosition(50, 300);
 	effectRenderer.show();
 }
-
-
-
-
-
-
-

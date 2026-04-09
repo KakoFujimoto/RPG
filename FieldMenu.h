@@ -14,7 +14,6 @@
 #include"ItemBag.h"
 #include"EffectResult.h"
 #include"FieldMenuDrawer.h"
-#include"BattleMenu.h"
 
 
 class Input;
@@ -52,8 +51,6 @@ private:
 	ItemBag* itemBag;
 	EffectResult lastEffect;
 	FieldMenuDrawer menuDrawer;
-	BattleMenu battleMenu;
-
 public:
 	FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter);
 	void choose();
@@ -62,7 +59,7 @@ public:
 	void close();
 	void update(const Input& input);
 	void draw(Display& display);
-	bool getIsOpen () const;
+	bool getIsOpen() const;
 	bool isSubWindowOpen();
 	void showEffect(const EffectResult& result);
 };

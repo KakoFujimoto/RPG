@@ -1,12 +1,31 @@
 ﻿#include "BattleState.h"
 #include "GameManager.h"
-#include "FieldMenu.h"
+#include "BattleMenu.h"
 #include <DxLib.h>
+
+BattleState::BattleState(GameManager& gm)
+{
+    battleMenu = std::make_unique<BattleMenu>(
+        &gm,
+        &gm.getBattleManager(),
+        gm.getDisplay(),
+        gm.getAlly().getParameter(),
+        &gm.getItemBag()
+    );
+}
+
+BattleState::~BattleState() = default;
 
 void BattleState::update(GameManager& gm)
 {
     gm.getBattleManager().update();
-    gm.getFieldMenu().update(gm.getInput());
+
+    if (!gm.isBattle())
+    {
+        return;
+    }
+
+    battleMenu->update(gm.getInput());
 }
 
 void BattleState::draw(GameManager& gm)
@@ -21,12 +40,12 @@ void BattleState::draw(GameManager& gm)
         GetColor(255, 255, 255)
     );
 
-    gm.getFieldMenu().draw(gm.getDisplay());
-
     DrawFormatString(
         20, 20,
         GetColor(255, 255, 255),
         "[DEBUG]canShowFlg: %d",
         gm.getCanShow()
     );
+
+    battleMenu->draw();
 }
