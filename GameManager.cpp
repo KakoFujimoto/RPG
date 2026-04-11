@@ -196,6 +196,7 @@ void GameManager::startBattle(const BattleStartInfo& info)
 {
     currentBattleInfo = info;
     isInBattle = true;
+    battleManager.reset();
     requestStateChange(GameState::Battle);
 
     enemy.getParameter() = info.enemyParam;

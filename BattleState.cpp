@@ -19,12 +19,6 @@ BattleState::~BattleState() = default;
 void BattleState::update(GameManager& gm)
 {
     gm.getBattleManager().update();
-
-    if (!gm.isBattle())
-    {
-        return;
-    }
-
     battleMenu->update(gm.getInput());
 }
 
