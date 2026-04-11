@@ -108,6 +108,7 @@ void GameManager::update()
 {
     input.update();
     currentState->update(*this);
+    applyStateChange();
 }
 
 void GameManager::draw()
