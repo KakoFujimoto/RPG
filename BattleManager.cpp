@@ -185,6 +185,11 @@ void BattleManager::update()
         skipInputPending = true;
         enemyTurnActionRequested = false;
         isGuarding = false;
+
+        auto& enemy = gameManager->getEnemy();
+        gameManager->getBattleWindowRenderer().setMessage(
+            enemy.getName() + " が あらわれた！"
+        );
     }
     prevIsBattle = nowBattle;
 
