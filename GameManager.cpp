@@ -252,3 +252,8 @@ void GameManager::onBattleAllyTurnStart()
 {
     battleWindowRenderer.setSelectedMenuIndex(0);
 }
+
+bool GameManager::hasPendingStateChange() const
+{
+    return hasStateChangeRequest;
+}

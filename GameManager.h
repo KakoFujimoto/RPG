@@ -51,6 +51,7 @@ public:
     GameState getState() const;
     BattleManager& getBattleManager();
     Display& getDisplay();
+    bool hasPendingStateChange() const;
     // デバッグ用
     int getDebugBattleEnemyHp();
     void onBattleAllyTurnStart();
@@ -69,10 +70,10 @@ private:
     BattleWindowRenderer battleWindowRenderer;
     GameState state = GameState::Playing;
     GameState nextState = GameState::Playing;
-    bool hasStateChangeRequest = false;
     std::unique_ptr<IGameState> currentState;
     BattleManager battleManager;
     Input input;
+    bool hasStateChangeRequest;
     // デバッグ用
     int debugBattleEnemyHp = -1;
     bool canShow = false;
