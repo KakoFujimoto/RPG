@@ -21,7 +21,7 @@ BattleMenu::BattleMenu(
 
 void BattleMenu::update(const Input& input)
 {
-	if (!gm->isBattle())
+	if (gm->hasPendingStateChange())
 	{
 		hasResetForCurrentBattle = false;
 		return;

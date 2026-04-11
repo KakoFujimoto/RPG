@@ -5,6 +5,8 @@
 
 BattleState::BattleState(GameManager& gm)
 {
+    gm.getBattleManager().reset();
+
     battleMenu = std::make_unique<BattleMenu>(
         &gm,
         &gm.getBattleManager(),

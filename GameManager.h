@@ -32,6 +32,7 @@ public:
     void changeState(GameState newState);
     void requestStateChange(GameState newState);
     void applyStateChange();
+    bool hasPendingStateChange() const;
     void updateItemBag();
     ItemBag& getItemBag();
     FieldItemManager& getFieldItemManager();
@@ -40,7 +41,6 @@ public:
     FieldEnemy& getEnemy();
     Input& getInput();
     bool checkEncount();
-    bool isBattle() const;
     void startBattle(const BattleStartInfo& info);
     void endBattle();
     const BattleStartInfo& getBattleInfo() const;
@@ -51,7 +51,6 @@ public:
     GameState getState() const;
     BattleManager& getBattleManager();
     Display& getDisplay();
-    bool hasPendingStateChange() const;
     // デバッグ用
     int getDebugBattleEnemyHp();
     void onBattleAllyTurnStart();
@@ -65,15 +64,14 @@ private:
     FieldItemManager fieldItemManager;
     FieldEnemyManager fieldEnemyManager;
     HitCheck hitCheck;
-    bool isInBattle = false;
     BattleStartInfo currentBattleInfo;
     BattleWindowRenderer battleWindowRenderer;
     GameState state = GameState::Playing;
     GameState nextState = GameState::Playing;
+    bool hasStateChangeRequest = false;
     std::unique_ptr<IGameState> currentState;
     BattleManager battleManager;
     Input input;
-    bool hasStateChangeRequest;
     // デバッグ用
     int debugBattleEnemyHp = -1;
     bool canShow = false;

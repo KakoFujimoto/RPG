@@ -176,23 +176,6 @@ void BattleManager::startRunAway()
 
 void BattleManager::update()
 {
-    bool nowBattle = gameManager->isBattle();
-    battleStartedThisFrame = (nowBattle && !prevIsBattle);
-
-    if (battleStartedThisFrame)
-    {
-        phase = BattlePhase::StartDelay;
-        skipInputPending = true;
-        enemyTurnActionRequested = false;
-        isGuarding = false;
-
-        auto& enemy = gameManager->getEnemy();
-        gameManager->getBattleWindowRenderer().setMessage(
-            enemy.getName() + " が あらわれた！"
-        );
-    }
-    prevIsBattle = nowBattle;
-
     if (phase == BattlePhase::StartDelay)
     {
         phase = BattlePhase::AllyTurn;

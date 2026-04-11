@@ -99,11 +99,6 @@ FieldEnemyManager& GameManager::getFieldEnemyManager()
     return fieldEnemyManager;
 }
 
-bool GameManager::isBattle() const
-{
-    return isInBattle;
-}
-
 void GameManager::update()
 {
     input.update();
@@ -151,6 +146,11 @@ void GameManager::applyStateChange()
     hasStateChangeRequest = false;
 }
 
+bool GameManager::hasPendingStateChange() const
+{
+    return hasStateChangeRequest;
+}
+
 const BattleStartInfo& GameManager::getBattleInfo() const
 {
     return currentBattleInfo;
@@ -158,7 +158,6 @@ const BattleStartInfo& GameManager::getBattleInfo() const
 
 void GameManager::endBattle()
 {
-    isInBattle = false;
     requestStateChange(GameState::Playing);
     battleWindowRenderer.clearMessage();
 }
@@ -196,8 +195,6 @@ void BattleWindowRenderer::setSelectedMenuIndex(int index)
 void GameManager::startBattle(const BattleStartInfo& info)
 {
     currentBattleInfo = info;
-    isInBattle = true;
-    battleManager.reset();
     requestStateChange(GameState::Battle);
 
     enemy.getParameter() = info.enemyParam;
@@ -251,9 +248,4 @@ bool GameManager::getCanShow()
 void GameManager::onBattleAllyTurnStart()
 {
     battleWindowRenderer.setSelectedMenuIndex(0);
-}
-
-bool GameManager::hasPendingStateChange() const
-{
-    return hasStateChangeRequest;
 }
