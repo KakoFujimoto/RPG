@@ -19,14 +19,14 @@ void PlayingState::update(GameManager& gm)
     gm.updateItemBag();
     gm.checkEncount();
 
-    if (gm.isBattle())
+    if (gm.hasPendingStateChange())
     {
         return;
     }
 
     fieldMenu->update(gm.getInput());
 
-    if (!gm.isBattle() && !fieldMenu->getIsOpen())
+    if (!fieldMenu->getIsOpen())
     {
         gm.getAlly().move();
     }
