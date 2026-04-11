@@ -133,6 +133,23 @@ void GameManager::changeState(GameState newState)
     }
 }
 
+void GameManager::requestStateChange(GameState newState)
+{
+    nextState = newState;
+    hasStateChangeRequest = true;
+}
+
+void GameManager::applyStateChange()
+{
+    if (!hasStateChangeRequest)
+    {
+        return;
+    }
+
+    changeState(nextState);
+    hasStateChangeRequest = false;
+}
+
 const BattleStartInfo& GameManager::getBattleInfo() const
 {
     return currentBattleInfo;
@@ -141,7 +158,7 @@ const BattleStartInfo& GameManager::getBattleInfo() const
 void GameManager::endBattle()
 {
     isInBattle = false;
-    changeState(GameState::Playing);
+    requestStateChange(GameState::Playing);
     battleWindowRenderer.clearMessage();
 }
 
@@ -179,7 +196,7 @@ void GameManager::startBattle(const BattleStartInfo& info)
 {
     currentBattleInfo = info;
     isInBattle = true;
-    changeState(GameState::Battle);
+    requestStateChange(GameState::Battle);
 
     enemy.getParameter() = info.enemyParam;
 
@@ -194,7 +211,7 @@ void GameManager::startBattle(const BattleStartInfo& info)
 
 void GameManager::setGameOver()
 {
-    changeState(GameState::GameOver);
+    requestStateChange(GameState::GameOver);
 }
 
 bool GameManager::isGameOver() const

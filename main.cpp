@@ -94,6 +94,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         ClearDrawScreen(); // 画面をクリア
 
         gm.update();
+        gm.applyStateChange();
         gm.draw();
 
         ScreenFlip(); // 裏画面と表画面を入れ替え

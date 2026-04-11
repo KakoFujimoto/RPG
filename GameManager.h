@@ -30,6 +30,8 @@ public:
     void update();
     void draw();
     void changeState(GameState newState);
+    void requestStateChange(GameState newState);
+    void applyStateChange();
     void updateItemBag();
     ItemBag& getItemBag();
     FieldItemManager& getFieldItemManager();
@@ -66,6 +68,8 @@ private:
     BattleStartInfo currentBattleInfo;
     BattleWindowRenderer battleWindowRenderer;
     GameState state = GameState::Playing;
+    GameState nextState = GameState::Playing;
+    bool hasStateChangeRequest = false;
     std::unique_ptr<IGameState> currentState;
     BattleManager battleManager;
     Input input;
