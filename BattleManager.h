@@ -28,7 +28,8 @@ private:
         AllyTurn,
         EnemyTurn,
         Escape,
-        WinMessage
+        WinMessage,
+        LoseMessage
     };
 
     int battleRunStartTime = 0;

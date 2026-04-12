@@ -147,10 +147,10 @@ void BattleManager::onLose()
 {
     OutputDebugStringA("[DEBUG] onLose called\n");
 
-    phase = BattlePhase::AllyTurn;
+    phase = BattlePhase::LoseMessage;
 
     gameManager->getBattleWindowRenderer().setMessage(
-        "しんでしまった…画面を閉じてください"
+        "しんでしまった…"
     );
 }
 
@@ -214,7 +214,7 @@ bool BattleManager::isWin() const
 
 bool BattleManager::isLose() const
 {
-    return isAllyDead();
+    return phase == BattlePhase::LoseMessage;
 }
 
 bool BattleManager::isEscapeFinished() const
