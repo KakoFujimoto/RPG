@@ -1,17 +1,17 @@
-#pragma once
-#include "AllyParameter.h"
-#include "EnemyParameter.h"
+ï»¿#pragma once
+#include <algorithm>
 
 class BattleDamageCalculator {
 public:
-    // –{—ˆAlly‚ÆEnemy‚ÌãˆÊŠT”O‚ğİ‚¯‚ê‚Îƒƒ\ƒbƒh‚ğ•ª‚¯‚é•K—v‚Í‚È‚¢
-    // ŠúŒÀ‚ÌŠÖŒW‚ÅAç’·‚¾‚ªƒƒ\ƒbƒh•ª‰»‚ğÌ‚Á‚½
-    static int calcAllyNormalAttack(
-        const AllyParameter& attacker,
-        const EnemyParameter& defender
-    );
-    static int calcEnemyNormalAttack(
-        const EnemyParameter& attacker,
-        const AllyParameter& defender
-    );
+    template <typename Attacker, typename Defender>
+    static int calcNormalAttack(
+        const Attacker& attacker,
+        const Defender& defender
+    )
+    {
+        int atk = attacker.getAttack();
+        int def = defender.getDefense();
+
+        return std::max(1, atk - def / 2);
+    }
 };

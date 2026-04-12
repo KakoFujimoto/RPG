@@ -81,7 +81,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     FieldEnemy druky(
         Position{ 200, 200 },
-        EnemyParameter("ドラキー", 24, 10, 13, 11, 8, 1, 10)
+        EnemyParameter("ドラキー", 24, 10, 20, 11, 8, 1, 10)
     );
     // == 敵をフィールド上に湧かせる ==
     gm.getFieldEnemyManager().spawn(slime, 200, 200, rng);

@@ -56,7 +56,7 @@ void BattleManager::executeAllyAction(const Command& cmd)
     {
     case Command::Type::Attack:
     {
-        int damage = BattleDamageCalculator::calcAllyNormalAttack(
+        int damage = BattleDamageCalculator::calcNormalAttack(
             ally.getParameter(),
             enemy.getParameter()
         );
@@ -104,7 +104,7 @@ void BattleManager::executeEnemyAction()
     auto& ally = gameManager->getAlly();
     auto& enemy = gameManager->getEnemy();
 
-    int damage = BattleDamageCalculator::calcEnemyNormalAttack(
+    int damage = BattleDamageCalculator::calcNormalAttack(
         enemy.getParameter(),
         ally.getParameter()
     );
