@@ -41,13 +41,6 @@ void PlayingState::draw(GameManager& gm)
 
     fieldMenu->draw(gm.getDisplay());
 
-    DrawFormatString(
-        20, 20,
-        GetColor(255, 255, 255),
-        "[DEBUG]canShowFlg: %d",
-        gm.getCanShow()
-    );
-
     gm.getFieldEnemyManager().draw();
     gm.getFieldItemManager().draw();
 }

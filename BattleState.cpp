@@ -75,12 +75,5 @@ void BattleState::draw(GameManager& gm)
         GetColor(255, 255, 255)
     );
 
-    DrawFormatString(
-        20, 20,
-        GetColor(255, 255, 255),
-        "[DEBUG]canShowFlg: %d",
-        gm.getCanShow()
-    );
-
     battleMenu->draw();
 }
