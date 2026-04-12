@@ -26,22 +26,29 @@ BattleState::~BattleState() = default;
 
 void BattleState::update(GameManager& gm)
 {
-    gm.getBattleManager().update();
+    auto& bm = gm.getBattleManager();
+    bm.update();
 
     if (gm.hasPendingStateChange())
     {
         return;
     }
 
-    if (gm.getEnemy().getParameter().getHp() <= 0)
+    if (bm.isWin())
     {
         gm.requestStateChange(GameManager::GameState::Playing);
         return;
     }
 
-    if (gm.getAlly().getParameter().getHp() <= 0)
+    if (bm.isLose())
     {
         gm.requestStateChange(GameManager::GameState::GameOver);
+        return;
+    }
+
+    if (bm.isEscapeFinished())
+    {
+        gm.requestStateChange(GameManager::GameState::Playing);
         return;
     }
 

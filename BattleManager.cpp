@@ -152,7 +152,6 @@ void BattleManager::onLose()
     gameManager->getBattleWindowRenderer().setMessage(
         "しんでしまった…画面を閉じてください"
     );
-    gameManager->setGameOver();
 }
 
 bool BattleManager::isEnemyTurn() const
@@ -199,17 +198,29 @@ void BattleManager::update()
 
     if (phase == BattlePhase::Escape)
     {
-        if (GetNowCount() - battleRunStartTime > 1200)
-        {
-            gameManager->endBattle();
-            phase = BattlePhase::AllyTurn;
-        }
+        return;
     }
 }
 
 bool BattleManager::isRunningAway() const
 {
     return phase == BattlePhase::Escape;
+}
+
+bool BattleManager::isWin() const
+{
+    return phase == BattlePhase::WinMessage;
+}
+
+bool BattleManager::isLose() const
+{
+    return isAllyDead();
+}
+
+bool BattleManager::isEscapeFinished() const
+{
+    return phase == BattlePhase::Escape &&
+        (GetNowCount() - battleRunStartTime > 1200);
 }
 
 bool BattleManager::consumeSkipInput()

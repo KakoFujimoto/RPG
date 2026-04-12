@@ -15,6 +15,9 @@ public:
     void startRunAway();
     void update();
     bool isRunningAway() const;
+    bool isWin() const;
+    bool isLose() const;
+    bool isEscapeFinished() const;
     bool consumeSkipInput();
     void reset();
 
