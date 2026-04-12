@@ -14,7 +14,6 @@ class BattleMenu
 {
 private:
     int battleMenuIndex = 0;
-    bool hasResetForCurrentBattle = false;
 
     GameManager* gm;
     BattleManager* bm;

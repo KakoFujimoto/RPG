@@ -19,11 +19,6 @@ void PlayingState::update(GameManager& gm)
     gm.updateItemBag();
     gm.checkEncount();
 
-    if (gm.hasPendingStateChange())
-    {
-        return;
-    }
-
     fieldMenu->update(gm.getInput());
 
     if (!fieldMenu->getIsOpen())

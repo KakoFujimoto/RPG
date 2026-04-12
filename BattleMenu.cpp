@@ -17,32 +17,14 @@ BattleMenu::BattleMenu(
 	, itemBag(itemBag)
 	, itemRenderer(display)
 {
+	resetBattleUi();
 }
 
 void BattleMenu::update(const Input& input)
 {
-	if (gm->hasPendingStateChange())
-	{
-		hasResetForCurrentBattle = false;
-		return;
-	}
-
-	if (bm->isBattleStarted() && !hasResetForCurrentBattle)
-	{
-		resetBattleUi();
-		hasResetForCurrentBattle = true;
-	}
-
 	if (bm->consumeSkipInput())
 	{
 		return;
-	}
-
-	// isBattleStartedイベントを取りこぼした場合の保険
-	if (!hasResetForCurrentBattle)
-	{
-		resetBattleUi();
-		hasResetForCurrentBattle = true;
 	}
 
 	if (state == BattleMenuState::ItemSelect)

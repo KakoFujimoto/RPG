@@ -5,7 +5,13 @@
 
 BattleState::BattleState(GameManager& gm)
 {
-    gm.getBattleManager().reset();
+    auto& bm = gm.getBattleManager();
+    bm.reset();
+
+    auto& enemy = gm.getEnemy();
+    gm.getBattleWindowRenderer().setMessage(
+        enemy.getName() + " が あらわれた！"
+    );
 
     battleMenu = std::make_unique<BattleMenu>(
         &gm,
@@ -21,10 +27,24 @@ BattleState::~BattleState() = default;
 void BattleState::update(GameManager& gm)
 {
     gm.getBattleManager().update();
+
     if (gm.hasPendingStateChange())
     {
         return;
     }
+
+    if (gm.getEnemy().getParameter().getHp() <= 0)
+    {
+        gm.requestStateChange(GameManager::GameState::Playing);
+        return;
+    }
+
+    if (gm.getAlly().getParameter().getHp() <= 0)
+    {
+        gm.requestStateChange(GameManager::GameState::GameOver);
+        return;
+    }
+
     battleMenu->update(gm.getInput());
 }
 

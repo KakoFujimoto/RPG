@@ -15,7 +15,6 @@ public:
     void startRunAway();
     void update();
     bool isRunningAway() const;
-    bool isBattleStarted() const;
     bool consumeSkipInput();
     void reset();
 
@@ -31,8 +30,6 @@ private:
 
     int battleRunStartTime = 0;
     bool isGuarding = false;
-    bool prevIsBattle = false;
-    bool battleStartedThisFrame = false;
     bool skipInputPending = false;
     bool enemyTurnActionRequested = false;
 

@@ -212,11 +212,6 @@ bool BattleManager::isRunningAway() const
     return phase == BattlePhase::Escape;
 }
 
-bool BattleManager::isBattleStarted() const
-{
-    return battleStartedThisFrame;
-}
-
 bool BattleManager::consumeSkipInput()
 {
     if (skipInputPending)
@@ -229,11 +224,9 @@ bool BattleManager::consumeSkipInput()
 
 void BattleManager::reset()
 {
-    phase = BattlePhase::AllyTurn;
+    phase = BattlePhase::StartDelay;
     battleRunStartTime = 0;
     isGuarding = false;
-    battleStartedThisFrame = false;
-    skipInputPending = false;
+    skipInputPending = true;
     enemyTurnActionRequested = false;
-    prevIsBattle = false;
 }
