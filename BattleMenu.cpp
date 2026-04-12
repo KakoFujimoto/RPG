@@ -1,8 +1,12 @@
 ﻿#include "BattleMenu.h"
 #include "GameManager.h"
 #include "BattleManager.h"
-#include <DxLib.h>
-#include"BattleMessageBuilder.h"
+#include "BattleMessageBuilder.h"
+
+namespace BattleText
+{
+	constexpr const char* RunAway = "は にげだした!";
+}
 
 BattleMenu::BattleMenu(
 	GameManager* gm,
@@ -86,40 +90,32 @@ void BattleMenu::updateBattleMenu(const Input& input)
 		return;
 	}
 
-	if (battleMenuIndex == 0)
-	{
-		bm->submitPlayerCommand(Command(Command::Type::Attack));
-		return;
-	}
+	BattleCommand cmd = static_cast<BattleCommand>(battleMenuIndex);
 
-	if (battleMenuIndex == 1)
+	switch (cmd)
 	{
+	case BattleCommand::Attack:
+		bm->submitPlayerCommand(Command(Command::Type::Attack));
+		break;
+	case BattleCommand::Spell:
 		state = BattleMenuState::SpellSelect;
 		spellRenderer.setTarget(&allyParameter);
 		gm->getBattleWindowRenderer().prepareSpellWindow(spellRenderer);
-		return;
-	}
-
-	if (battleMenuIndex == 2)
-	{
+		break;
+	case BattleCommand::Guard:
 		bm->submitPlayerCommand(Command(Command::Type::Guard));
-		return;
-	}
-
-	if (battleMenuIndex == 3)
-	{
+		break;
+	case BattleCommand::Item:
 		state = BattleMenuState::ItemSelect;
 		itemRenderer.setTarget(itemBag);
 		gm->getBattleWindowRenderer().prepareItemWindow(itemRenderer);
-		return;
-	}
-
-	if (battleMenuIndex == 4)
-	{
+		break;
+	case BattleCommand::Escape:
 		std::string msg =
-			gm->getAlly().getName() + "は にげだした!";
+		gm->getAlly().getName() + BattleText::RunAway;
 		gm->getBattleWindowRenderer().setMessage(msg);
 		bm->startRunAway();
+		break;
 	}
 }
 

@@ -40,4 +40,13 @@ private:
     void updateBattleItem(const Input& input);
     void updateBattleSpell(const Input& input);
     void resetBattleUi();
+
+    enum class BattleCommand
+    {
+        Attack = 0,
+        Spell,
+        Guard,
+        Item,
+        Escape
+    };
 };
