@@ -1,6 +1,6 @@
-#include "FieldAlly.h"
-#include "DxLib.h"
+﻿#include "FieldAlly.h"
 #include "EffectResult.h"
+#include "Input.h"
 
 FieldAlly::FieldAlly() {}
 
@@ -19,23 +19,23 @@ void FieldAlly::addPositionY(int y) {
     pos.y += y;
 }
 
-void FieldAlly::move() {
+void FieldAlly::move(const Input& input) {
 
-    if (CheckHitKey(KEY_INPUT_UP))
+    if (input.isPressed(GameKey::Up))
     {
-        addPositionY(-5);
+        addPositionY(-MOVE_SPEED);
     }
-    if (CheckHitKey(KEY_INPUT_DOWN))
+    if (input.isPressed(GameKey::Down))
     {
-        addPositionY(5);
+        addPositionY(MOVE_SPEED);
     }
-    if (CheckHitKey(KEY_INPUT_LEFT))
+    if (input.isPressed(GameKey::Left))
     {
-        addPositionX(-5);
+        addPositionX(-MOVE_SPEED);
     }
-    if (CheckHitKey(KEY_INPUT_RIGHT))
+    if (input.isPressed(GameKey::Right))
     {
-        addPositionX(5);
+        addPositionX(MOVE_SPEED);
     }
 }
 

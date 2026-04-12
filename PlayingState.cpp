@@ -19,11 +19,13 @@ void PlayingState::update(GameManager& gm)
     gm.updateItemBag();
     gm.checkEncount();
 
+    const Input& input = gm.getInput();
+
     fieldMenu->update(gm.getInput());
 
     if (!fieldMenu->getIsOpen())
     {
-        gm.getAlly().move();
+        gm.getAlly().move(input);
     }
 }
 
