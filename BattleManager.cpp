@@ -137,7 +137,7 @@ void BattleManager::onWin()
     gameManager->getBattleWindowRenderer().setMessage(
         enemy.getName() + "を たおした！\n" +
         std::to_string(exp) + "の けいけんちを かくとく!\n"
-        + "画面を閉じてください\n"
+        + "▼"
     );
 
     phase = BattlePhase::WinMessage;

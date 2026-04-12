@@ -34,15 +34,23 @@ void BattleState::update(GameManager& gm)
         return;
     }
 
+    const Input& input = gm.getInput();
+
     if (bm.isWin())
     {
-        gm.requestStateChange(GameManager::GameState::Playing);
+        if (input.isTriggered(GameKey::Decide))
+        {
+            gm.requestStateChange(GameManager::GameState::Playing);
+        }
         return;
     }
 
     if (bm.isLose())
     {
-        gm.requestStateChange(GameManager::GameState::GameOver);
+        if (input.isTriggered(GameKey::Decide))
+        {
+            gm.requestStateChange(GameManager::GameState::GameOver);
+        }
         return;
     }
 
@@ -52,7 +60,7 @@ void BattleState::update(GameManager& gm)
         return;
     }
 
-    battleMenu->update(gm.getInput());
+    battleMenu->update(input);
 }
 
 void BattleState::draw(GameManager& gm)
