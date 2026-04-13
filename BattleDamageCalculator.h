@@ -12,6 +12,6 @@ public:
         int atk = attacker.getAttack();
         int def = defender.getDefense();
 
-        return std::max(1, atk - def / 2);
+        return (std::max)(1, atk - def / 2);
     }
 };

@@ -8,19 +8,43 @@
 #include"Input.h"
 #include<Windows.h>
 
+namespace FieldMenuConst
+{
+	// UI位置
+	constexpr int MENU_X = 100;
+	constexpr int MENU_Y = 100;
+	constexpr int MENU_WIDTH = 200;
+	constexpr int MENU_HEIGHT = 150;
+
+	constexpr int SUB_WINDOW_X = 200;
+	constexpr int SUB_WINDOW_Y = 120;
+
+	constexpr int IDLE_X = 520;
+	constexpr int IDLE_Y = 420;
+
+	constexpr int EFFECT_X = 50;
+	constexpr int EFFECT_Y = 300;
+
+	// ロジック
+	constexpr int IDLE_FRAME_THRESHOLD = 120;
+}
+
 FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter)
-	: gm(gm)
-	, display(display)
-	, statusRenderer(display)
-	, spellRenderer(display)
-	, allyParameter(allyParameter)
-	, itemRenderer(display)
-	, idleRenderer(display)
-	, effectRenderer(display)
-	, itemBag(&gm->getItemBag())
+	: gm(gm),
+	display(display),
+	statusRenderer(display),
+	spellRenderer(display),
+	allyParameter(allyParameter),
+	itemRenderer(display),
+	idleRenderer(display),
+	effectRenderer(display),
+	itemBag(&gm->getItemBag())
 {
 	idleRenderer.setTarget(&allyParameter);
-	idleRenderer.setPosition(520, 420);
+	idleRenderer.setPosition(
+		FieldMenuConst::IDLE_X,
+		FieldMenuConst::IDLE_Y
+	);
 }
 
 void FieldMenu::select(bool enterPressed)
@@ -47,20 +71,26 @@ void FieldMenu::select(bool enterPressed)
 	else if (id == "ITEM") {
 		isItemListOpen = true;
 		itemRenderer.setTarget(itemBag);
-		itemRenderer.setPosition(200, 120);
+		itemRenderer.setPosition(
+			FieldMenuConst::SUB_WINDOW_X,
+			FieldMenuConst::SUB_WINDOW_Y);
 		prevEnterItem = CheckHitKey(KEY_INPUT_RETURN);
 		return;
 	}
 	else if (id == "STATUS") {
 		isParameterOpen = true;
 		statusRenderer.setTarget(&allyParameter);
-		statusRenderer.setPosition(200, 120);
+		statusRenderer.setPosition(
+			FieldMenuConst::SUB_WINDOW_X,
+			FieldMenuConst::SUB_WINDOW_Y);
 		return;
 	}
 	else if (id == "SPELL") {
 		isSpellListOpen = true;
 		spellRenderer.setTarget(&allyParameter);
-		spellRenderer.setPosition(200, 120);
+		spellRenderer.setPosition(
+			FieldMenuConst::SUB_WINDOW_X,
+			FieldMenuConst::SUB_WINDOW_Y);
 		prevEnterSpell = CheckHitKey(KEY_INPUT_RETURN);
 		return;
 	}
@@ -91,7 +121,7 @@ void FieldMenu::update(const Input& input)
 	if (idle)
 	{
 		idleFrameCount++;
-		if (idleFrameCount >= 120)
+		if (idleFrameCount >= FieldMenuConst::IDLE_FRAME_THRESHOLD)
 		{
 			isIdleStatusVisible = true;
 		}
@@ -226,12 +256,17 @@ void FieldMenu::draw(Display& display)
 		return; // 開いていなければ何もしない
 	}
 
-	int x = 100, y = 100;
-	int width = 200, height = 150;
 	int borderColor = GetColor(255, 255, 255);
 	int fillColor = GetColor(0, 0, 0);
 
-	display.drawWindow(x, y, width, height, borderColor, fillColor);
+	display.drawWindow(
+		FieldMenuConst::MENU_X,
+		FieldMenuConst::MENU_Y,
+		FieldMenuConst::MENU_WIDTH,
+		FieldMenuConst::MENU_HEIGHT,
+		borderColor,
+		fillColor
+	);
 
 	std::vector<std::string> labels;
 	labels.reserve(menuItems.size());
@@ -240,7 +275,13 @@ void FieldMenu::draw(Display& display)
 		labels.push_back(item.label);
 	}
 
-	menuDrawer.draw(display, labels, selectedIndex, x, y);
+	menuDrawer.draw(
+		display,
+		labels,
+		selectedIndex,
+		FieldMenuConst::MENU_X,
+		FieldMenuConst::MENU_Y
+	);
 
 
 	if (isItemListOpen) {
@@ -293,6 +334,9 @@ void FieldMenu::showEffect(const EffectResult& result)
 {
 	lastEffect = result;
 	effectRenderer.setResult(&lastEffect);
-	effectRenderer.setPosition(50, 300);
+	effectRenderer.setPosition(
+		FieldMenuConst::EFFECT_X,
+		FieldMenuConst::EFFECT_Y
+	);
 	effectRenderer.show();
 }
