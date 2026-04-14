@@ -31,11 +31,9 @@ private:
 	bool isItemListOpen = false;
 	bool isParameterOpen = false;
 	bool isSpellListOpen = false;
-	bool escPushed = false;
 	int selectedIndex = 0;
 	int idleFrameCount = 0;
 	bool isIdleStatusVisible = false;
-	bool prevEnterMain = false;
 	bool prevEnterItem = false;
 	bool prevEnterSpell = false;
 	bool prevUp = false;

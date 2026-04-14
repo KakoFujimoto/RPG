@@ -116,8 +116,15 @@ void FieldMenu::close()
 
 void FieldMenu::update(const Input& input)
 {
-	// ここから下はフィールド専用
-	bool idle = !CheckHitKeyAll();
+	// アイドル判定（ここは冗長なため暫定）
+	bool idle =
+		!input.isPressed(GameKey::Up) &&
+		!input.isPressed(GameKey::Down) &&
+		!input.isPressed(GameKey::Left) &&
+		!input.isPressed(GameKey::Right) &&
+		!input.isPressed(GameKey::Decide) &&
+		!input.isPressed(GameKey::Cancel);
+
 	if (idle)
 	{
 		idleFrameCount++;
@@ -132,34 +139,22 @@ void FieldMenu::update(const Input& input)
 		isIdleStatusVisible = false;
 	}
 
-	int esc = CheckHitKey(KEY_INPUT_ESCAPE);
-
-	if (!esc)
-	{
-		escPushed = false;
-	}
-
-	bool enter = CheckHitKey(KEY_INPUT_RETURN);
-
+	// メニュー未オープン
 	if (!isOpen)
 	{
-		if (CheckHitKey(KEY_INPUT_SPACE))
+		if (input.isTriggered(GameKey::Decide))
 		{
 			open();
-			prevEnterMain = enter;
-			prevEnterItem = enter;
 		}
 		return;
 	}
 
-	// サブウィンドウ類
 	// アイテム
 	if (isItemListOpen)
 	{
-		bool enterPressedItem = enter && !prevEnterItem;
 		itemRenderer.update();
 
-		if (enterPressedItem)
+		if (input.isTriggered(GameKey::Decide))
 		{
 			const Item* item = itemRenderer.getSelectedItem();
 			if (item)
@@ -171,28 +166,21 @@ void FieldMenu::update(const Input& input)
 			}
 		}
 
-		// ここもSpellWindowRendererと同じく修正可能
 		if (itemRenderer.isCloseRequested())
 		{
 			isItemListOpen = false;
-			escPushed = true;
-			prevEnterMain = enter;
-			prevEnterItem = enter;
 			return;
 		}
 
-		prevEnterItem = enter;
 		return;
 	}
 
 	// ステータス
 	if (isParameterOpen)
 	{
-		// ここもSpellWindowRendererと同じく修正可能
 		if (statusRenderer.isCloseRequested())
 		{
 			isParameterOpen = false;
-			escPushed = true;
 		}
 		return;
 	}
@@ -200,10 +188,9 @@ void FieldMenu::update(const Input& input)
 	// じゅもん
 	if (isSpellListOpen)
 	{
-		bool enterPressedSpell = enter && !prevEnterSpell;
 		spellRenderer.update();
 
-		if (enterPressedSpell)
+		if (input.isTriggered(GameKey::Decide))
 		{
 			const Spell* spell = spellRenderer.getSelectedSpells();
 			if (spell)
@@ -215,33 +202,47 @@ void FieldMenu::update(const Input& input)
 			}
 		}
 
-		if (input.isPressed(GameKey::Cancel))
+		if (input.isTriggered(GameKey::Cancel))
 		{
 			isSpellListOpen = false;
-			escPushed = true;
-			prevEnterSpell = enter;
 			return;
 		}
 
-		prevEnterSpell = enter;
 		return;
 	}
 
 	// メインメニュー
 
-	if (!escPushed && esc)
+	if (input.isTriggered(GameKey::Cancel))
 	{
 		close();
-		escPushed = true;
 		return;
 	}
 
-	bool enterPressedMain = enter && !prevEnterMain;
+	// カーソル移動
+	if (input.isTriggered(GameKey::Up))
+	{
+		selectedIndex--;
+		if (selectedIndex < 0)
+		{
+			selectedIndex = static_cast<int>(menuItems.size()) - 1;
+		}
+	}
 
-	choose();
-	select(enterPressedMain);
+	if (input.isTriggered(GameKey::Down))
+	{
+		selectedIndex++;
+		if (selectedIndex >= static_cast<int>(menuItems.size()))
+		{
+			selectedIndex = 0;
+		}
+	}
 
-	prevEnterMain = enter;
+	// 決定
+	if (input.isTriggered(GameKey::Decide))
+	{
+		select(true);
+	}
 }
 
 void FieldMenu::draw(Display& display)
