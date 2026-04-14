@@ -7,6 +7,7 @@ public:
 	void update();
 	bool isPressed(GameKey key) const;
 	bool isTriggered(GameKey key) const;
+	bool isAnyKeyPressed() const;
 
 private:
 	static constexpr int KeyCount = 6;

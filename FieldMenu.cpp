@@ -116,14 +116,8 @@ void FieldMenu::close()
 
 void FieldMenu::update(const Input& input)
 {
-	// アイドル判定（ここは冗長なため暫定）
 	bool idle =
-		!input.isPressed(GameKey::Up) &&
-		!input.isPressed(GameKey::Down) &&
-		!input.isPressed(GameKey::Left) &&
-		!input.isPressed(GameKey::Right) &&
-		!input.isPressed(GameKey::Decide) &&
-		!input.isPressed(GameKey::Cancel);
+		!input.isAnyKeyPressed();
 
 	if (idle)
 	{

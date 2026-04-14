@@ -21,6 +21,17 @@ bool Input::isTriggered(GameKey key) const
 	return currentStates[index] && !previousStates[index];
 }
 
+bool Input::isAnyKeyPressed() const
+{
+	return
+		isPressed(GameKey::Up) ||
+		isPressed(GameKey::Down) ||
+		isPressed(GameKey::Left) ||
+		isPressed(GameKey::Right) ||
+		isPressed(GameKey::Decide) ||
+		isPressed(GameKey::Cancel);
+}
+
 int Input::toIndex(GameKey key)
 {
 	return static_cast<int>(key);
