@@ -26,7 +26,6 @@ private:
 		{ "SPELL", "じゅもん" },
 		{ "BACK", "もどる" }
 	};
-	// フラグ類はよくないと認識しています。
 	bool isOpen = false;
 	bool isItemListOpen = false;
 	bool isParameterOpen = false;
@@ -34,10 +33,6 @@ private:
 	int selectedIndex = 0;
 	int idleFrameCount = 0;
 	bool isIdleStatusVisible = false;
-	bool prevEnterItem = false;
-	bool prevEnterSpell = false;
-	bool prevUp = false;
-	bool prevDown = false;
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;
@@ -51,8 +46,8 @@ private:
 	FieldMenuDrawer menuDrawer;
 public:
 	FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParameter);
-	void choose();
-	void select(bool enterPressed);
+	void choose(const Input& input);
+	void select(const Input& input);
 	void open();
 	void close();
 	void update(const Input& input);
