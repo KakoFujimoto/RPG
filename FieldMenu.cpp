@@ -5,7 +5,6 @@
 
 namespace FieldMenuConst
 {
-	// UI位置
 	constexpr int MENU_X = 100;
 	constexpr int MENU_Y = 100;
 	constexpr int MENU_WIDTH = 200;
@@ -20,7 +19,6 @@ namespace FieldMenuConst
 	constexpr int EFFECT_X = 50;
 	constexpr int EFFECT_Y = 300;
 
-	// ロジック
 	constexpr int IDLE_FRAME_THRESHOLD = 120;
 }
 
@@ -36,10 +34,55 @@ FieldMenu::FieldMenu(GameManager* gm, Display& display, AllyParameter& allyParam
 	itemBag(&gm->getItemBag())
 {
 	idleRenderer.setTarget(&allyParameter);
-	idleRenderer.setPosition(
-		FieldMenuConst::IDLE_X,
-		FieldMenuConst::IDLE_Y
-	);
+	idleRenderer.setPosition(FieldMenuConst::IDLE_X, FieldMenuConst::IDLE_Y);
+}
+
+void FieldMenu::pushWindow(FieldMenuState state)
+{
+	windowStack.push_back(state);
+	syncWindowFlags();
+}
+
+void FieldMenu::popWindow()
+{
+	if (!windowStack.empty())
+	{
+		windowStack.pop_back();
+	}
+
+	if (windowStack.empty())
+	{
+		close();
+		return;
+	}
+
+	syncWindowFlags();
+}
+
+void FieldMenu::syncWindowFlags()
+{
+	isItemListOpen = false;
+	isParameterOpen = false;
+	isSpellListOpen = false;
+
+	if (windowStack.empty())
+	{
+		return;
+	}
+
+	FieldMenuState current = windowStack.back();
+	if (current == FieldMenuState::Item)
+	{
+		isItemListOpen = true;
+	}
+	else if (current == FieldMenuState::Status)
+	{
+		isParameterOpen = true;
+	}
+	else if (current == FieldMenuState::Spell)
+	{
+		isSpellListOpen = true;
+	}
 }
 
 void FieldMenu::select(const Input& input)
@@ -52,7 +95,6 @@ void FieldMenu::select(const Input& input)
 	{
 		return;
 	}
-
 	if (isSubWindowOpen())
 	{
 		return;
@@ -60,51 +102,56 @@ void FieldMenu::select(const Input& input)
 
 	std::string id = menuItems[selectedIndex].id;
 
-	if (id == "BACK") {
-		isOpen = false;
+	if (id == "BACK")
+	{
+		close();
+		return;
 	}
-	else if (id == "ITEM") {
-		isItemListOpen = true;
+
+	if (id == "ITEM")
+	{
 		itemRenderer.setTarget(itemBag);
 		itemRenderer.setPosition(
 			FieldMenuConst::SUB_WINDOW_X,
 			FieldMenuConst::SUB_WINDOW_Y);
+		pushWindow(FieldMenuState::Item);
 		return;
 	}
-	else if (id == "STATUS") {
-		isParameterOpen = true;
+
+	if (id == "STATUS")
+	{
 		statusRenderer.setTarget(&allyParameter);
 		statusRenderer.setPosition(
 			FieldMenuConst::SUB_WINDOW_X,
 			FieldMenuConst::SUB_WINDOW_Y);
+		pushWindow(FieldMenuState::Status);
 		return;
 	}
-	else if (id == "SPELL") {
-		isSpellListOpen = true;
+
+	if (id == "SPELL")
+	{
 		spellRenderer.setTarget(&allyParameter);
 		spellRenderer.setPosition(
 			FieldMenuConst::SUB_WINDOW_X,
 			FieldMenuConst::SUB_WINDOW_Y);
-		return;
+		pushWindow(FieldMenuState::Spell);
 	}
 }
 
 void FieldMenu::open()
 {
+	windowStack.clear();
 	isOpen = true;
 	selectedIndex = 0;
-	isItemListOpen = false;
-	isSpellListOpen = false;
-	isParameterOpen = false;
+	syncWindowFlags();
 }
 
 void FieldMenu::close()
 {
 	isOpen = false;
 	selectedIndex = 0;
-	isItemListOpen = false;
-	isSpellListOpen = false;
-	isParameterOpen = false;
+	windowStack.clear();
+	syncWindowFlags();
 }
 
 void FieldMenu::update(const Input& input)
@@ -136,62 +183,64 @@ void FieldMenu::update(const Input& input)
 		return;
 	}
 
-	// アイテム
-	if (isItemListOpen)
+	if (isSubWindowOpen())
 	{
-		itemRenderer.update();
-
-		if (input.isTriggered(GameKey::Decide))
+		if (input.isTriggered(GameKey::Cancel))
 		{
-			const Item* item = itemRenderer.getSelectedItem();
-			if (item)
-			{
-				EffectResult r =
-					itemBag->useItem(item->getName(), gm->getAlly());
-				showEffect(r);
-				itemRenderer.clampSelectedIndex();
-			}
-		}
-
-		if (itemRenderer.isCloseRequested())
-		{
-			isItemListOpen = false;
+			popWindow();
 			return;
 		}
 
-		return;
-	}
+	// アイテム
+		if (isItemListOpen)
+		{
+			itemRenderer.update();
+
+			if (input.isTriggered(GameKey::Decide))
+			{
+				const Item* item = itemRenderer.getSelectedItem();
+				if (item)
+				{
+					EffectResult r =
+						itemBag->useItem(item->getName(), gm->getAlly());
+					showEffect(r);
+					itemRenderer.clampSelectedIndex();
+				}
+			}
+
+			if (itemRenderer.isCloseRequested())
+			{
+				popWindow();
+			}
+
+			return;
+		}
 
 	// ステータス
-	if (isParameterOpen)
-	{
-		if (statusRenderer.isCloseRequested())
+		if (isParameterOpen)
 		{
-			isParameterOpen = false;
+			if (statusRenderer.isCloseRequested())
+			{
+				popWindow();
+			}
+			return;
 		}
-		return;
-	}
 
 	// じゅもん
-	if (isSpellListOpen)
-	{
-		spellRenderer.update();
-
-		if (input.isTriggered(GameKey::Decide))
+		if (isSpellListOpen)
 		{
-			const Spell* spell = spellRenderer.getSelectedSpells();
-			if (spell)
+			spellRenderer.update();
+			if (input.isTriggered(GameKey::Decide))
 			{
-				EffectResult r =
-					allyParameter.getSpellManager()
-					.castSpell(spell->getName(), gm->getAlly());
-				showEffect(r);
+				const Spell* spell = spellRenderer.getSelectedSpells();
+				if (spell)
+				{
+					EffectResult r =
+						allyParameter.getSpellManager()
+						.castSpell(spell->getName(), gm->getAlly());
+					showEffect(r);
+				}
 			}
-		}
-
-		if (input.isTriggered(GameKey::Cancel))
-		{
-			isSpellListOpen = false;
 			return;
 		}
 

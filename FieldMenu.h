@@ -20,6 +20,13 @@ class Input;
 
 class FieldMenu {
 private:
+	enum class FieldMenuState
+	{
+		Item,
+		Status,
+		Spell
+	};
+
 	std::vector<MenuItem> menuItems{
 		{ "ITEM", "どうぐ" },
 		{ "STATUS", "つよさ" },
@@ -33,6 +40,7 @@ private:
 	int selectedIndex = 0;
 	int idleFrameCount = 0;
 	bool isIdleStatusVisible = false;
+	std::vector<FieldMenuState> windowStack;
 	GameManager* gm;
 	Display display;
 	StatusWindowRenderer statusRenderer;
@@ -55,4 +63,9 @@ public:
 	bool getIsOpen() const;
 	bool isSubWindowOpen();
 	void showEffect(const EffectResult& result);
+
+private:
+	void pushWindow(FieldMenuState state);
+	void popWindow();
+	void syncWindowFlags();
 };
